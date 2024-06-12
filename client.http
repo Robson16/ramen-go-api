@@ -1,0 +1,10 @@
+@baseUrl = http://localhost:3333 
+
+# @name create_broth
+POST {{baseUrl}}/broths
+Content-Type: application/json
+
+{
+  "name": "Tonkotsu",
+  "description": "Breaded and fried pork fillet."
+}
