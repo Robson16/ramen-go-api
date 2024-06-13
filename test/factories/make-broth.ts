@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import {
   Broth,
   BrothProps,
@@ -6,12 +7,13 @@ import { faker } from '@faker-js/faker';
 
 export function makeBroth(
   override: Partial<BrothProps> = {},
-  id?: number,
+  id?: UniqueEntityID,
 ): Broth {
   const broth = Broth.create(
     {
       name: faker.commerce.productName(),
       description: faker.commerce.productDescription(),
+      price: parseFloat(faker.commerce.price()),
       ...override,
     },
     id,

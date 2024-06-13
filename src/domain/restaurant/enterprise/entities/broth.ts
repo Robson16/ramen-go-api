@@ -5,6 +5,7 @@ import { Optional } from '@/core/types/optional';
 export interface BrothProps {
   name: string;
   description: string;
+  price: number;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -26,6 +27,16 @@ export class Broth extends Entity<BrothProps> {
 
   set description(description: string) {
     this.props.description = description;
+
+    this.touch();
+  }
+
+  get price() {
+    return this.props.price;
+  }
+
+  set price(price: number) {
+    this.props.price = price;
 
     this.touch();
   }

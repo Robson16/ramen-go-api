@@ -6,5 +6,6 @@ Content-Type: application/json
 
 {
   "name": "Tonkotsu",
-  "description": "Breaded and fried pork fillet."
+  "description": "Breaded and fried pork fillet.",
+  "price": 10
 }

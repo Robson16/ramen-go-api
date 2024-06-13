@@ -8,6 +8,7 @@ export class PrismaBrothMapper {
       {
         name: raw.name,
         description: raw.description,
+        price: Number(raw.price),
       },
       new UniqueEntityID(raw.id),
     );
@@ -18,6 +19,7 @@ export class PrismaBrothMapper {
       id: broth.id.toString(),
       name: broth.name,
       description: broth.description,
+      price: broth.price,
     };
   }
 }

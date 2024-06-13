@@ -17,6 +17,7 @@ describe('Create Broth', () => {
     const result = await sut.execute({
       name: faker.commerce.productName(),
       description: faker.commerce.productDescription(),
+      price: parseFloat(faker.commerce.price()),
     });
 
     expect(result.isRight()).toBe(true);
@@ -35,6 +36,7 @@ describe('Create Broth', () => {
     const result = await sut.execute({
       name: 'Salt',
       description: faker.commerce.productDescription(),
+      price: parseFloat(faker.commerce.price()),
     });
 
     expect(result.isLeft()).toBe(true);

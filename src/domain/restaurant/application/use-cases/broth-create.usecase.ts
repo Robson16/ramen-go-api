@@ -7,6 +7,7 @@ import { BrothAlreadyExistsError } from './errors/broth-already-exists-error';
 interface CreateBrothUseCaseRequest {
   name: string;
   description: string;
+  price: number;
 }
 
 type CreateBrothUseCaseResponse = Either<
@@ -23,6 +24,7 @@ export class CreateBrothUseCase {
   async execute({
     name,
     description,
+    price,
   }: CreateBrothUseCaseRequest): Promise<CreateBrothUseCaseResponse> {
     const nameAlreadyExists = await this.brothRepository.findByName(name);
 
@@ -33,6 +35,7 @@ export class CreateBrothUseCase {
     const broth = Broth.create({
       name,
       description,
+      price,
     });
 
     await this.brothRepository.create(broth);

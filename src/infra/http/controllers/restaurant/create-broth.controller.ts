@@ -20,13 +20,14 @@ import { z } from 'zod';
 const createBrothBodySchema = z.object({
   name: z.string(),
   description: z.string(),
+  price: z.number(),
 });
 
 type CreateBrothBodySchema = z.infer<typeof createBrothBodySchema>;
 
 class CreateBroth {
   @ApiProperty({
-    example: 'Chicken Broth',
+    example: 'Shoyu',
     description: 'The name of the broth',
   })
   name: string = '';
@@ -36,6 +37,12 @@ class CreateBroth {
     description: 'The description of the broth',
   })
   description: string = '';
+
+  @ApiProperty({
+    example: 10,
+    description: 'The price of the broth',
+  })
+  price: number = 10;
 }
 
 @ApiTags('broths')
@@ -51,11 +58,12 @@ export class CreateBrothController {
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createBrothBodySchema))
   async handle(@Body() body: CreateBrothBodySchema) {
-    const { name, description } = body;
+    const { name, description, price } = body;
 
     const result = await this.createBroth.execute({
       name,
       description,
+      price,
     });
 
     if (result.isLeft()) {

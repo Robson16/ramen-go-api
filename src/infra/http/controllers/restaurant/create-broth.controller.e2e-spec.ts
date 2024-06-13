@@ -24,6 +24,7 @@ describe('Create broth (e2e)', () => {
     const response = await request(app.getHttpServer()).post('/broths').send({
       name: 'Salt',
       description: 'Simple like the seawater, nothing more.',
+      price: 10,
     });
 
     expect(response.statusCode).toBe(201);
