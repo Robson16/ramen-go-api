@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Ramen GO!')
+    .setTitle('RamenGO!')
     .setDescription(
       'This API allows users to list available broths, available proteins and place an order.',
     )

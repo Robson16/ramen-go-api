@@ -7,9 +7,9 @@
 - [ ] Rota de lista de Proteínas;
 
 ### Regras de negócio
-- Deve ser necessario fornecer uma chave de api nos cabeçalhos da requisições para usar a aplicação;
-- O Usuario só podera selecionar uma opção de caldos e proteínas cada;
-- A opção de proteina pode ser opcional(?);
+- [X] Deve ser necessario fornecer uma chave de api nos cabeçalhos da requisições para usar a aplicação;
+- [] O Usuario só podera selecionar uma opção de caldos e proteínas cada;
+- [] A opção de proteina pode ser opcional(?);
 
 ### Contexto da aplicação
 

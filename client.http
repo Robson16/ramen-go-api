@@ -1,8 +1,10 @@
 @baseUrl = http://localhost:3333 
+@apiKey = K3q1IssTe1qIEgfTqFvVmqB6Knzeqll9EB76bhyyM6jf3C96siq9Tr7Cf16EPZ08 
 
 # @name create_broth
 POST {{baseUrl}}/broths
 Content-Type: application/json
+x-api-key: {{apiKey}}
 
 {
   "name": "Tonkotsu",
