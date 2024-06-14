@@ -15,5 +15,21 @@ model Broth {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
+  imageInactiveId String @unique @map("image_inactive_id")
+  imageInactive   Image? @relation("ImageInactive", fields: [imageInactiveId], references: [id])
+
+  imageActiveId String @unique @map("image_active_id")
+  imageActive   Image? @relation("ImageActive", fields: [imageActiveId], references: [id])
+
   @@map("broths")
+}
+
+model Image {
+  id            String @id @default(uuid())
+  title         String
+  url           String
+  brothInactive Broth? @relation("ImageInactive")
+  brothActive   Broth? @relation("ImageActive")
+
+  @@map("images")
 }

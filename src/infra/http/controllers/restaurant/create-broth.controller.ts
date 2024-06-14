@@ -21,6 +21,8 @@ const createBrothBodySchema = z.object({
   name: z.string(),
   description: z.string(),
   price: z.number(),
+  imageActiveId: z.string().uuid(),
+  imageInactiveId: z.string().uuid(),
 });
 
 type CreateBrothBodySchema = z.infer<typeof createBrothBodySchema>;
@@ -43,6 +45,19 @@ class CreateBroth {
     description: 'The price of the broth',
   })
   price: number = 10;
+
+  @ApiProperty({
+    example: 10,
+    description:
+      'The ID for an image that will represents a Active icon for the front-end.',
+  })
+  imageActiveId: string = '';
+
+  @ApiProperty({
+    description:
+      'The ID for an image that will represents a Inactive icon for the front-end.',
+  })
+  imageInactiveId: string = '';
 }
 
 @ApiTags('broths')
@@ -58,12 +73,14 @@ export class CreateBrothController {
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createBrothBodySchema))
   async handle(@Body() body: CreateBrothBodySchema) {
-    const { name, description, price } = body;
+    const { name, description, price, imageActiveId, imageInactiveId } = body;
 
     const result = await this.createBroth.execute({
       name,
       description,
       price,
+      imageActiveId,
+      imageInactiveId,
     });
 
     if (result.isLeft()) {

@@ -9,6 +9,8 @@ export class PrismaBrothMapper {
         name: raw.name,
         description: raw.description,
         price: Number(raw.price),
+        imageActiveId: raw.imageActiveId,
+        imageInactiveId: raw.imageInactiveId,
       },
       new UniqueEntityID(raw.id),
     );
@@ -20,6 +22,8 @@ export class PrismaBrothMapper {
       name: broth.name,
       description: broth.description,
       price: broth.price,
+      imageActiveId: broth.imageActiveId,
+      imageInactiveId: broth.imageInactiveId,
     };
   }
 }

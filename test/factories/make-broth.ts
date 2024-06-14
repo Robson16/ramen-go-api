@@ -14,6 +14,8 @@ export function makeBroth(
       name: faker.commerce.productName(),
       description: faker.commerce.productDescription(),
       price: parseFloat(faker.commerce.price()),
+      imageActiveId: new UniqueEntityID().toString(),
+      imageInactiveId: new UniqueEntityID().toString(),
       ...override,
     },
     id,

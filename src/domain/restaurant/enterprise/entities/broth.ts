@@ -6,6 +6,8 @@ export interface BrothProps {
   name: string;
   description: string;
   price: number;
+  imageInactiveId: string;
+  imageActiveId: string;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -37,6 +39,26 @@ export class Broth extends Entity<BrothProps> {
 
   set price(price: number) {
     this.props.price = price;
+
+    this.touch();
+  }
+
+  get imageInactiveId() {
+    return this.props.imageInactiveId;
+  }
+
+  set imageInactiveId(imageInactiveId: string) {
+    this.props.imageInactiveId = imageInactiveId;
+
+    this.touch();
+  }
+
+  get imageActiveId() {
+    return this.props.imageActiveId;
+  }
+
+  set imageActiveId(imageActiveId: string) {
+    this.props.imageActiveId = imageActiveId;
 
     this.touch();
   }

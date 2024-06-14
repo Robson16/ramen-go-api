@@ -8,6 +8,8 @@ interface CreateBrothUseCaseRequest {
   name: string;
   description: string;
   price: number;
+  imageActiveId: string;
+  imageInactiveId: string;
 }
 
 type CreateBrothUseCaseResponse = Either<
@@ -25,6 +27,8 @@ export class CreateBrothUseCase {
     name,
     description,
     price,
+    imageActiveId,
+    imageInactiveId,
   }: CreateBrothUseCaseRequest): Promise<CreateBrothUseCaseResponse> {
     const nameAlreadyExists = await this.brothRepository.findByName(name);
 
@@ -36,6 +40,8 @@ export class CreateBrothUseCase {
       name,
       description,
       price,
+      imageActiveId,
+      imageInactiveId,
     });
 
     await this.brothRepository.create(broth);

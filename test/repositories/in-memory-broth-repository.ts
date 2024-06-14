@@ -1,7 +1,7 @@
 import { BrothsRepository } from '@/domain/restaurant/application/repositories/broth-repository';
 import { Broth } from '@/domain/restaurant/enterprise/entities/broth';
 
-export class InMemoryBrothRepository implements BrothsRepository {
+export class InMemoryBrothsRepository implements BrothsRepository {
   public items: Broth[] = [];
 
   async findByName(name: string): Promise<Broth | null> {
