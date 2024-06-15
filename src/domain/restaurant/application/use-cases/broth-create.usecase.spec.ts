@@ -12,8 +12,10 @@ let sut: CreateBrothUseCase; // Subject Under Test
 
 describe('Create Broth', () => {
   beforeEach(() => {
-    inMemoryBrothsRepository = new InMemoryBrothsRepository();
     inMemoryImagesRepository = new InMemoryImagesRepository();
+    inMemoryBrothsRepository = new InMemoryBrothsRepository(
+      inMemoryImagesRepository,
+    );
     sut = new CreateBrothUseCase(
       inMemoryBrothsRepository,
       inMemoryImagesRepository,

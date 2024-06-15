@@ -12,11 +12,12 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
+  ApiBody,
   ApiConsumes,
   ApiOperation,
   ApiResponse,
+  ApiSecurity,
   ApiTags,
-  ApiBody,
 } from '@nestjs/swagger';
 
 class UploadImage {
@@ -24,6 +25,7 @@ class UploadImage {
 }
 
 @ApiTags('images')
+@ApiSecurity('api-key')
 @Controller('/images')
 export class UploadImageController {
   constructor(private uploadAndCreateImage: UploadAndCreateImageUseCase) {}
@@ -39,6 +41,7 @@ export class UploadImageController {
     status: 201,
     description: 'The image has been successfully uploaded.',
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
   @ApiResponse({
     status: 400,
     description: 'Bad Request. Invalid file type or size.',

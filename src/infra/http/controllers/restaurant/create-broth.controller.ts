@@ -17,6 +17,7 @@ import {
   ApiOperation,
   ApiProperty,
   ApiResponse,
+  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger';
 import { z } from 'zod';
@@ -66,6 +67,7 @@ class CreateBroth {
 }
 
 @ApiTags('broths')
+@ApiSecurity('api-key')
 @Controller('/broths')
 export class CreateBrothController {
   constructor(private createBroth: CreateBrothUseCase) {}
@@ -74,6 +76,7 @@ export class CreateBrothController {
   @ApiOperation({ summary: 'Create a Broth.' })
   @ApiBody({ type: CreateBroth, description: 'The broth creation payload' })
   @ApiResponse({ status: 201, description: 'A new broth has been created.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
   @ApiResponse({
     status: 404,
     description:

@@ -43,9 +43,6 @@ describe('Create broth (e2e)', () => {
         imageInactiveId: imageInactive.id.toString(),
       });
 
-    console.log('API KEY: ' + env.get('API_KEY'));
-    console.log('Status: ' + response.statusCode);
-
     expect(response.statusCode).toBe(201);
 
     const brothOnDatabase = await prisma.broth.findUnique({

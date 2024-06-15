@@ -1,7 +1,9 @@
 import { BrothsRepository } from '@/domain/restaurant/application/repositories/broth-repository';
 import { Broth } from '@/domain/restaurant/enterprise/entities/broth';
+import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/broth-with-images-url';
 import { PrismaBrothMapper } from '@/infra/database/prisma/mappers/prisma-broth-mapper';
 import { Injectable } from '@nestjs/common';
+import { PrismaBrothWithImagesUrlMapper } from '../mappers/prisma-broth-with-images-url-mapper';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
@@ -20,6 +22,30 @@ export class PrismaBrothRepository implements BrothsRepository {
     }
 
     return PrismaBrothMapper.toDomain(broth);
+  }
+
+  async findMany(): Promise<Broth[]> {
+    const broths = await this.prisma.broth.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return broths.map(PrismaBrothMapper.toDomain);
+  }
+
+  async findManyWithImagesUrl(): Promise<BrothWithImagesUrl[]> {
+    const broths = await this.prisma.broth.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        imageActive: true,
+        imageInactive: true,
+      },
+    });
+
+    return broths.map(PrismaBrothWithImagesUrlMapper.toDomain);
   }
 
   async create(broth: Broth): Promise<void> {

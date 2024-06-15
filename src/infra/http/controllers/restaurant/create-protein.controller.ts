@@ -17,6 +17,7 @@ import {
   ApiOperation,
   ApiProperty,
   ApiResponse,
+  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger';
 import { z } from 'zod';
@@ -67,6 +68,7 @@ class CreateProtein {
 }
 
 @ApiTags('proteins')
+@ApiSecurity('api-key')
 @Controller('/proteins')
 export class CreateProteinController {
   constructor(private createProtein: CreateProteinUseCase) {}
@@ -75,6 +77,7 @@ export class CreateProteinController {
   @ApiOperation({ summary: 'Create a Protein.' })
   @ApiBody({ type: CreateProtein, description: 'The protein creation payload' })
   @ApiResponse({ status: 201, description: 'A new protein has been created.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
   @ApiResponse({
     status: 404,
     description:

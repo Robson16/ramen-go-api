@@ -43,9 +43,6 @@ describe('Create protein (e2e)', () => {
         imageInactiveId: imageInactive.id.toString(),
       });
 
-    console.log('API KEY: ' + env.get('API_KEY'));
-    console.log('Status: ' + response.statusCode);
-
     expect(response.statusCode).toBe(201);
 
     const proteinOnDatabase = await prisma.protein.findUnique({

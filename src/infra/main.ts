@@ -12,6 +12,14 @@ async function bootstrap() {
       'This API allows users to list available broths, available proteins and place an order.',
     )
     .setVersion('1.0')
+    .addApiKey(
+      {
+        type: 'apiKey',
+        name: 'x-api-key',
+        in: 'header',
+      },
+      'api-key',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
