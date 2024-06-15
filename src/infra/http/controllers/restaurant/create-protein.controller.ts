@@ -1,4 +1,4 @@
-import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase';
+import { CreateProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 import {
   BadRequestException,
@@ -17,7 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { z } from 'zod';
 
-const createBrothBodySchema = z.object({
+const createProteinBodySchema = z.object({
   name: z.string(),
   description: z.string(),
   price: z.number(),
@@ -25,24 +25,25 @@ const createBrothBodySchema = z.object({
   imageInactiveId: z.string().uuid(),
 });
 
-type CreateBrothBodySchema = z.infer<typeof createBrothBodySchema>;
+type CreateProteinBodySchema = z.infer<typeof createProteinBodySchema>;
 
-class CreateBroth {
+class CreateProtein {
   @ApiProperty({
-    example: 'Shoyu',
-    description: 'The name of the broth',
+    example: 'Chasu',
+    description: 'The name of the protein',
   })
   name: string = '';
 
   @ApiProperty({
-    example: 'A rich and savory chicken broth.',
-    description: 'The description of the broth',
+    example:
+      'A sliced flavourful pork meat with a selection of season vegetables.',
+    description: 'The description of the protein',
   })
   description: string = '';
 
   @ApiProperty({
     example: 10,
-    description: 'The price of the broth',
+    description: 'The price of the protein',
   })
   price: number = 10;
 
@@ -61,22 +62,22 @@ class CreateBroth {
   imageInactiveId: string = '';
 }
 
-@ApiTags('broths')
-@Controller('/broths')
-export class CreateBrothController {
-  constructor(private createBroth: CreateBrothUseCase) {}
+@ApiTags('proteins')
+@Controller('/proteins')
+export class CreateProteinController {
+  constructor(private createProtein: CreateProteinUseCase) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a Broth.' })
-  @ApiBody({ type: CreateBroth, description: 'The broth creation payload' })
-  @ApiResponse({ status: 201, description: 'A new broth has been created.' })
+  @ApiOperation({ summary: 'Create a Protein.' })
+  @ApiBody({ type: CreateProtein, description: 'The protein creation payload' })
+  @ApiResponse({ status: 201, description: 'A new protein has been created.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createBrothBodySchema))
-  async handle(@Body() body: CreateBrothBodySchema) {
+  @UsePipes(new ZodValidationPipe(createProteinBodySchema))
+  async handle(@Body() body: CreateProteinBodySchema) {
     const { name, description, price, imageActiveId, imageInactiveId } = body;
 
-    const result = await this.createBroth.execute({
+    const result = await this.createProtein.execute({
       name,
       description,
       price,

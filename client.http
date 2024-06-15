@@ -9,5 +9,36 @@ x-api-key: {{apiKey}}
 {
   "name": "Tonkotsu",
   "description": "Breaded and fried pork fillet.",
-  "price": 10
+  "price": 10,
+  "imageActiveId": "16b8aee3-90c8-4f42-83cd-7b01e6db30a0",
+  "imageInactiveId": "16b8aee3-90c8-4f42-83cd-7b01e6db30a0"
 }
+
+###
+
+# @name create_protein
+POST {{baseUrl}}/proteins
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+{
+  "name": "Chasu",
+  "description": "A sliced flavourful pork meat with a selection of season vegetables.",
+  "price": 10,
+  "imageActiveId": "f6bd097c-126e-479d-908f-e3f7c0c0826e",
+  "imageInactiveId": "453c15b2-c02a-4bb0-8352-7dd0adbd9ff0"
+}
+
+###
+
+# @name upload_image
+POST {{baseUrl}}/images
+Content-Type: multipart/form-data; boundary=boundary123
+x-api-key: {{apiKey}}
+
+--boundary123
+Content-Disposition: form-data; name="file"; filename="sample-upload.svg"
+Content-Type: image/svg+xml
+
+< ./test/e2e/sample-upload.svg
+--boundary123--

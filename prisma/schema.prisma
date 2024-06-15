@@ -24,12 +24,31 @@ model Broth {
   @@map("broths")
 }
 
+model Protein {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String
+  price       Decimal   @default(0)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
+
+  imageInactiveId String @unique @map("image_inactive_id")
+  imageInactive   Image? @relation("ImageInactiveProtein", fields: [imageInactiveId], references: [id])
+
+  imageActiveId String @unique @map("image_active_id")
+  imageActive   Image? @relation("ImageActiveProtein", fields: [imageActiveId], references: [id])
+
+  @@map("proteins")
+}
+
 model Image {
-  id            String @id @default(uuid())
-  title         String
-  url           String
-  brothInactive Broth? @relation("ImageInactive")
-  brothActive   Broth? @relation("ImageActive")
+  id              String   @id @default(uuid())
+  title           String
+  url             String
+  brothInactive   Broth?   @relation("ImageInactive")
+  brothActive     Broth?   @relation("ImageActive")
+  proteinInactive Protein? @relation("ImageInactiveProtein")
+  proteinActive   Protein? @relation("ImageActiveProtein")
 
   @@map("images")
 }
