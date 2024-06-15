@@ -11,12 +11,38 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  ApiConsumes,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiBody,
+} from '@nestjs/swagger';
 
+class UploadImage {
+  file: any;
+}
+
+@ApiTags('images')
 @Controller('/images')
 export class UploadImageController {
   constructor(private uploadAndCreateImage: UploadAndCreateImageUseCase) {}
 
   @Post()
+  @ApiOperation({ summary: 'Upload an image' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'The image file to be uploaded',
+    type: UploadImage,
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'The image has been successfully uploaded.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request. Invalid file type or size.',
+  })
   @UseInterceptors(FileInterceptor('file'))
   async handle(
     @UploadedFile(
