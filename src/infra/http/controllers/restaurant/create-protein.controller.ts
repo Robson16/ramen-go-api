@@ -1,10 +1,14 @@
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
+import { ProteinAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/protein-already-exists-error';
 import { CreateProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 import {
   BadRequestException,
   Body,
+  ConflictException,
   Controller,
   HttpCode,
+  NotFoundException,
   Post,
   UsePipes,
 } from '@nestjs/common';
@@ -71,7 +75,16 @@ export class CreateProteinController {
   @ApiOperation({ summary: 'Create a Protein.' })
   @ApiBody({ type: CreateProtein, description: 'The protein creation payload' })
   @ApiResponse({ status: 201, description: 'A new protein has been created.' })
-  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiResponse({
+    status: 404,
+    description:
+      'NotFoundException. Some of the images were not found in the database.',
+  })
+  @ApiResponse({
+    status: 409,
+    description:
+      'ConflictException. A protein with the same name already exists.',
+  })
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createProteinBodySchema))
   async handle(@Body() body: CreateProteinBodySchema) {
@@ -86,7 +99,16 @@ export class CreateProteinController {
     });
 
     if (result.isLeft()) {
-      throw new BadRequestException();
+      const error = result.value;
+
+      switch (error.constructor) {
+        case ResourceNotFoundError:
+          throw new NotFoundException(error.message);
+        case ProteinAlreadyExistsError:
+          throw new ConflictException(error.message);
+        default:
+          throw new BadRequestException('An unexpected error occurred.');
+      }
     }
   }
 }

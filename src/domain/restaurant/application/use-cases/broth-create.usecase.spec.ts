@@ -1,22 +1,33 @@
 import { faker } from '@faker-js/faker';
-import { InMemoryBrothsRepository } from 'test/repositories/in-memory-broth-repository';
-import { CreateBrothUseCase } from './broth-create.usecase';
 import { makeBroth } from 'test/factories/make-broth';
-import { BrothAlreadyExistsError } from './errors/broth-already-exists-error';
 import { makeImage } from 'test/factories/make-image';
+import { InMemoryBrothsRepository } from 'test/repositories/in-memory-broth-repository';
+import { InMemoryImagesRepository } from 'test/repositories/in-memory-image-repository';
+import { CreateBrothUseCase } from './broth-create.usecase';
+import { BrothAlreadyExistsError } from './errors/broth-already-exists-error';
 
-let inMemoryBrothRepository: InMemoryBrothsRepository;
+let inMemoryBrothsRepository: InMemoryBrothsRepository;
+let inMemoryImagesRepository: InMemoryImagesRepository;
 let sut: CreateBrothUseCase; // Subject Under Test
 
 describe('Create Broth', () => {
   beforeEach(() => {
-    inMemoryBrothRepository = new InMemoryBrothsRepository();
-    sut = new CreateBrothUseCase(inMemoryBrothRepository);
+    inMemoryBrothsRepository = new InMemoryBrothsRepository();
+    inMemoryImagesRepository = new InMemoryImagesRepository();
+    sut = new CreateBrothUseCase(
+      inMemoryBrothsRepository,
+      inMemoryImagesRepository,
+    );
   });
 
   it('should be able to create a broth', async () => {
     const imageActive = makeImage();
+
+    inMemoryImagesRepository.create(imageActive);
+
     const imageInactive = makeImage();
+
+    inMemoryImagesRepository.create(imageInactive);
 
     const result = await sut.execute({
       name: faker.commerce.productName(),
@@ -28,19 +39,24 @@ describe('Create Broth', () => {
 
     expect(result.isRight()).toBe(true);
     expect(result.value).toEqual({
-      broth: inMemoryBrothRepository.items[0],
+      broth: inMemoryBrothsRepository.items[0],
     });
   });
 
   it('should not be able to create a broth with a name already in use', async () => {
     const imageActive = makeImage();
+
+    inMemoryImagesRepository.create(imageActive);
+
     const imageInactive = makeImage();
+
+    inMemoryImagesRepository.create(imageInactive);
 
     const broth = makeBroth({
       name: 'Salt',
     });
 
-    await inMemoryBrothRepository.create(broth);
+    await inMemoryBrothsRepository.create(broth);
 
     const result = await sut.execute({
       name: 'Salt',

@@ -10,8 +10,8 @@ x-api-key: {{apiKey}}
   "name": "Tonkotsu",
   "description": "Breaded and fried pork fillet.",
   "price": 10,
-  "imageActiveId": "16b8aee3-90c8-4f42-83cd-7b01e6db30a0",
-  "imageInactiveId": "16b8aee3-90c8-4f42-83cd-7b01e6db30a0"
+  "imageActiveId": "d742b2a3-5d25-403c-ab42-e9ddd246939a",
+  "imageInactiveId": "48faddac-fa28-40d9-aeb7-e90ce38d9ba4"
 }
 
 ###

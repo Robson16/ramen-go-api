@@ -1,10 +1,14 @@
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase';
+import { BrothAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/broth-already-exists-error';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 import {
   BadRequestException,
   Body,
+  ConflictException,
   Controller,
   HttpCode,
+  NotFoundException,
   Post,
   UsePipes,
 } from '@nestjs/common';
@@ -70,7 +74,16 @@ export class CreateBrothController {
   @ApiOperation({ summary: 'Create a Broth.' })
   @ApiBody({ type: CreateBroth, description: 'The broth creation payload' })
   @ApiResponse({ status: 201, description: 'A new broth has been created.' })
-  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiResponse({
+    status: 404,
+    description:
+      'NotFoundException. Some of the images were not found in the database.',
+  })
+  @ApiResponse({
+    status: 409,
+    description:
+      'ConflictException. A broth with the same name already exists.',
+  })
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createBrothBodySchema))
   async handle(@Body() body: CreateBrothBodySchema) {
@@ -85,7 +98,16 @@ export class CreateBrothController {
     });
 
     if (result.isLeft()) {
-      throw new BadRequestException();
+      const error = result.value;
+
+      switch (error.constructor) {
+        case ResourceNotFoundError:
+          throw new NotFoundException(error.message);
+        case BrothAlreadyExistsError:
+          throw new ConflictException(error.message);
+        default:
+          throw new BadRequestException('An unexpected error occurred.');
+      }
     }
   }
 }
