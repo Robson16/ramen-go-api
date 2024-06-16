@@ -13,7 +13,9 @@ let sut: CreateProteinUseCase; // Subject Under Test
 describe('Create Protein', () => {
   beforeEach(() => {
     inMemoryImagesRepository = new InMemoryImagesRepository();
-    inMemoryProteinRepository = new InMemoryProteinsRepository();
+    inMemoryProteinRepository = new InMemoryProteinsRepository(
+      inMemoryImagesRepository,
+    );
     sut = new CreateProteinUseCase(
       inMemoryProteinRepository,
       inMemoryImagesRepository,

@@ -2,14 +2,17 @@
 
 ### Regras da aplicação
 
-- [X] Rota de criação de Caldo;
-- [ ] Rota de lista de Caldos; 
-- [ ] Rota de lista de Proteínas;
+- [X] Rota de upload de Imagem;
+- [X] Rota de criação de Caldo; 
+- [X] Rota de lista de Caldos; 
+- [X] Rota de criação de Proteínas; 
+- [X] Rota de lista de Proteínas;
+- [ ] Rota para realizar o pedido;
 
 ### Regras de negócio
 - [X] Deve ser necessario fornecer uma chave de api nos cabeçalhos da requisições para usar a aplicação;
-- [] O Usuario só podera selecionar uma opção de caldos e proteínas cada;
-- [] A opção de proteina pode ser opcional(?);
+- [ ] O Usuario só podera selecionar uma opção de caldos e proteínas cada;
+- [ ] A opção de proteina pode ser opcional(?);
 
 ### Contexto da aplicação
 

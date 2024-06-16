@@ -38,6 +38,13 @@ x-api-key: {{apiKey}}
 
 ###
 
+# @name list_protein
+GET {{baseUrl}}/proteins
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+###
+
 # @name upload_image
 POST {{baseUrl}}/images
 Content-Type: multipart/form-data; boundary=boundary123
