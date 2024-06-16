@@ -1,5 +1,7 @@
 # Ramen Go API
 
+Ramen Go é uma aplicação web projetada para permitir aos usuários personalizar e montar seus pedidos de ramen. Utilizando uma API backend, a plataforma expõe endpoints RESTful que fornecem listas de caldos e proteínas disponíveis. A API também inclui um endpoint para processar pedidos, onde as seleções dos usuários são recebidas em formato JSON, validadas e armazenadas, retornando um código de pedido único como confirmação.
+
 ### Regras da aplicação
 
 - [X] Rota de upload de Imagem;
