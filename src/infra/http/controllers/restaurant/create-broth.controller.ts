@@ -76,6 +76,11 @@ export class CreateBrothController {
   @ApiOperation({ summary: 'Create a Broth.' })
   @ApiBody({ type: CreateBroth, description: 'The broth creation payload' })
   @ApiResponse({ status: 201, description: 'A new broth has been created.' })
+  @ApiResponse({
+    status: 400,
+    description:
+      'Validation failed. Some data is invalid or has not been provided.',
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
   @ApiResponse({
     status: 404,

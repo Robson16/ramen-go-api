@@ -7,8 +7,22 @@ import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class PrismaProteinRepository implements ProteinsRepository {
+export class PrismaProteinsRepository implements ProteinsRepository {
   constructor(private prisma: PrismaService) {}
+
+  async findById(id: string): Promise<Protein | null> {
+    const protein = await this.prisma.protein.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!protein) {
+      return null;
+    }
+
+    return PrismaProteinMapper.toDomain(protein);
+  }
 
   async findByName(name: string): Promise<Protein | null> {
     const protein = await this.prisma.protein.findUnique({

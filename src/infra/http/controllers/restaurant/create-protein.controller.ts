@@ -77,6 +77,11 @@ export class CreateProteinController {
   @ApiOperation({ summary: 'Create a Protein.' })
   @ApiBody({ type: CreateProtein, description: 'The protein creation payload' })
   @ApiResponse({ status: 201, description: 'A new protein has been created.' })
+  @ApiResponse({
+    status: 400,
+    description:
+      'Validation failed. Some data is invalid or has not been provided.',
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
   @ApiResponse({
     status: 404,

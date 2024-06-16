@@ -7,12 +7,11 @@
 - [X] Rota de lista de Caldos; 
 - [X] Rota de criação de Proteínas; 
 - [X] Rota de lista de Proteínas;
-- [ ] Rota para realizar o pedido;
+- [X] Rota para realizar o pedido;
 
 ### Regras de negócio
 - [X] Deve ser necessario fornecer uma chave de api nos cabeçalhos da requisições para usar a aplicação;
-- [ ] O Usuario só podera selecionar uma opção de caldos e proteínas cada;
-- [ ] A opção de proteina pode ser opcional(?);
+- [X] O Usuario só podera selecionar uma opção de caldos e proteínas cada;
 
 ### Contexto da aplicação
 

@@ -21,6 +21,8 @@ model Broth {
   imageActiveId String @unique @map("image_active_id")
   imageActive   Image? @relation("ImageActive", fields: [imageActiveId], references: [id])
 
+  orders Order[]
+
   @@map("broths")
 }
 
@@ -38,6 +40,8 @@ model Protein {
   imageActiveId String @unique @map("image_active_id")
   imageActive   Image? @relation("ImageActiveProtein", fields: [imageActiveId], references: [id])
 
+  orders Order[]
+
   @@map("proteins")
 }
 
@@ -51,4 +55,19 @@ model Image {
   proteinActive   Protein? @relation("ImageActiveProtein")
 
   @@map("images")
+}
+
+model Order {
+  id          String    @id @default(uuid())
+  description String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
+
+  brothId String @map("broth_id")
+  broth   Broth  @relation(fields: [brothId], references: [id])
+
+  proteinId String  @map("protein_id")
+  protein   Protein @relation(fields: [proteinId], references: [id])
+
+  @@map("orders")
 }

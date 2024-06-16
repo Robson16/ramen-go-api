@@ -8,7 +8,17 @@ export class InMemoryProteinsRepository implements ProteinsRepository {
 
   constructor(private inMemoryImagesRepository: InMemoryImagesRepository) {}
 
-  async findByName(name: string): Promise<Protein | null> {
+  async findById(id: string) {
+    const protein = this.items.find((item) => item.id.toString() === id);
+
+    if (!protein) {
+      return null;
+    }
+
+    return protein;
+  }
+
+  async findByName(name: string) {
     const protein = this.items.find((item) => item.name === name);
 
     if (!protein) {
@@ -22,7 +32,7 @@ export class InMemoryProteinsRepository implements ProteinsRepository {
     return this.items;
   }
 
-  async findManyWithImagesUrl(): Promise<ProteinWithImagesUrl[]> {
+  async findManyWithImagesUrl() {
     const proteins = await Promise.all(
       this.items.map(async (protein) => {
         const imageActive = await this.inMemoryImagesRepository.findByID(

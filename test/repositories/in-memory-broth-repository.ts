@@ -8,7 +8,17 @@ export class InMemoryBrothsRepository implements BrothsRepository {
 
   constructor(private inMemoryImagesRepository: InMemoryImagesRepository) {}
 
-  async findByName(name: string): Promise<Broth | null> {
+  async findById(id: string) {
+    const broth = this.items.find((item) => item.id.toString() === id);
+
+    if (!broth) {
+      return null;
+    }
+
+    return broth;
+  }
+
+  async findByName(name: string) {
     const broth = this.items.find((item) => item.name === name);
 
     if (!broth) {
@@ -22,7 +32,7 @@ export class InMemoryBrothsRepository implements BrothsRepository {
     return this.items;
   }
 
-  async findManyWithImagesUrl(): Promise<BrothWithImagesUrl[]> {
+  async findManyWithImagesUrl() {
     const broths = await Promise.all(
       this.items.map(async (broth) => {
         const imageActive = await this.inMemoryImagesRepository.findByID(

@@ -7,8 +7,22 @@ import { PrismaBrothWithImagesUrlMapper } from '../mappers/prisma-broth-with-ima
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
-export class PrismaBrothRepository implements BrothsRepository {
+export class PrismaBrothsRepository implements BrothsRepository {
   constructor(private prisma: PrismaService) {}
+
+  async findById(id: string): Promise<Broth | null> {
+    const broth = await this.prisma.broth.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!broth) {
+      return null;
+    }
+
+    return PrismaBrothMapper.toDomain(broth);
+  }
 
   async findByName(name: string): Promise<Broth | null> {
     const broth = await this.prisma.broth.findUnique({
