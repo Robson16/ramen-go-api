@@ -46,9 +46,10 @@ model Protein {
 }
 
 model Image {
-  id              String   @id @default(uuid())
-  title           String
-  url             String
+  id    String @id @default(uuid())
+  title String
+  url   String
+
   brothInactive   Broth?   @relation("ImageInactive")
   brothActive     Broth?   @relation("ImageActive")
   proteinInactive Protein? @relation("ImageInactiveProtein")
