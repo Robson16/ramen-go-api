@@ -1,5 +1,26 @@
-@baseUrl = http://localhost:3333 
-@apiKey = K3q1IssTe1qIEgfTqFvVmqB6Knzeqll9EB76bhyyM6jf3C96siq9Tr7Cf16EPZ08 
+@baseUrl = http://localhost:3333
+@apiKey = K3q1IssTe1qIEgfTqFvVmqB6Knzeqll9EB76bhyyM6jf3C96siq9Tr7Cf16EPZ08
+
+### ========================================
+### 📸 IMAGENS
+### ========================================
+
+# @name upload_image
+POST {{baseUrl}}/images
+Content-Type: multipart/form-data; boundary=boundary123
+x-api-key: {{apiKey}}
+
+--boundary123
+Content-Disposition: form-data; name="file"; filename="sample-upload.svg"
+Content-Type: image/svg+xml
+
+< ./test/e2e/sample-upload.svg
+--boundary123--
+
+
+### ========================================
+### 🍲 CALDOS (BROTHS)
+### ========================================
 
 # @name create_broth
 POST {{baseUrl}}/broths
@@ -8,7 +29,7 @@ x-api-key: {{apiKey}}
 
 {
   "name": "Tonkotsu",
-  "description": "Breaded and fried pork fillet.",
+  "description": "Pork bone broth, boiled for hours for a rich, creamy flavor.",
   "price": 10,
   "imageActiveId": "3ebe8944-1f98-46f3-8811-0da7588f2d00",
   "imageInactiveId": "37505e8c-f3f0-4c7c-88e3-9d6cb91a7a74"
@@ -21,7 +42,10 @@ GET {{baseUrl}}/broths
 Content-Type: application/json
 x-api-key: {{apiKey}}
 
-###
+
+### ========================================
+### 🥩 PROTEÍNAS (PROTEINS)
+### ========================================
 
 # @name create_protein
 POST {{baseUrl}}/proteins
@@ -43,16 +67,27 @@ GET {{baseUrl}}/proteins
 Content-Type: application/json
 x-api-key: {{apiKey}}
 
-###
 
-# @name upload_image
-POST {{baseUrl}}/images
-Content-Type: multipart/form-data; boundary=boundary123
+### ========================================
+### 🍜 PEDIDOS (ORDERS)
+### ========================================
+
+# @name create_order
+POST {{baseUrl}}/orders
+Content-Type: application/json
 x-api-key: {{apiKey}}
 
---boundary123
-Content-Disposition: form-data; name="file"; filename="sample-upload.svg"
-Content-Type: image/svg+xml
+{
+  "brothId": "b8e0b0e0-0e0e-4e0e-8e0e-0e0e0e0e0e0e",
+  "proteinId": "e1a3e3b3-3b3b-4b3b-8b3b-3b3b3b3b3b3b"
+}
 
-< ./test/e2e/sample-upload.svg
---boundary123--
+###
+
+# @name get_order
+# Pega o ID gerado automaticamente da requisição 'create_order' acima
+@orderId = {{create_order.response.body.id}}
+
+GET {{baseUrl}}/orders/{{orderId}}
+Content-Type: application/json
+x-api-key: {{apiKey}}

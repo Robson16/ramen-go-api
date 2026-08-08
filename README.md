@@ -13,8 +13,16 @@ Para ajudar a imaginar como esses dados vão estar sendo utilizados pelo cliente
 
 ## Tecnologias Utilizadas
 
-- [NestJS](https://nestjs.com/)
-- [TypeScript](https://www.typescriptlang.org/)
+- [NestJS](https://nestjs.com/) — Framework Node.js para construção de APIs escaláveis e modulares.
+- [TypeScript](https://www.typescriptlang.org/) — Superset do JavaScript com tipagem estática, melhorando manutenção e DX.
+- [Prisma](https://www.prisma.io/) — ORM com geração de client e suporte a migrations para PostgreSQL.
+- [PostgreSQL](https://www.postgresql.org/) — Banco de dados relacional usado em desenvolvimento e produção.
+- [Zod](https://github.com/colinhacks/zod) — Validação de schemas e parsing seguro de variáveis de ambiente.
+- [Swagger / OpenAPI](https://swagger.io/) — Documentação interativa da API gerada via `@nestjs/swagger`.
+- Armazenamento: Cloudflare R2 / S3 — Integração de arquivos usando `@aws-sdk/client-s3` (R2 compatível com S3).
+- Testes: Vitest + Supertest — Testes unitários e E2E com mocks e integrações.
+- Docker & Docker Compose — Facilita rodar serviços dependentes (PostgreSQL) localmente.
+- Qualidade: Prettier & ESLint — Formatação e linting para consistência no código.
 
 ## Como Começar
 
@@ -22,7 +30,7 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
 
 1.  **Clone o repositório**
     ```bash
-    git clone https://github.com/seu-usuario/ramen-go-api.git
+    git clone https://github.com/Robson16/ramen-go-api.git
     cd ramen-go-api
     ```
 
@@ -38,18 +46,53 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
     API_KEY=your-secret-api-key
     ```
 
+    ### Cloudflare R2 (S3 compatível)
+
+    Se você pretende usar o Cloudflare R2 para armazenar imagens, siga estes passos:
+
+    1. No painel do Cloudflare, acesse **R2** e crie um novo bucket (anote o nome do bucket).
+    2. Ainda no painel do R2, crie **Access Keys** (Access Key ID e Secret Access Key) — copie e armazene em local seguro.
+    3. Identifique o **Account ID** da sua conta Cloudflare (disponível no canto superior direito do painel ou nas configurações da conta).
+    4. Defina as variáveis de ambiente locais com os valores obtidos:
+
+    ```env
+    # Cloudflare R2 / S3
+    CLOUDFLARE_ACCOUNT_ID=your-cloudflare-account-id
+    AWS_BUCKET_NAME=your-r2-bucket-name
+    AWS_ACCESS_KEY_ID=your-r2-access-key-id
+    AWS_SECRET_ACCESS_KEY=your-r2-secret-access-key
+    ```
+
+    Observações:
+    - Use o `AWS_BUCKET_NAME` ao enviar/ler objetos.
+    - Garanta que as chaves tenham permissões para leitura/escrita no bucket.
+    - Em produção, armazene as chaves em um cofre de segredos ou variáveis de ambiente do provedor (não no repositório).
+
 4.  **Inicie a aplicação**
     ```bash
     # Modo de desenvolvimento
     npm run start:dev
     ```
-    A API estará disponível em `http://localhost:3000`.
+    A API estará disponível em `http://localhost:3333`.
+
+## Documentação da API (Swagger)
+
+A API possui uma documentação interativa gerada automaticamente com o Swagger. Nela, você pode visualizar todos os endpoints, os formatos de envio/resposta, e até mesmo testar as requisições direto do navegador.
+
+- **Local:** [http://localhost:3333/api](http://localhost:3333/api)
+- **Produção (Render):** [https://ramen-go-api-xyjm.onrender.com/api](https://ramen-go-api-xyjm.onrender.com/api)
+
+**Testando rotas protegidas:**
+1. Acesse a documentação pelo navegador.
+2. Clique no botão verde **"Authorize"** localizado no canto superior direito.
+3. Insira o valor da sua `API_KEY` e clique em *Authorize*. 
+4. Agora você pode expandir os endpoints e usar o botão *"Try it out"* para realizar chamadas reais para a API.
 
 ## Estrutura do Código
 
 A estrutura de pastas do projeto segue os princípios de Arquitetura Limpa, separando as responsabilidades em camadas bem definidas:
 
-```
+```text
 .
 ├── prisma/                 # Configuração do banco de dados (Schema, Migrations e Seeds)
 ├── src/
@@ -79,7 +122,8 @@ A estrutura de pastas do projeto segue os princípios de Arquitetura Limpa, sepa
     -   `GET /proteins`: Lista todas as proteínas disponíveis.
     -   `POST /proteins`: Cria uma nova proteína (protegida).
 -   **Pedidos (Orders)**
-    -   `POST /order`: Realiza um novo pedido (protegido).
+    -   `GET /orders/:id`: Recupera um pedido por ID (protegido).
+    -   `POST /orders`: Realiza um novo pedido (protegido).
 -   **Upload**
     -   `POST /image-upload`: Rota para upload de imagem (protegido).
 
