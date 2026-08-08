@@ -45,6 +45,31 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
     ```
     A API estará disponível em `http://localhost:3000`.
 
+## Estrutura do Código
+
+A estrutura de pastas do projeto segue os princípios de Arquitetura Limpa, separando as responsabilidades em camadas bem definidas:
+
+```
+.
+├── prisma/                 # Configuração do banco de dados (Schema, Migrations e Seeds)
+├── src/
+│   ├── core/               # Lógica compartilhada, classes base (Entity, Either) e erros globais
+│   ├── domain/             # Núcleo da aplicação (Regras de Negócio e Casos de Uso)
+│   │   └── restaurant/
+│   │       ├── application/ # Contratos (Interfaces) e Casos de Uso (Use Cases)
+│   │       └── enterprise/  # Entidades principais (Broth, Protein, Order)
+│   └── infra/              # Integrações externas e dependências de framework (NestJS)
+│       ├── auth/           # Guardas de rota e autenticação (API Key)
+│       ├── database/       # Integração com Prisma, Repositórios e Mappers
+│       ├── env/            # Validação de variáveis de ambiente com Zod
+│       ├── http/           # Controladores (REST) e Presenters
+│       └── storage/        # Integração com armazenamento de arquivos (Cloudflare R2)
+├── test/                   # Testes automatizados (E2E, Factories e Repositórios In-Memory)
+├── .env.example            # Exemplo das variáveis de ambiente necessárias
+├── docker-compose.yml      # Configuração para subir o banco PostgreSQL local via Docker
+└── package.json            # Dependências e scripts do projeto
+```
+
 ## Funcionalidades e Endpoints
 
 -   **Caldos (Broths)**

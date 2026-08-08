@@ -1,6 +1,7 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Protein } from '@/domain/restaurant/enterprise/entities/protein';
-import { Prisma, Protein as PrismaProtein } from '@prisma/client';
+import { Prisma, Protein as PrismaProtein } from '@prisma/client'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Protein } from '@/domain/restaurant/enterprise/entities/protein'
 
 export class PrismaProteinMapper {
   static toDomain(raw: PrismaProtein): Protein {
@@ -13,7 +14,7 @@ export class PrismaProteinMapper {
         imageInactiveId: raw.imageInactiveId,
       },
       new UniqueEntityID(raw.id),
-    );
+    )
   }
 
   static toPrisma(protein: Protein): Prisma.ProteinUncheckedCreateInput {
@@ -24,6 +25,6 @@ export class PrismaProteinMapper {
       price: protein.price,
       imageActiveId: protein.imageActiveId,
       imageInactiveId: protein.imageInactiveId,
-    };
+    }
   }
 }

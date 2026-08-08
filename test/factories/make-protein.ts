@@ -1,9 +1,10 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { faker } from '@faker-js/faker'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import {
   Protein,
   ProteinProps,
-} from '@/domain/restaurant/enterprise/entities/protein';
-import { faker } from '@faker-js/faker';
+} from '@/domain/restaurant/enterprise/entities/protein'
 
 export function makeProtein(
   override: Partial<ProteinProps> = {},
@@ -19,7 +20,7 @@ export function makeProtein(
       ...override,
     },
     id,
-  );
+  )
 
-  return protein;
+  return protein
 }

@@ -1,36 +1,37 @@
-import { AppModule } from '@/infra/app.module';
-import { DatabaseModule } from '@/infra/database/database.module';
-import { PrismaService } from '@/infra/database/prisma/prisma.service';
-import { EnvService } from '@/infra/env/env.service';
-import { INestApplication } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
-import request from 'supertest';
-import { ImageFactory } from 'test/factories/image-factory';
+import { INestApplication } from '@nestjs/common'
+import { Test } from '@nestjs/testing'
+import request from 'supertest'
+import { ImageFactory } from 'test/factories/image-factory'
+
+import { AppModule } from '@/infra/app.module'
+import { DatabaseModule } from '@/infra/database/database.module'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
+import { EnvService } from '@/infra/env/env.service'
 
 describe('Create protein (e2e)', () => {
-  let app: INestApplication;
-  let imageFactory: ImageFactory;
-  let prisma: PrismaService;
-  let env: EnvService;
+  let app: INestApplication
+  let imageFactory: ImageFactory
+  let prisma: PrismaService
+  let env: EnvService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
       providers: [ImageFactory],
-    }).compile();
+    }).compile()
 
-    app = moduleRef.createNestApplication();
+    app = moduleRef.createNestApplication()
 
-    imageFactory = moduleRef.get(ImageFactory);
-    prisma = moduleRef.get(PrismaService);
-    env = moduleRef.get(EnvService);
+    imageFactory = moduleRef.get(ImageFactory)
+    prisma = moduleRef.get(PrismaService)
+    env = moduleRef.get(EnvService)
 
-    await app.init();
-  });
+    await app.init()
+  })
 
   test('[POST] /proteins', async () => {
-    const imageActive = await imageFactory.makePrismaImage();
-    const imageInactive = await imageFactory.makePrismaImage();
+    const imageActive = await imageFactory.makePrismaImage()
+    const imageInactive = await imageFactory.makePrismaImage()
 
     const response = await request(app.getHttpServer())
       .post('/proteins')
@@ -41,16 +42,16 @@ describe('Create protein (e2e)', () => {
         price: 10,
         imageActiveId: imageActive.id.toString(),
         imageInactiveId: imageInactive.id.toString(),
-      });
+      })
 
-    expect(response.statusCode).toBe(201);
+    expect(response.statusCode).toBe(201)
 
     const proteinOnDatabase = await prisma.protein.findUnique({
       where: {
         name: 'Salt',
       },
-    });
+    })
 
-    expect(proteinOnDatabase).toBeTruthy();
-  });
-});
+    expect(proteinOnDatabase).toBeTruthy()
+  })
+})

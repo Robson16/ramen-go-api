@@ -1,16 +1,13 @@
-import { InvalidImageTypeError } from '@/domain/restaurant/application/use-cases/errors/invalid-image-type-error';
-import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use-cases/upload-and-create-image.usecase';
 import {
   BadRequestException,
   Controller,
-  FileTypeValidator,
   MaxFileSizeValidator,
   ParseFilePipe,
   Post,
   UploadedFile,
   UseInterceptors,
-} from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+} from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import {
   ApiBody,
   ApiConsumes,
@@ -18,10 +15,13 @@ import {
   ApiResponse,
   ApiSecurity,
   ApiTags,
-} from '@nestjs/swagger';
+} from '@nestjs/swagger'
+
+import { InvalidImageTypeError } from '@/domain/restaurant/application/use-cases/errors/invalid-image-type-error'
+import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use-cases/upload-and-create-image.usecase'
 
 class UploadImage {
-  file: any;
+  file: any
 }
 
 @ApiTags('images')
@@ -54,9 +54,6 @@ export class UploadImageController {
           new MaxFileSizeValidator({
             maxSize: 1024 * 1024 * 2, // 2mb
           }),
-          new FileTypeValidator({
-            fileType: '.(png|jpg|jpeg|svg)',
-          }),
         ],
       }),
     )
@@ -66,23 +63,23 @@ export class UploadImageController {
       fileName: file.originalname,
       fileType: file.mimetype,
       body: file.buffer,
-    });
+    })
 
     if (result.isLeft()) {
-      const error = result.value;
+      const error = result.value
 
       switch (error.constructor) {
         case InvalidImageTypeError:
-          throw new BadRequestException(error.message);
+          throw new BadRequestException(error.message)
         default:
-          throw new BadRequestException('An unexpected error occurred.');
+          throw new BadRequestException('An unexpected error occurred.')
       }
     }
 
-    const { image } = result.value;
+    const { image } = result.value
 
     return {
       imageId: image.id.toString(),
-    };
+    }
   }
 }

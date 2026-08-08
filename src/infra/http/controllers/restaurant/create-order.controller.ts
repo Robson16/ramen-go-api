@@ -1,6 +1,3 @@
-import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
-import { CreateOrderUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase';
-import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 import {
   BadRequestException,
   Body,
@@ -9,7 +6,7 @@ import {
   NotFoundException,
   Post,
   UsePipes,
-} from '@nestjs/common';
+} from '@nestjs/common'
 import {
   ApiBody,
   ApiOperation,
@@ -17,29 +14,34 @@ import {
   ApiResponse,
   ApiSecurity,
   ApiTags,
-} from '@nestjs/swagger';
-import { z } from 'zod';
-import { OrderPresenter } from '../../presenters/order-presenter';
+} from '@nestjs/swagger'
+import { z } from 'zod'
+
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
+import { CreateOrderUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
+import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
+
+import { OrderPresenter } from '../../presenters/order-presenter'
 
 const createOrderBodySchema = z.object({
   brothId: z.string().uuid(),
   proteinId: z.string().uuid(),
-});
+})
 
-type CreateOrderBodySchema = z.infer<typeof createOrderBodySchema>;
+type CreateOrderBodySchema = z.infer<typeof createOrderBodySchema>
 
 class CreateOrder {
   @ApiProperty({
     example: 'ec82a6b8-ea86-4543-a286-809672bcc423',
     description: 'The ID for Broth',
   })
-  brothId: string = '';
+  brothId: string = ''
 
   @ApiProperty({
     example: '44172ba7-57d6-472f-a517-4c2d85d0219b',
     description: 'The ID for Protein',
   })
-  proteinId: string = '';
+  proteinId: string = ''
 }
 
 @ApiTags('orders')
@@ -65,26 +67,26 @@ export class CreateOrderController {
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createOrderBodySchema))
   async handle(@Body() body: CreateOrderBodySchema) {
-    const { brothId, proteinId } = body;
+    const { brothId, proteinId } = body
 
     const result = await this.createOrder.execute({
       brothId,
       proteinId,
-    });
+    })
 
     if (result.isLeft()) {
-      const error = result.value;
+      const error = result.value
 
       switch (error.constructor) {
         case ResourceNotFoundError:
-          throw new NotFoundException(error.message);
+          throw new NotFoundException(error.message)
         default:
-          throw new BadRequestException('An unexpected error occurred.');
+          throw new BadRequestException('An unexpected error occurred.')
       }
     }
 
-    const { order } = result.value;
+    const { order } = result.value
 
-    return OrderPresenter.toHTTP(order);
+    return OrderPresenter.toHTTP(order)
   }
 }

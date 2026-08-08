@@ -1,9 +1,10 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { faker } from '@faker-js/faker'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import {
   Image,
   ImageProps,
-} from '@/domain/restaurant/enterprise/entities/image';
-import { faker } from '@faker-js/faker';
+} from '@/domain/restaurant/enterprise/entities/image'
 
 export function makeImage(
   override: Partial<ImageProps> = {},
@@ -16,7 +17,7 @@ export function makeImage(
       ...override,
     },
     id,
-  );
+  )
 
-  return image;
+  return image
 }

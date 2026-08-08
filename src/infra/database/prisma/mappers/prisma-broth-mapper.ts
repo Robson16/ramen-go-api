@@ -1,6 +1,7 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Broth } from '@/domain/restaurant/enterprise/entities/broth';
-import { Prisma, Broth as PrismaBroth } from '@prisma/client';
+import { Broth as PrismaBroth, Prisma } from '@prisma/client'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Broth } from '@/domain/restaurant/enterprise/entities/broth'
 
 export class PrismaBrothMapper {
   static toDomain(raw: PrismaBroth): Broth {
@@ -13,7 +14,7 @@ export class PrismaBrothMapper {
         imageInactiveId: raw.imageInactiveId,
       },
       new UniqueEntityID(raw.id),
-    );
+    )
   }
 
   static toPrisma(broth: Broth): Prisma.BrothUncheckedCreateInput {
@@ -24,6 +25,6 @@ export class PrismaBrothMapper {
       price: broth.price,
       imageActiveId: broth.imageActiveId,
       imageInactiveId: broth.imageInactiveId,
-    };
+    }
   }
 }

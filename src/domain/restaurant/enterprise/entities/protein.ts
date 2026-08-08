@@ -1,78 +1,78 @@
-import { Entity } from '@/core/entities/entity';
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Optional } from '@/core/types/optional';
+import { Entity } from '@/core/entities/entity'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Optional } from '@/core/types/optional'
 
 export interface ProteinProps {
-  name: string;
-  description: string;
-  price: number;
-  imageInactiveId: string;
-  imageActiveId: string;
-  createdAt: Date;
-  updatedAt?: Date | null;
+  name: string
+  description: string
+  price: number
+  imageInactiveId: string
+  imageActiveId: string
+  createdAt: Date
+  updatedAt?: Date | null
 }
 
 export class Protein extends Entity<ProteinProps> {
   get name() {
-    return this.props.name;
+    return this.props.name
   }
 
   set name(name: string) {
-    this.props.name = name;
+    this.props.name = name
 
-    this.touch();
+    this.touch()
   }
 
   get description() {
-    return this.props.description;
+    return this.props.description
   }
 
   set description(description: string) {
-    this.props.description = description;
+    this.props.description = description
 
-    this.touch();
+    this.touch()
   }
 
   get price() {
-    return this.props.price;
+    return this.props.price
   }
 
   set price(price: number) {
-    this.props.price = price;
+    this.props.price = price
 
-    this.touch();
+    this.touch()
   }
 
   get imageInactiveId() {
-    return this.props.imageInactiveId;
+    return this.props.imageInactiveId
   }
 
   set imageInactiveId(imageInactiveId: string) {
-    this.props.imageInactiveId = imageInactiveId;
+    this.props.imageInactiveId = imageInactiveId
 
-    this.touch();
+    this.touch()
   }
 
   get imageActiveId() {
-    return this.props.imageActiveId;
+    return this.props.imageActiveId
   }
 
   set imageActiveId(imageActiveId: string) {
-    this.props.imageActiveId = imageActiveId;
+    this.props.imageActiveId = imageActiveId
 
-    this.touch();
+    this.touch()
   }
 
   get createdAt() {
-    return this.props.createdAt;
+    return this.props.createdAt
   }
 
   get updatedAt() {
-    return this.props.updatedAt;
+    return this.props.updatedAt
   }
 
   private touch() {
-    this.props.updatedAt = new Date();
+    this.props.updatedAt = new Date()
   }
 
   static create(
@@ -85,8 +85,8 @@ export class Protein extends Entity<ProteinProps> {
         createdAt: props.createdAt ?? new Date(),
       },
       id,
-    );
+    )
 
-    return protein;
+    return protein
   }
 }

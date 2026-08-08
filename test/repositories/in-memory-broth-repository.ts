@@ -1,35 +1,36 @@
-import { BrothsRepository } from '@/domain/restaurant/application/repositories/broth-repository';
-import { Broth } from '@/domain/restaurant/enterprise/entities/broth';
-import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/broth-with-images-url';
-import { InMemoryImagesRepository } from './in-memory-image-repository';
+import { BrothsRepository } from '@/domain/restaurant/application/repositories/broth-repository'
+import { Broth } from '@/domain/restaurant/enterprise/entities/broth'
+import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/broth-with-images-url'
+
+import { InMemoryImagesRepository } from './in-memory-image-repository'
 
 export class InMemoryBrothsRepository implements BrothsRepository {
-  public items: Broth[] = [];
+  public items: Broth[] = []
 
   constructor(private inMemoryImagesRepository: InMemoryImagesRepository) {}
 
   async findById(id: string) {
-    const broth = this.items.find((item) => item.id.toString() === id);
+    const broth = this.items.find((item) => item.id.toString() === id)
 
     if (!broth) {
-      return null;
+      return null
     }
 
-    return broth;
+    return broth
   }
 
   async findByName(name: string) {
-    const broth = this.items.find((item) => item.name === name);
+    const broth = this.items.find((item) => item.name === name)
 
     if (!broth) {
-      return null;
+      return null
     }
 
-    return broth;
+    return broth
   }
 
   async findMany() {
-    return this.items;
+    return this.items
   }
 
   async findManyWithImagesUrl() {
@@ -37,22 +38,22 @@ export class InMemoryBrothsRepository implements BrothsRepository {
       this.items.map(async (broth) => {
         const imageActive = await this.inMemoryImagesRepository.findByID(
           broth.imageActiveId,
-        );
+        )
 
         if (!imageActive) {
           throw new Error(
             `Image Active with ID "${broth.imageActiveId.toString()}" does not exist.`,
-          );
+          )
         }
 
         const imageInactive = await this.inMemoryImagesRepository.findByID(
           broth.imageInactiveId,
-        );
+        )
 
         if (!imageInactive) {
           throw new Error(
             `Image Inactive with ID "${broth.imageInactiveId.toString()}" does not exist.`,
-          );
+          )
         }
 
         return BrothWithImagesUrl.create({
@@ -64,14 +65,14 @@ export class InMemoryBrothsRepository implements BrothsRepository {
           imageInactiveUrl: imageInactive.url,
           createdAt: broth.createdAt,
           updatedAt: broth.updatedAt,
-        });
+        })
       }),
-    );
+    )
 
-    return broths;
+    return broths
   }
 
   async create(broth: Broth) {
-    this.items.push(broth);
+    this.items.push(broth)
   }
 }

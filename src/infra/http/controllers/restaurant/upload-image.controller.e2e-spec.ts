@@ -1,35 +1,36 @@
-import { AppModule } from '@/infra/app.module';
-import { DatabaseModule } from '@/infra/database/database.module';
-import { EnvService } from '@/infra/env/env.service';
-import { INestApplication } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
-import request from 'supertest';
+import { INestApplication } from '@nestjs/common'
+import { Test } from '@nestjs/testing'
+import request from 'supertest'
+
+import { AppModule } from '@/infra/app.module'
+import { DatabaseModule } from '@/infra/database/database.module'
+import { EnvService } from '@/infra/env/env.service'
 
 describe('Upload Image (e2e)', () => {
-  let app: INestApplication;
-  let env: EnvService;
+  let app: INestApplication
+  let env: EnvService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-    }).compile();
+    }).compile()
 
-    app = moduleRef.createNestApplication();
+    app = moduleRef.createNestApplication()
 
-    env = moduleRef.get(EnvService);
+    env = moduleRef.get(EnvService)
 
-    await app.init();
-  });
+    await app.init()
+  })
 
   test('[POST] /images', async () => {
     const response = await request(app.getHttpServer())
       .post('/images')
       .set('x-api-key', env.get('API_KEY'))
-      .attach('file', './test/e2e/sample-upload.svg');
+      .attach('file', './test/e2e/sample-upload.svg')
 
-    expect(response.statusCode).toBe(201);
+    expect(response.statusCode).toBe(201)
     expect(response.body).toEqual({
       imageId: expect.any(String),
-    });
-  });
-});
+    })
+  })
+})

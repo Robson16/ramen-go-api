@@ -1,10 +1,11 @@
-import { ProteinsRepository } from '@/domain/restaurant/application/repositories/protein-repository';
-import { Protein } from '@/domain/restaurant/enterprise/entities/protein';
-import { ProteinWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/protein-with-images-url';
-import { PrismaProteinMapper } from '@/infra/database/prisma/mappers/prisma-protein-mapper';
-import { PrismaProteinWithImagesUrlMapper } from '@/infra/database/prisma/mappers/prisma-protein-with-images-url-mapper';
-import { PrismaService } from '@/infra/database/prisma/prisma.service';
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
+
+import { ProteinsRepository } from '@/domain/restaurant/application/repositories/protein-repository'
+import { Protein } from '@/domain/restaurant/enterprise/entities/protein'
+import { ProteinWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/protein-with-images-url'
+import { PrismaProteinMapper } from '@/infra/database/prisma/mappers/prisma-protein-mapper'
+import { PrismaProteinWithImagesUrlMapper } from '@/infra/database/prisma/mappers/prisma-protein-with-images-url-mapper'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 @Injectable()
 export class PrismaProteinsRepository implements ProteinsRepository {
@@ -15,13 +16,13 @@ export class PrismaProteinsRepository implements ProteinsRepository {
       where: {
         id,
       },
-    });
+    })
 
     if (!protein) {
-      return null;
+      return null
     }
 
-    return PrismaProteinMapper.toDomain(protein);
+    return PrismaProteinMapper.toDomain(protein)
   }
 
   async findByName(name: string): Promise<Protein | null> {
@@ -29,13 +30,13 @@ export class PrismaProteinsRepository implements ProteinsRepository {
       where: {
         name,
       },
-    });
+    })
 
     if (!protein) {
-      return null;
+      return null
     }
 
-    return PrismaProteinMapper.toDomain(protein);
+    return PrismaProteinMapper.toDomain(protein)
   }
 
   async findMany(): Promise<Protein[]> {
@@ -43,9 +44,9 @@ export class PrismaProteinsRepository implements ProteinsRepository {
       orderBy: {
         createdAt: 'desc',
       },
-    });
+    })
 
-    return proteins.map(PrismaProteinMapper.toDomain);
+    return proteins.map(PrismaProteinMapper.toDomain)
   }
 
   async findManyWithImagesUrl(): Promise<ProteinWithImagesUrl[]> {
@@ -57,16 +58,16 @@ export class PrismaProteinsRepository implements ProteinsRepository {
         imageActive: true,
         imageInactive: true,
       },
-    });
+    })
 
-    return proteins.map(PrismaProteinWithImagesUrlMapper.toDomain);
+    return proteins.map(PrismaProteinWithImagesUrlMapper.toDomain)
   }
 
   async create(protein: Protein): Promise<void> {
-    const data = PrismaProteinMapper.toPrisma(protein);
+    const data = PrismaProteinMapper.toPrisma(protein)
 
     await this.prisma.protein.create({
       data,
-    });
+    })
   }
 }

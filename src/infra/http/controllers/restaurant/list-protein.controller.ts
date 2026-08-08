@@ -1,12 +1,13 @@
-import { ListProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase';
-import { ProteinPresenter } from '@/infra/http/presenters/protein-presenter';
-import { BadRequestException, Controller, Get } from '@nestjs/common';
+import { BadRequestException, Controller, Get } from '@nestjs/common'
 import {
   ApiOperation,
   ApiResponse,
   ApiSecurity,
   ApiTags,
-} from '@nestjs/swagger';
+} from '@nestjs/swagger'
+
+import { ListProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
+import { ProteinPresenter } from '@/infra/http/presenters/protein-presenter'
 
 @ApiTags('proteins')
 @ApiSecurity('api-key')
@@ -24,16 +25,16 @@ export class ListProteinController {
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
   async handle() {
-    const result = await this.listProtein.execute();
+    const result = await this.listProtein.execute()
 
     if (result.isLeft()) {
-      throw new BadRequestException();
+      throw new BadRequestException()
     }
 
-    const proteins = result.value.proteins;
+    const proteins = result.value.proteins
 
     return {
       proteins: proteins.map(ProteinPresenter.toHTTP),
-    };
+    }
   }
 }

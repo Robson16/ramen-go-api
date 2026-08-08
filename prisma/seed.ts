@@ -96,7 +96,7 @@ async function main() {
         imageInactiveId: 'a67584d7-a6d6-4f65-a5cf-8315beef5edc', // miso-inactive.svg
       },
       {
-        id: 'd0g2d2g2-2g2g-4g2g-0g2g-2g2g2g2g2g2g',
+        id: 'd0a2d2a2-2a2a-4a2a-0a2a-2a2a2a2a2a2a',
         name: 'Shoyu Broth',
         description: 'Classic soy sauce-based broth.',
         price: 11.0,

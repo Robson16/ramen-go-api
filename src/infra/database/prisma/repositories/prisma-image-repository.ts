@@ -1,8 +1,10 @@
-import { ImagesRepository } from '@/domain/restaurant/application/repositories/image-repository';
-import { Image } from '@/domain/restaurant/enterprise/entities/image';
-import { Injectable } from '@nestjs/common';
-import { PrismaImageMapper } from '../mappers/prisma-image-mapper';
-import { PrismaService } from '../prisma.service';
+import { Injectable } from '@nestjs/common'
+
+import { ImagesRepository } from '@/domain/restaurant/application/repositories/image-repository'
+import { Image } from '@/domain/restaurant/enterprise/entities/image'
+
+import { PrismaImageMapper } from '../mappers/prisma-image-mapper'
+import { PrismaService } from '../prisma.service'
 
 @Injectable()
 export class PrismaImagesRepository implements ImagesRepository {
@@ -13,20 +15,20 @@ export class PrismaImagesRepository implements ImagesRepository {
       where: {
         id,
       },
-    });
+    })
 
     if (!image) {
-      return null;
+      return null
     }
 
-    return PrismaImageMapper.toDomain(image);
+    return PrismaImageMapper.toDomain(image)
   }
 
   async create(image: Image): Promise<void> {
-    const data = PrismaImageMapper.toPrisma(image);
+    const data = PrismaImageMapper.toPrisma(image)
 
     await this.prisma.image.create({
       data,
-    });
+    })
   }
 }

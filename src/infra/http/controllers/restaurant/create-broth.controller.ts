@@ -1,7 +1,3 @@
-import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
-import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase';
-import { BrothAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/broth-already-exists-error';
-import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 import {
   BadRequestException,
   Body,
@@ -11,7 +7,7 @@ import {
   NotFoundException,
   Post,
   UsePipes,
-} from '@nestjs/common';
+} from '@nestjs/common'
 import {
   ApiBody,
   ApiOperation,
@@ -19,8 +15,13 @@ import {
   ApiResponse,
   ApiSecurity,
   ApiTags,
-} from '@nestjs/swagger';
-import { z } from 'zod';
+} from '@nestjs/swagger'
+import { z } from 'zod'
+
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
+import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
+import { BrothAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/broth-already-exists-error'
+import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 const createBrothBodySchema = z.object({
   name: z.string(),
@@ -28,42 +29,42 @@ const createBrothBodySchema = z.object({
   price: z.number(),
   imageActiveId: z.string().uuid(),
   imageInactiveId: z.string().uuid(),
-});
+})
 
-type CreateBrothBodySchema = z.infer<typeof createBrothBodySchema>;
+type CreateBrothBodySchema = z.infer<typeof createBrothBodySchema>
 
 class CreateBroth {
   @ApiProperty({
     example: 'Shoyu',
     description: 'The name of the broth',
   })
-  name: string = '';
+  name: string = ''
 
   @ApiProperty({
     example: 'A rich and savory chicken broth.',
     description: 'The description of the broth',
   })
-  description: string = '';
+  description: string = ''
 
   @ApiProperty({
     example: 10,
     description: 'The price of the broth',
   })
-  price: number = 10;
+  price: number = 10
 
   @ApiProperty({
     example: '16b8aee3-90c8-4f42-83cd-7b01e6db30a0',
     description:
       'The ID for an image that will represents a Active icon for the front-end.',
   })
-  imageActiveId: string = '';
+  imageActiveId: string = ''
 
   @ApiProperty({
     example: '16b8aee3-90c8-4f42-83cd-7b01e6db30a0',
     description:
       'The ID for an image that will represents a Inactive icon for the front-end.',
   })
-  imageInactiveId: string = '';
+  imageInactiveId: string = ''
 }
 
 @ApiTags('broths')
@@ -95,7 +96,7 @@ export class CreateBrothController {
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createBrothBodySchema))
   async handle(@Body() body: CreateBrothBodySchema) {
-    const { name, description, price, imageActiveId, imageInactiveId } = body;
+    const { name, description, price, imageActiveId, imageInactiveId } = body
 
     const result = await this.createBroth.execute({
       name,
@@ -103,18 +104,18 @@ export class CreateBrothController {
       price,
       imageActiveId,
       imageInactiveId,
-    });
+    })
 
     if (result.isLeft()) {
-      const error = result.value;
+      const error = result.value
 
       switch (error.constructor) {
         case ResourceNotFoundError:
-          throw new NotFoundException(error.message);
+          throw new NotFoundException(error.message)
         case BrothAlreadyExistsError:
-          throw new ConflictException(error.message);
+          throw new ConflictException(error.message)
         default:
-          throw new BadRequestException('An unexpected error occurred.');
+          throw new BadRequestException('An unexpected error occurred.')
       }
     }
   }

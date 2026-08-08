@@ -3,39 +3,40 @@ import {
   ExecutionContext,
   Injectable,
   UnauthorizedException,
-} from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { IS_PUBLIC_KEY } from './public';
-import { EnvService } from '../env/env.service';
+} from '@nestjs/common'
+import { Reflector } from '@nestjs/core'
+
+import { EnvService } from '../env/env.service'
+import { IS_PUBLIC_KEY } from './public'
 
 @Injectable()
 export class ApiKeyGuard implements CanActivate {
-  private apiKey: string;
+  private apiKey: string
 
   constructor(
     private reflector: Reflector,
     env: EnvService,
   ) {
-    this.apiKey = env.get('API_KEY');
+    this.apiKey = env.get('API_KEY')
   }
 
   canActivate(context: ExecutionContext): boolean {
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
-    ]);
+    ])
 
     if (isPublic) {
-      return true;
+      return true
     }
 
-    const request = context.switchToHttp().getRequest();
-    const apiKey = request.headers['x-api-key']; // Assumindo que a chave de API está no header 'x-api-key'
+    const request = context.switchToHttp().getRequest()
+    const apiKey = request.headers['x-api-key'] // Assumindo que a chave de API está no header 'x-api-key'
 
     if (apiKey === this.apiKey) {
-      return true;
+      return true
     } else {
-      throw new UnauthorizedException('Invalid API Key');
+      throw new UnauthorizedException('Invalid API Key')
     }
   }
 }

@@ -1,4 +1,4 @@
-import { ProteinWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/protein-with-images-url';
+import { ProteinWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/protein-with-images-url'
 
 export class ProteinPresenter {
   static toHTTP(protein: ProteinWithImagesUrl) {
@@ -11,6 +11,6 @@ export class ProteinPresenter {
       imageInactive: protein.imageInactiveUrl,
       createdAt: protein.createdAt,
       updatedAt: protein.updatedAt,
-    };
+    }
   }
 }

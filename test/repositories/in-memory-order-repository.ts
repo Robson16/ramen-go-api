@@ -1,20 +1,20 @@
-import { OrdersRepository } from '@/domain/restaurant/application/repositories/order-repository';
-import { Order } from '@/domain/restaurant/enterprise/entities/order';
+import { OrdersRepository } from '@/domain/restaurant/application/repositories/order-repository'
+import { Order } from '@/domain/restaurant/enterprise/entities/order'
 
 export class InMemoryOrdersRepository implements OrdersRepository {
-  public items: Order[] = [];
+  public items: Order[] = []
 
   async findById(id: string) {
-    const order = this.items.find((item) => item.id.toString() === id);
+    const order = this.items.find((item) => item.id.toString() === id)
 
     if (!order) {
-      return null;
+      return null
     }
 
-    return order;
+    return order
   }
 
   async create(order: Order) {
-    this.items.push(order);
+    this.items.push(order)
   }
 }

@@ -1,9 +1,10 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { faker } from '@faker-js/faker'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import {
   Broth,
   BrothProps,
-} from '@/domain/restaurant/enterprise/entities/broth';
-import { faker } from '@faker-js/faker';
+} from '@/domain/restaurant/enterprise/entities/broth'
 
 export function makeBroth(
   override: Partial<BrothProps> = {},
@@ -19,7 +20,7 @@ export function makeBroth(
       ...override,
     },
     id,
-  );
+  )
 
-  return broth;
+  return broth
 }

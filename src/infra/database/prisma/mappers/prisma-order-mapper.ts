@@ -1,6 +1,7 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Order } from '@/domain/restaurant/enterprise/entities/order';
-import { Prisma, Order as PrismaOrder } from '@prisma/client';
+import { Order as PrismaOrder, Prisma } from '@prisma/client'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Order } from '@/domain/restaurant/enterprise/entities/order'
 
 export class PrismaOrderMapper {
   static toDomain(raw: PrismaOrder): Order {
@@ -11,7 +12,7 @@ export class PrismaOrderMapper {
         description: raw.description,
       },
       new UniqueEntityID(raw.id),
-    );
+    )
   }
 
   static toPrisma(order: Order): Prisma.OrderUncheckedCreateInput {
@@ -20,6 +21,6 @@ export class PrismaOrderMapper {
       brothId: order.brothId.toString(),
       proteinId: order.proteinId.toString(),
       description: order.description,
-    };
+    }
   }
 }

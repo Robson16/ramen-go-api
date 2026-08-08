@@ -1,10 +1,12 @@
-import { BrothsRepository } from '@/domain/restaurant/application/repositories/broth-repository';
-import { Broth } from '@/domain/restaurant/enterprise/entities/broth';
-import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/broth-with-images-url';
-import { PrismaBrothMapper } from '@/infra/database/prisma/mappers/prisma-broth-mapper';
-import { Injectable } from '@nestjs/common';
-import { PrismaBrothWithImagesUrlMapper } from '../mappers/prisma-broth-with-images-url-mapper';
-import { PrismaService } from '../prisma.service';
+import { Injectable } from '@nestjs/common'
+
+import { BrothsRepository } from '@/domain/restaurant/application/repositories/broth-repository'
+import { Broth } from '@/domain/restaurant/enterprise/entities/broth'
+import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/broth-with-images-url'
+import { PrismaBrothMapper } from '@/infra/database/prisma/mappers/prisma-broth-mapper'
+
+import { PrismaBrothWithImagesUrlMapper } from '../mappers/prisma-broth-with-images-url-mapper'
+import { PrismaService } from '../prisma.service'
 
 @Injectable()
 export class PrismaBrothsRepository implements BrothsRepository {
@@ -15,13 +17,13 @@ export class PrismaBrothsRepository implements BrothsRepository {
       where: {
         id,
       },
-    });
+    })
 
     if (!broth) {
-      return null;
+      return null
     }
 
-    return PrismaBrothMapper.toDomain(broth);
+    return PrismaBrothMapper.toDomain(broth)
   }
 
   async findByName(name: string): Promise<Broth | null> {
@@ -29,13 +31,13 @@ export class PrismaBrothsRepository implements BrothsRepository {
       where: {
         name,
       },
-    });
+    })
 
     if (!broth) {
-      return null;
+      return null
     }
 
-    return PrismaBrothMapper.toDomain(broth);
+    return PrismaBrothMapper.toDomain(broth)
   }
 
   async findMany(): Promise<Broth[]> {
@@ -43,9 +45,9 @@ export class PrismaBrothsRepository implements BrothsRepository {
       orderBy: {
         createdAt: 'desc',
       },
-    });
+    })
 
-    return broths.map(PrismaBrothMapper.toDomain);
+    return broths.map(PrismaBrothMapper.toDomain)
   }
 
   async findManyWithImagesUrl(): Promise<BrothWithImagesUrl[]> {
@@ -57,16 +59,16 @@ export class PrismaBrothsRepository implements BrothsRepository {
         imageActive: true,
         imageInactive: true,
       },
-    });
+    })
 
-    return broths.map(PrismaBrothWithImagesUrlMapper.toDomain);
+    return broths.map(PrismaBrothWithImagesUrlMapper.toDomain)
   }
 
   async create(broth: Broth): Promise<void> {
-    const data = PrismaBrothMapper.toPrisma(broth);
+    const data = PrismaBrothMapper.toPrisma(broth)
 
     await this.prisma.broth.create({
       data,
-    });
+    })
   }
 }

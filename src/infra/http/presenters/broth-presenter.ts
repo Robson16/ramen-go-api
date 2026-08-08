@@ -1,4 +1,4 @@
-import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/broth-with-images-url';
+import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/broth-with-images-url'
 
 export class BrothPresenter {
   static toHTTP(broth: BrothWithImagesUrl) {
@@ -11,6 +11,6 @@ export class BrothPresenter {
       imageInactive: broth.imageInactiveUrl,
       createdAt: broth.createdAt,
       updatedAt: broth.updatedAt,
-    };
+    }
   }
 }
