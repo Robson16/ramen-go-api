@@ -1,15 +1,19 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 async function main() {
-  console.log('Start seeding...');
+  console.log('Start seeding...')
 
-  // Clear existing data (optional, but good for fresh seeds)
-  await prisma.broth.deleteMany();
-  await prisma.protein.deleteMany();
-  await prisma.image.deleteMany();
-  console.log('Cleared existing data.');
+  // 1. Delete dependent records first (Orders)
+  await prisma.order.deleteMany()
+
+  // 2. Delete ingredients next (Broths and Proteins)
+  await prisma.broth.deleteMany()
+  await prisma.protein.deleteMany()
+
+  // 3. Delete images last (top of the relationship chain)
+  await prisma.image.deleteMany()
 
   // Seed Images
   const imagesData = [
@@ -61,7 +65,7 @@ async function main() {
       id: 'eefb10b8-6c5d-4712-88f3-cadf41e7cf17',
       title: 'chicken-active.svg',
     },
-  ];
+  ]
 
   const images = await Promise.all(
     imagesData.map((img) =>
@@ -73,8 +77,8 @@ async function main() {
         },
       }),
     ),
-  );
-  console.log(`Seeded ${images.length} images.`);
+  )
+  console.log(`Seeded ${images.length} images.`)
 
   // Seed Broths
   const broths = await prisma.broth.createMany({
@@ -104,8 +108,8 @@ async function main() {
         imageInactiveId: '51a0c2b2-ee95-4cf4-b1f6-faf72cb11a4c', // shoyu-inactive.svg
       },
     ],
-  });
-  console.log(`Seeded ${broths.count} broths.`);
+  })
+  console.log(`Seeded ${broths.count} broths.`)
 
   // Seed Proteins
   const proteins = await prisma.protein.createMany({
@@ -135,17 +139,17 @@ async function main() {
         imageInactiveId: 'b2d097f8-f130-4ac6-afb5-fed9f3450813', // yasai-inactive.svg
       },
     ],
-  });
-  console.log(`Seeded ${proteins.count} proteins.`);
+  })
+  console.log(`Seeded ${proteins.count} proteins.`)
 
-  console.log('Seeding finished.');
+  console.log('Seeding finished.')
 }
 
 main()
   .catch((e) => {
-    console.error(e);
-    process.exit(1);
+    console.error(e)
+    process.exit(1)
   })
   .finally(async () => {
-    await prisma.$disconnect();
-  });
+    await prisma.$disconnect()
+  })
