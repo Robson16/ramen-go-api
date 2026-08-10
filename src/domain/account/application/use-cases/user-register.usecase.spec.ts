@@ -1,17 +1,17 @@
 import { FakeHasher } from 'test/cryptography/fake-hasher'
-import { InMemoryUserRepository } from 'test/repositories/in-memory-user-repository'
+import { InMemoryUsersRepository } from 'test/repositories/in-memory-user-repository'
 
-import { UserAlreadyExistsError } from '@/core/errors/user-already-exists-error'
+import { UserAlreadyExistsError } from '@/domain/account/application/use-cases/errors/user-already-exists-error'
 
 import { RegisterUserUseCase } from './user-register.usecase'
 
-let inMemoryUsersRepository: InMemoryUserRepository
+let inMemoryUsersRepository: InMemoryUsersRepository
 let fakeHasher: FakeHasher
 let sut: RegisterUserUseCase // Subject Under Test
 
-describe('Register User use Case', () => {
+describe('Register User Use Case', () => {
   beforeEach(() => {
-    inMemoryUsersRepository = new InMemoryUserRepository()
+    inMemoryUsersRepository = new InMemoryUsersRepository()
     fakeHasher = new FakeHasher()
     sut = new RegisterUserUseCase(inMemoryUsersRepository, fakeHasher)
   })
