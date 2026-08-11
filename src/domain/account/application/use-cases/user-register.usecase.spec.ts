@@ -28,7 +28,7 @@ describe('Register User Use Case', () => {
       user: inMemoryUsersRepository.items[0],
     })
 
-    // Verifica se o hash foi aplicado corretamente
+    // Verifies that the hash was applied correctly
     expect(inMemoryUsersRepository.items[0].password).toEqual(
       'password123-hashed',
     )
