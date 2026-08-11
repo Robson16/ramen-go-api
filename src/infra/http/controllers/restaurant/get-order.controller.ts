@@ -16,7 +16,7 @@ import {
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { GetOrderByIdUseCase } from '@/domain/restaurant/application/use-cases/order-get-by-id.usecase'
 
-import { OrderPresenter } from '../../presenters/order-presenter'
+import { OrderPresenter } from '../../presenters/restaurant/order-presenter'
 
 @ApiTags('orders')
 @ApiSecurity('api-key')

@@ -4,7 +4,7 @@ import {
   Broth,
   BrothProps,
 } from '@/domain/restaurant/enterprise/entities/broth'
-import { PrismaBrothMapper } from '@/infra/database/prisma/mappers/prisma-broth-mapper'
+import { PrismaBrothMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-broth-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 import { makeBroth } from './make-broth'

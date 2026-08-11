@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { makeImage } from 'test/factories/make-image'
-import { makeProtein } from 'test/factories/make-protein'
-import { InMemoryImagesRepository } from 'test/repositories/in-memory-image-repository'
-import { InMemoryProteinsRepository } from 'test/repositories/in-memory-protein-repository'
+import { makeImage } from 'test/factories/restaurant/make-image'
+import { makeProtein } from 'test/factories/restaurant/make-protein'
+import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
+import { InMemoryProteinsRepository } from 'test/repositories/restaurant/in-memory-protein-repository'
 
 import { ProteinAlreadyExistsError } from './errors/protein-already-exists-error'
 import { CreateProteinUseCase } from './protein-create.usecase'

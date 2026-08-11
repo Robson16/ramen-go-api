@@ -1,4 +1,4 @@
-import { InMemoryImagesRepository } from 'test/repositories/in-memory-image-repository'
+import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
 import { FakeUploader } from 'test/storage/fake-uploader'
 
 import { InvalidImageTypeError } from './errors/invalid-image-type-error'

@@ -1,5 +1,5 @@
 import { FakeHasher } from 'test/cryptography/fake-hasher'
-import { InMemoryUsersRepository } from 'test/repositories/in-memory-user-repository'
+import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-user-repository'
 
 import { UserAlreadyExistsError } from '@/domain/account/application/use-cases/errors/user-already-exists-error'
 

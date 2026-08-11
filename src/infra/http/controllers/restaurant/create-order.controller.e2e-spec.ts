@@ -1,9 +1,9 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
-import { BrothFactory } from 'test/factories/broth-factory'
-import { ImageFactory } from 'test/factories/image-factory'
-import { ProteinFactory } from 'test/factories/protein-factory'
+import { BrothFactory } from 'test/factories/restaurant/broth-factory'
+import { ImageFactory } from 'test/factories/restaurant/image-factory'
+import { ProteinFactory } from 'test/factories/restaurant/protein-factory'
 
 import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'

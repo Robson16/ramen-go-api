@@ -1,7 +1,7 @@
-import { makeBroth } from 'test/factories/make-broth'
-import { makeImage } from 'test/factories/make-image'
-import { InMemoryBrothsRepository } from 'test/repositories/in-memory-broth-repository'
-import { InMemoryImagesRepository } from 'test/repositories/in-memory-image-repository'
+import { makeBroth } from 'test/factories/restaurant/make-broth'
+import { makeImage } from 'test/factories/restaurant/make-image'
+import { InMemoryBrothsRepository } from 'test/repositories/restaurant/in-memory-broth-repository'
+import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
 
 import { ListBrothUseCase } from './broth-list.usecase'
 

@@ -21,7 +21,7 @@ import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { CreateOrderUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-import { OrderPresenter } from '../../presenters/order-presenter'
+import { OrderPresenter } from '../../presenters/restaurant/order-presenter'
 
 const createOrderBodySchema = z.object({
   brothId: z.string().uuid(),

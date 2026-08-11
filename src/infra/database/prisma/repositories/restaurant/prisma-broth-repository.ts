@@ -3,10 +3,10 @@ import { Injectable } from '@nestjs/common'
 import { BrothsRepository } from '@/domain/restaurant/application/repositories/broth-repository'
 import { Broth } from '@/domain/restaurant/enterprise/entities/broth'
 import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/broth-with-images-url'
-import { PrismaBrothMapper } from '@/infra/database/prisma/mappers/prisma-broth-mapper'
+import { PrismaBrothMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-broth-mapper'
 
-import { PrismaBrothWithImagesUrlMapper } from '../mappers/prisma-broth-with-images-url-mapper'
-import { PrismaService } from '../prisma.service'
+import { PrismaBrothWithImagesUrlMapper } from '../../mappers/restaurant/prisma-broth-with-images-url-mapper'
+import { PrismaService } from '../../prisma.service'
 
 @Injectable()
 export class PrismaBrothsRepository implements BrothsRepository {

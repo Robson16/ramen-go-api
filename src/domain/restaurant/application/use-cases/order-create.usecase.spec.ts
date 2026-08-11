@@ -1,9 +1,9 @@
-import { makeBroth } from 'test/factories/make-broth'
-import { makeProtein } from 'test/factories/make-protein'
-import { InMemoryBrothsRepository } from 'test/repositories/in-memory-broth-repository'
-import { InMemoryImagesRepository } from 'test/repositories/in-memory-image-repository'
-import { InMemoryOrdersRepository } from 'test/repositories/in-memory-order-repository'
-import { InMemoryProteinsRepository } from 'test/repositories/in-memory-protein-repository'
+import { makeBroth } from 'test/factories/restaurant/make-broth'
+import { makeProtein } from 'test/factories/restaurant/make-protein'
+import { InMemoryBrothsRepository } from 'test/repositories/restaurant/in-memory-broth-repository'
+import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
+import { InMemoryOrdersRepository } from 'test/repositories/restaurant/in-memory-order-repository'
+import { InMemoryProteinsRepository } from 'test/repositories/restaurant/in-memory-protein-repository'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 

@@ -1,4 +1,4 @@
-import { InMemoryOrdersRepository } from 'test/repositories/in-memory-order-repository'
+import { InMemoryOrdersRepository } from 'test/repositories/restaurant/in-memory-order-repository'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'

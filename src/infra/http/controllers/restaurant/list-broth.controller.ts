@@ -7,7 +7,7 @@ import {
 } from '@nestjs/swagger'
 
 import { ListBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-list.usecase'
-import { BrothPresenter } from '@/infra/http/presenters/broth-presenter'
+import { BrothPresenter } from '@/infra/http/presenters/restaurant/broth-presenter'
 
 @ApiTags('broths')
 @ApiSecurity('api-key')

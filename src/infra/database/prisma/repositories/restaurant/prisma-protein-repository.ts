@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common'
 import { ProteinsRepository } from '@/domain/restaurant/application/repositories/protein-repository'
 import { Protein } from '@/domain/restaurant/enterprise/entities/protein'
 import { ProteinWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/protein-with-images-url'
-import { PrismaProteinMapper } from '@/infra/database/prisma/mappers/prisma-protein-mapper'
-import { PrismaProteinWithImagesUrlMapper } from '@/infra/database/prisma/mappers/prisma-protein-with-images-url-mapper'
+import { PrismaProteinMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-protein-mapper'
+import { PrismaProteinWithImagesUrlMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-protein-with-images-url-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 @Injectable()

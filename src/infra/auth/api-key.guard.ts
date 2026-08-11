@@ -31,7 +31,7 @@ export class ApiKeyGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest()
-    const apiKey = request.headers['x-api-key'] // Assumindo que a chave de API está no header 'x-api-key'
+    const apiKey = request.headers['x-api-key'] // Assuming the API key is in the 'x-api-key' header
 
     if (apiKey === this.apiKey) {
       return true

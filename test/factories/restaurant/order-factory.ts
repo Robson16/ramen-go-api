@@ -4,7 +4,7 @@ import {
   Order,
   OrderProps,
 } from '@/domain/restaurant/enterprise/entities/order'
-import { PrismaOrderMapper } from '@/infra/database/prisma/mappers/prisma-order-mapper'
+import { PrismaOrderMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-order-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 import { makeOrder } from './make-order'

@@ -4,7 +4,7 @@ import {
   Protein,
   ProteinProps,
 } from '@/domain/restaurant/enterprise/entities/protein'
-import { PrismaProteinMapper } from '@/infra/database/prisma/mappers/prisma-protein-mapper'
+import { PrismaProteinMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-protein-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 import { makeProtein } from './make-protein'

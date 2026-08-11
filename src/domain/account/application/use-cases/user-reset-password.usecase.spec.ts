@@ -1,7 +1,7 @@
 import { FakeHasher } from 'test/cryptography/fake-hasher'
-import { makeUser } from 'test/factories/make-user'
-import { InMemoryUsersRepository } from 'test/repositories/in-memory-user-repository'
-import { InMemoryUserTokensRepository } from 'test/repositories/in-memory-user-token-repository'
+import { makeUser } from 'test/factories/account/make-user'
+import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-user-repository'
+import { InMemoryUserTokensRepository } from 'test/repositories/account/in-memory-user-token-repository'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { UserToken } from '@/domain/account/enterprise/entities/user-token'

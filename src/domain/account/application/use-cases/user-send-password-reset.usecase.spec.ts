@@ -1,7 +1,7 @@
-import { makeUser } from 'test/factories/make-user'
+import { makeUser } from 'test/factories/account/make-user'
 import { FakeMailProvider } from 'test/mailing/fake-mail-provider'
-import { InMemoryUsersRepository } from 'test/repositories/in-memory-user-repository'
-import { InMemoryUserTokensRepository } from 'test/repositories/in-memory-user-token-repository'
+import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-user-repository'
+import { InMemoryUserTokensRepository } from 'test/repositories/account/in-memory-user-token-repository'
 
 import { SendUserPasswordResetUseCase } from './user-send-password-reset.usecase'
 

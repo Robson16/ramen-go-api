@@ -6,10 +6,10 @@ import { OrdersRepository } from '@/domain/restaurant/application/repositories/o
 import { ProteinsRepository } from '@/domain/restaurant/application/repositories/protein-repository'
 
 import { PrismaService } from './prisma/prisma.service'
-import { PrismaBrothsRepository } from './prisma/repositories/prisma-broth-repository'
-import { PrismaImagesRepository } from './prisma/repositories/prisma-image-repository'
-import { PrismaOrdersRepository } from './prisma/repositories/prisma-order-repository'
-import { PrismaProteinsRepository } from './prisma/repositories/prisma-protein-repository'
+import { PrismaBrothsRepository } from './prisma/repositories/restaurant/prisma-broth-repository'
+import { PrismaImagesRepository } from './prisma/repositories/restaurant/prisma-image-repository'
+import { PrismaOrdersRepository } from './prisma/repositories/restaurant/prisma-order-repository'
+import { PrismaProteinsRepository } from './prisma/repositories/restaurant/prisma-protein-repository'
 
 @Module({
   imports: [],

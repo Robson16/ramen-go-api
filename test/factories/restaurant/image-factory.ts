@@ -4,7 +4,7 @@ import {
   Image,
   ImageProps,
 } from '@/domain/restaurant/enterprise/entities/image'
-import { PrismaImageMapper } from '@/infra/database/prisma/mappers/prisma-image-mapper'
+import { PrismaImageMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-image-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 import { makeImage } from './make-image'

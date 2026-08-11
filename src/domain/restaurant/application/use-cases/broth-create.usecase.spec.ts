@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { makeBroth } from 'test/factories/make-broth'
-import { makeImage } from 'test/factories/make-image'
-import { InMemoryBrothsRepository } from 'test/repositories/in-memory-broth-repository'
-import { InMemoryImagesRepository } from 'test/repositories/in-memory-image-repository'
+import { makeBroth } from 'test/factories/restaurant/make-broth'
+import { makeImage } from 'test/factories/restaurant/make-image'
+import { InMemoryBrothsRepository } from 'test/repositories/restaurant/in-memory-broth-repository'
+import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
 
 import { CreateBrothUseCase } from './broth-create.usecase'
 import { BrothAlreadyExistsError } from './errors/broth-already-exists-error'
