@@ -30,7 +30,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document)
 
   const envService = app.get(EnvService)
-  const port = envService.get('PORT')
+  const port = envService.get('APP_PORT')
 
   await app.listen(port)
 }
