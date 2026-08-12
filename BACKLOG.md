@@ -30,20 +30,20 @@
 ### Tarefas (Tasks)
 
 **Banco de Dados & Entidade**
-- [ ] Adicionar o model `User` no `schema.prisma` (id, name, email, password, createdAt, updatedAt).
-- [ ] Rodar a migration (`npx prisma migrate dev`).
-- [ ] Criar a entidade `user.ts` na pasta `domain/restaurant/enterprise/entities`.
+- [x] Adicionar o model `User` no `schema.prisma` (id, name, email, password, createdAt, updatedAt).
+- [x] Rodar a migration (`npx prisma migrate dev`).
+- [x] Criar a entidade `user.ts` na pasta `domain/restaurant/enterprise/entities`.
 
 **Application (Contratos e Use Cases)**
-- [ ] Criar a interface `user-repository.ts` (métodos: create, findById, findByEmail, save, delete).
-- [ ] Criar o caso de uso `user-create.usecase.ts` e seus testes unitários.
+- [x] Criar a interface `user-repository.ts` (métodos: create, findById, findByEmail, save, delete).
+- [x] Criar o caso de uso `user-create.usecase.ts` e seus testes unitários.
 - [ ] Criar o caso de uso `user-list.usecase.ts` e seus testes unitários.
-- [ ] Criar o caso de uso `user-update.usecase.ts` e seus testes unitários.
-- [ ] Criar o caso de uso `user-delete.usecase.ts` e seus testes unitários.
+- [x] Criar o caso de uso `user-update.usecase.ts` e seus testes unitários.
+- [x] Criar o caso de uso `user-delete.usecase.ts` e seus testes unitários.
 
 **Infraestrutura (Prisma)**
-- [ ] Criar o mapper `prisma-user-mapper.ts`.
-- [ ] Criar o repositório `prisma-user-repository.ts` implementando a comunicação com o banco.
+- [x] Criar o mapper `prisma-user-mapper.ts`.
+- [x] Criar o repositório `prisma-user-repository.ts` implementando a comunicação com o banco.
 
 **Controllers & Testes E2E**
 - [ ] Criar os controladores para as rotas (`POST`, `GET`, `PUT`, `DELETE` em `/users`).
