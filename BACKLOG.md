@@ -56,3 +56,16 @@
 - [ ] Atualizar NestJS para a v11 e resolver breaking changes
 - [ ] Atualizar Prisma para a v7
 - [ ] Atualizar Vitest para a v4
+
+---
+
+## 📧 Épico 4: Infraestrutura de E-mails (Produção)
+
+**User Story:**
+> *"As a system, I want to send real, formatted emails using an SMTP provider and template engine so that users receive professional recovery links in their real inboxes."*
+
+### Tarefas (Tasks)
+- [ ] Instalar as bibliotecas `nodemailer` e `handlebars`.
+- [ ] Criar a implementação real `NodemailerMailProvider`.
+- [ ] Criar os templates HTML na pasta de views (ex: `password-reset.hbs`).
+- [ ] Substituir o `ConsoleMailProvider` pelo `NodemailerMailProvider` no `MailModule` (quando for para produção).
