@@ -1,6 +1,8 @@
 import { INestApplication } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
+import { UserFactory } from 'test/factories/account/user-factory'
 import { BrothFactory } from 'test/factories/restaurant/broth-factory'
 import { ImageFactory } from 'test/factories/restaurant/image-factory'
 import { OrderFactory } from 'test/factories/restaurant/order-factory'
@@ -8,7 +10,6 @@ import { ProteinFactory } from 'test/factories/restaurant/protein-factory'
 
 import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
-import { EnvService } from '@/infra/env/env.service'
 
 describe('Get order by id (e2e)', () => {
   let app: INestApplication
@@ -16,12 +17,19 @@ describe('Get order by id (e2e)', () => {
   let brothFactory: BrothFactory
   let proteinFactory: ProteinFactory
   let orderFactory: OrderFactory
-  let env: EnvService
+  let userFactory: UserFactory
+  let jwt: JwtService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [ImageFactory, BrothFactory, ProteinFactory, OrderFactory],
+      providers: [
+        ImageFactory,
+        BrothFactory,
+        ProteinFactory,
+        OrderFactory,
+        UserFactory,
+      ],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -30,7 +38,8 @@ describe('Get order by id (e2e)', () => {
     brothFactory = moduleRef.get(BrothFactory)
     proteinFactory = moduleRef.get(ProteinFactory)
     orderFactory = moduleRef.get(OrderFactory)
-    env = moduleRef.get(EnvService)
+    userFactory = moduleRef.get(UserFactory)
+    jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
@@ -59,9 +68,12 @@ describe('Get order by id (e2e)', () => {
 
     const orderId = order.id.toString()
 
+    const user = await userFactory.makePrismaUser()
+    const accessToken = jwt.sign({ sub: user.id.toString() })
+
     const response = await request(app.getHttpServer())
       .get(`/orders/${orderId}`)
-      .set('x-api-key', env.get('API_KEY'))
+      .set('Authorization', `Bearer ${accessToken}`)
       .send()
 
     expect(response.statusCode).toBe(200)

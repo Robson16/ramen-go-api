@@ -8,11 +8,11 @@ import {
   UsePipes,
 } from '@nestjs/common'
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiOperation,
   ApiProperty,
   ApiResponse,
-  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger'
 import { z } from 'zod'
@@ -45,7 +45,7 @@ class CreateOrder {
 }
 
 @ApiTags('orders')
-@ApiSecurity('api-key')
+@ApiBearerAuth()
 @Controller('/orders')
 export class CreateOrderController {
   constructor(private createOrder: CreateOrderUseCase) {}

@@ -1,8 +1,8 @@
 import { BadRequestException, Controller, Get } from '@nestjs/common'
 import {
+  ApiBearerAuth,
   ApiOperation,
   ApiResponse,
-  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger'
 
@@ -10,7 +10,7 @@ import { ListBrothUseCase } from '@/domain/restaurant/application/use-cases/brot
 import { BrothPresenter } from '@/infra/http/presenters/restaurant/broth-presenter'
 
 @ApiTags('broths')
-@ApiSecurity('api-key')
+@ApiBearerAuth()
 @Controller('/broths')
 export class ListBrothController {
   constructor(private listBroth: ListBrothUseCase) {}

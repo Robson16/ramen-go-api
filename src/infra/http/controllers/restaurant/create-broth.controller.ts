@@ -9,11 +9,11 @@ import {
   UsePipes,
 } from '@nestjs/common'
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiOperation,
   ApiProperty,
   ApiResponse,
-  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger'
 import { z } from 'zod'
@@ -68,7 +68,7 @@ class CreateBroth {
 }
 
 @ApiTags('broths')
-@ApiSecurity('api-key')
+@ApiBearerAuth()
 @Controller('/broths')
 export class CreateBrothController {
   constructor(private createBroth: CreateBrothUseCase) {}

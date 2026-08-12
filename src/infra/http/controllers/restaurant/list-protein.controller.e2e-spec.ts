@@ -1,30 +1,33 @@
 import { INestApplication } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
+import { UserFactory } from 'test/factories/account/user-factory'
 import { ImageFactory } from 'test/factories/restaurant/image-factory'
 import { ProteinFactory } from 'test/factories/restaurant/protein-factory'
 
 import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
-import { EnvService } from '@/infra/env/env.service'
 
 describe('List protein (e2e)', () => {
   let app: INestApplication
   let proteinFactory: ProteinFactory
   let imageFactory: ImageFactory
-  let env: EnvService
+  let userFactory: UserFactory
+  let jwt: JwtService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [ProteinFactory, ImageFactory],
+      providers: [ProteinFactory, ImageFactory, UserFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
 
     proteinFactory = moduleRef.get(ProteinFactory)
     imageFactory = moduleRef.get(ImageFactory)
-    env = moduleRef.get(EnvService)
+    userFactory = moduleRef.get(UserFactory)
+    jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
@@ -49,9 +52,12 @@ describe('List protein (e2e)', () => {
       }),
     ])
 
+    const user = await userFactory.makePrismaUser()
+    const accessToken = jwt.sign({ sub: user.id.toString() })
+
     const response = await request(app.getHttpServer())
       .get('/proteins')
-      .set('x-api-key', env.get('API_KEY'))
+      .set('Authorization', `Bearer ${accessToken}`)
       .send()
 
     expect(response.statusCode).toBe(200)

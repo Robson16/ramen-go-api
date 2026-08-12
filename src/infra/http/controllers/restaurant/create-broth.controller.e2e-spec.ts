@@ -1,41 +1,47 @@
 import { INestApplication } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
+import { UserFactory } from 'test/factories/account/user-factory'
 import { ImageFactory } from 'test/factories/restaurant/image-factory'
 
 import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
-import { EnvService } from '@/infra/env/env.service'
 
 describe('Create broth (e2e)', () => {
   let app: INestApplication
   let imageFactory: ImageFactory
   let prisma: PrismaService
-  let env: EnvService
+  let userFactory: UserFactory
+  let jwt: JwtService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [ImageFactory],
+      providers: [UserFactory, ImageFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
 
     imageFactory = moduleRef.get(ImageFactory)
     prisma = moduleRef.get(PrismaService)
-    env = moduleRef.get(EnvService)
+    userFactory = moduleRef.get(UserFactory)
+    jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
 
   test('[POST] /broths', async () => {
+    const user = await userFactory.makePrismaUser()
+    const accessToken = jwt.sign({ sub: user.id.toString() })
+
     const imageActive = await imageFactory.makePrismaImage()
     const imageInactive = await imageFactory.makePrismaImage()
 
     const response = await request(app.getHttpServer())
       .post('/broths')
-      .set('x-api-key', env.get('API_KEY'))
+      .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Salt',
         description: 'Simple like the seawater, nothing more.',

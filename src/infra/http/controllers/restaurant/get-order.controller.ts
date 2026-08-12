@@ -6,10 +6,10 @@ import {
   Param,
 } from '@nestjs/common'
 import {
+  ApiBearerAuth,
   ApiOperation,
   ApiParam,
   ApiResponse,
-  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger'
 
@@ -19,7 +19,7 @@ import { GetOrderByIdUseCase } from '@/domain/restaurant/application/use-cases/o
 import { OrderPresenter } from '../../presenters/restaurant/order-presenter'
 
 @ApiTags('orders')
-@ApiSecurity('api-key')
+@ApiBearerAuth()
 @Controller('/orders')
 export class GetOrderController {
   constructor(private getOrderById: GetOrderByIdUseCase) {}

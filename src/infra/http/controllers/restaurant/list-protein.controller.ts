@@ -1,8 +1,8 @@
 import { BadRequestException, Controller, Get } from '@nestjs/common'
 import {
+  ApiBearerAuth,
   ApiOperation,
   ApiResponse,
-  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger'
 
@@ -10,7 +10,7 @@ import { ListProteinUseCase } from '@/domain/restaurant/application/use-cases/pr
 import { ProteinPresenter } from '@/infra/http/presenters/restaurant/protein-presenter'
 
 @ApiTags('proteins')
-@ApiSecurity('api-key')
+@ApiBearerAuth()
 @Controller('/proteins')
 export class ListProteinController {
   constructor(private listProtein: ListProteinUseCase) {}

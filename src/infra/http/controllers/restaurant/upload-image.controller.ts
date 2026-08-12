@@ -9,11 +9,11 @@ import {
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiConsumes,
   ApiOperation,
   ApiResponse,
-  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger'
 
@@ -25,7 +25,7 @@ class UploadImage {
 }
 
 @ApiTags('images')
-@ApiSecurity('api-key')
+@ApiBearerAuth()
 @Controller('/images')
 export class UploadImageController {
   constructor(private uploadAndCreateImage: UploadAndCreateImageUseCase) {}
