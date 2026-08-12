@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
+import * as packageJson from '../../package.json'
 import { AppModule } from './app.module'
 import { EnvService } from './env/env.service'
 
@@ -16,15 +17,8 @@ async function bootstrap() {
     .setDescription(
       'This API allows users to list available broths, available proteins and place an order.',
     )
-    .setVersion('1.0')
-    .addApiKey(
-      {
-        type: 'apiKey',
-        name: 'x-api-key',
-        in: 'header',
-      },
-      'api-key',
-    )
+    .setVersion(packageJson.version)
+    .addBearerAuth()
     .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
