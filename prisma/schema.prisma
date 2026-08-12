@@ -15,7 +15,20 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  tokens UserToken[]
+
   @@map("users")
+}
+
+model UserToken {
+  id        String   @id @default(uuid())
+  token     String   @unique @default(uuid())
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_tokens")
 }
 
 model Broth {

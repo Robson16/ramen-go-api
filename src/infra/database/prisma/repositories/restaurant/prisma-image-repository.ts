@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common'
 
 import { ImagesRepository } from '@/domain/restaurant/application/repositories/image-repository'
 import { Image } from '@/domain/restaurant/enterprise/entities/image'
-
-import { PrismaImageMapper } from '../../mappers/restaurant/prisma-image-mapper'
-import { PrismaService } from '../../prisma.service'
+import { PrismaImageMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-image-mapper'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 @Injectable()
 export class PrismaImagesRepository implements ImagesRepository {

@@ -4,9 +4,8 @@ import { BrothsRepository } from '@/domain/restaurant/application/repositories/b
 import { Broth } from '@/domain/restaurant/enterprise/entities/broth'
 import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/broth-with-images-url'
 import { PrismaBrothMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-broth-mapper'
-
-import { PrismaBrothWithImagesUrlMapper } from '../../mappers/restaurant/prisma-broth-with-images-url-mapper'
-import { PrismaService } from '../../prisma.service'
+import { PrismaBrothWithImagesUrlMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-broth-with-images-url-mapper'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 @Injectable()
 export class PrismaBrothsRepository implements BrothsRepository {
