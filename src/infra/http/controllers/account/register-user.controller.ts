@@ -52,27 +52,24 @@ class CreateAccountDto {
 @ApiTags('accounts')
 @Controller('/accounts')
 @Public()
-export class CreateAccountController {
-  constructor(private registerUser: RegisterUserUseCase) {}
+export class RegisterUserController {
+  constructor(private registerUserUseCase: RegisterUserUseCase) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new user account.' })
   @ApiBody({ type: CreateAccountDto, description: 'Account creation payload' })
-  @ApiResponse({ status: 201, description: 'Account created successfully.' })
-  @ApiResponse({
-    status: 400,
-    description: 'Validation failed. Data is invalid.',
-  })
+  @ApiResponse({ status: 204, description: 'Account created successfully.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({
     status: 409,
-    description: 'ConflictException. A user with this email already exists.',
+    description: 'Conflict. A user with this email already exists.',
   })
-  @HttpCode(201)
+  @HttpCode(204)
   @UsePipes(new ZodValidationPipe(createAccountBodySchema))
   async handle(@Body() body: CreateAccountBodySchema) {
     const { name, email, password } = body
 
-    const result = await this.registerUser.execute({
+    const result = await this.registerUserUseCase.execute({
       name,
       email,
       password,

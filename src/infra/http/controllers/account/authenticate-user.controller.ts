@@ -36,23 +36,37 @@ class AuthenticateDto {
   password: string = ''
 }
 
+class AuthenticateResponseDto {
+  @ApiProperty({
+    example:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+    description: 'The JWT access token.',
+  })
+  access_token: string = ''
+}
+
 @ApiTags('accounts')
 @Controller('/sessions')
 @Public()
-export class AuthenticateController {
-  constructor(private authenticateUser: AuthenticateUserUseCase) {}
+export class AuthenticateUserController {
+  constructor(private authenticateUserUseCase: AuthenticateUserUseCase) {}
 
   @Post()
   @HttpCode(201)
   @ApiOperation({ summary: 'Authenticate a user and return a JWT.' })
   @ApiBody({ type: AuthenticateDto })
-  @ApiResponse({ status: 201, description: 'User authenticated successfully.' })
+  @ApiResponse({
+    status: 201,
+    description: 'User authenticated successfully.',
+    type: AuthenticateResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized. Wrong credentials.' })
   @UsePipes(new ZodValidationPipe(authenticateBodySchema))
   async handle(@Body() body: AuthenticateBodySchema) {
     const { email, password } = body
 
-    const result = await this.authenticateUser.execute({
+    const result = await this.authenticateUserUseCase.execute({
       email,
       password,
     })

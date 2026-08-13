@@ -8,14 +8,14 @@ import { User } from '@/domain/account/enterprise/entities/user'
 
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 
-interface EditUserUseCaseRequest {
+interface EditUserProfileUseCaseRequest {
   userId: string
   name?: string
   email?: string
   password?: string
 }
 
-type EditUserUseCaseResponse = Either<
+type EditUserProfileUseCaseResponse = Either<
   ResourceNotFoundError | UserAlreadyExistsError,
   {
     user: User
@@ -23,7 +23,7 @@ type EditUserUseCaseResponse = Either<
 >
 
 @Injectable()
-export class EditUserUseCase {
+export class EditUserProfileUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private hashGenerator: HashGenerator,
@@ -34,7 +34,7 @@ export class EditUserUseCase {
     name,
     email,
     password,
-  }: EditUserUseCaseRequest): Promise<EditUserUseCaseResponse> {
+  }: EditUserProfileUseCaseRequest): Promise<EditUserProfileUseCaseResponse> {
     const user = await this.usersRepository.findById(userId)
 
     if (!user) {

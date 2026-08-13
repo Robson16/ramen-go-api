@@ -28,7 +28,7 @@ describe('Create Account (E2E)', () => {
       password: '12345678',
     })
 
-    expect(response.statusCode).toBe(201)
+    expect(response.statusCode).toBe(204)
 
     const userOnDb = await prisma.user.findUnique({
       where: {

@@ -5,17 +5,17 @@ import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-use
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
-import { EditUserUseCase } from './user-edit.usecase'
+import { EditUserProfileUseCase } from './user-edit-profile.usecase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let fakeHasher: FakeHasher
-let sut: EditUserUseCase // Subject Under Test
+let sut: EditUserProfileUseCase // Subject Under Test
 
 describe('Edit User Use Case', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository()
     fakeHasher = new FakeHasher()
-    sut = new EditUserUseCase(inMemoryUsersRepository, fakeHasher)
+    sut = new EditUserProfileUseCase(inMemoryUsersRepository, fakeHasher)
   })
 
   it('should be able to update a user email', async () => {

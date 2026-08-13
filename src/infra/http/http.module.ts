@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 
 import { AuthenticateUserUseCase } from '@/domain/account/application/use-cases/user-authenticate.usecase'
+import { EditUserProfileUseCase } from '@/domain/account/application/use-cases/user-edit-profile.usecase'
 import { GetUserProfileUseCase } from '@/domain/account/application/use-cases/user-get-profile.usecase'
 import { RegisterUserUseCase } from '@/domain/account/application/use-cases/user-register.usecase'
 import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
@@ -14,9 +15,10 @@ import { CryptographyModule } from '@/infra/cryptography/cryptography.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 import { StorageModule } from '@/infra/storage/storage.module'
 
-import { AuthenticateController } from './controllers/account/authenticate.controller'
-import { CreateAccountController } from './controllers/account/create-account.controller'
+import { AuthenticateUserController } from './controllers/account/authenticate-user.controller'
+import { EditUserProfileController } from './controllers/account/edit-user-profile.controller'
 import { GetUserProfileController } from './controllers/account/get-user-profile.controller'
+import { RegisterUserController } from './controllers/account/register-user.controller'
 import { CreateBrothController } from './controllers/restaurant/create-broth.controller'
 import { CreateOrderController } from './controllers/restaurant/create-order.controller'
 import { CreateProteinController } from './controllers/restaurant/create-protein.controller'
@@ -28,9 +30,10 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
 @Module({
   imports: [DatabaseModule, StorageModule, CryptographyModule],
   controllers: [
-    CreateAccountController,
-    AuthenticateController,
+    RegisterUserController,
+    AuthenticateUserController,
     GetUserProfileController,
+    EditUserProfileController,
     CreateBrothController,
     ListBrothController,
     CreateProteinController,
@@ -43,6 +46,7 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     RegisterUserUseCase,
     AuthenticateUserUseCase,
     GetUserProfileUseCase,
+    EditUserProfileUseCase,
     CreateBrothUseCase,
     ListBrothUseCase,
     CreateProteinUseCase,

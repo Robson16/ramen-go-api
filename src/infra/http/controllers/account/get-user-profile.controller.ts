@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Controller,
   Get,
+  HttpCode,
   NotFoundException,
 } from '@nestjs/common'
 import {
@@ -35,26 +36,32 @@ class UserProfileDto {
   updatedAt: string = ''
 }
 
+class GetUserProfileResponseDto {
+  @ApiProperty({ type: UserProfileDto })
+  user: UserProfileDto = new UserProfileDto()
+}
+
 @ApiTags('accounts')
 @Controller('/profile')
 @ApiBearerAuth()
 export class GetUserProfileController {
-  constructor(private getUserProfile: GetUserProfileUseCase) {}
+  constructor(private getUserProfileUseCase: GetUserProfileUseCase) {}
 
   @Get()
+  @HttpCode(200)
   @ApiOperation({
     summary: 'Get the profile of the currently authenticated user.',
   })
   @ApiResponse({
     status: 200,
     description: 'User profile retrieved.',
-    type: UserProfileDto,
+    type: GetUserProfileResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Bad request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 404, description: 'User not found.' })
   async handle(@CurrentUser() user: UserPayload) {
-    const result = await this.getUserProfile.execute({
+    const result = await this.getUserProfileUseCase.execute({
       userId: user.sub,
     })
 
