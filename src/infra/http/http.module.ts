@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 
 import { AuthenticateUserUseCase } from '@/domain/account/application/use-cases/user-authenticate.usecase'
+import { DeleteUserUseCase } from '@/domain/account/application/use-cases/user-delete.usecase'
 import { EditUserProfileUseCase } from '@/domain/account/application/use-cases/user-edit-profile.usecase'
 import { GetUserProfileUseCase } from '@/domain/account/application/use-cases/user-get-profile.usecase'
 import { RegisterUserUseCase } from '@/domain/account/application/use-cases/user-register.usecase'
@@ -16,6 +17,7 @@ import { DatabaseModule } from '@/infra/database/database.module'
 import { StorageModule } from '@/infra/storage/storage.module'
 
 import { AuthenticateUserController } from './controllers/account/authenticate-user.controller'
+import { DeleteUserProfileController } from './controllers/account/delete-user-profile.controller'
 import { EditUserProfileController } from './controllers/account/edit-user-profile.controller'
 import { GetUserProfileController } from './controllers/account/get-user-profile.controller'
 import { RegisterUserController } from './controllers/account/register-user.controller'
@@ -34,6 +36,7 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     AuthenticateUserController,
     GetUserProfileController,
     EditUserProfileController,
+    DeleteUserProfileController,
     CreateBrothController,
     ListBrothController,
     CreateProteinController,
@@ -47,6 +50,7 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     AuthenticateUserUseCase,
     GetUserProfileUseCase,
     EditUserProfileUseCase,
+    DeleteUserUseCase,
     CreateBrothUseCase,
     ListBrothUseCase,
     CreateProteinUseCase,
