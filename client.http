@@ -1,14 +1,86 @@
 @baseUrl = http://localhost:3333
-@apiKey = K3q1IssTe1qIEgfTqFvVmqB6Knzeqll9EB76bhyyM6jf3C96siq9Tr7Cf16EPZ08
 
 ### ========================================
-### 📸 IMAGENS
+### 👤 CONTAS E AUTENTICAÇÃO (ACCOUNTS)
+### ========================================
+
+# @name register_user
+POST {{baseUrl}}/accounts
+Content-Type: application/json
+
+{
+  "name": "Robson",
+  "email": "robson@example.com",
+  "password": "password123"
+}
+
+###
+
+# @name login
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+  "email": "robson@example.com",
+  "password": "password123"
+}
+
+###
+# 🔥 Esta variável captura magicamente o token JWT da requisição 'login' acima!
+@authToken = {{login.response.body.access_token}}
+###
+
+# @name get_profile
+GET {{baseUrl}}/profile
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name edit_profile
+PUT {{baseUrl}}/profile
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Robson Henrique Rodrigues"
+}
+
+###
+
+# @name forgot_password
+POST {{baseUrl}}/password/forgot
+Content-Type: application/json
+
+{
+  "email": "robson@example.com"
+}
+
+###
+
+# @name reset_password
+PATCH {{baseUrl}}/password/reset
+Content-Type: application/json
+
+{
+  "token": "COLE_O_TOKEN_AQUI_DO_SEU_TERMINAL",
+  "password": "new_secure_password_123"
+}
+
+###
+
+# @name delete_profile
+DELETE {{baseUrl}}/profile
+Authorization: Bearer {{authToken}}
+
+
+### ========================================
+### 📸 IMAGENS (Protegido)
 ### ========================================
 
 # @name upload_image
-POST {{baseUrl}}/images
+POST {{baseUrl}}/image-upload
 Content-Type: multipart/form-data; boundary=boundary123
-x-api-key: {{apiKey}}
+Authorization: Bearer {{authToken}}
 
 --boundary123
 Content-Disposition: form-data; name="file"; filename="sample-upload.svg"
@@ -25,7 +97,7 @@ Content-Type: image/svg+xml
 # @name create_broth
 POST {{baseUrl}}/broths
 Content-Type: application/json
-x-api-key: {{apiKey}}
+Authorization: Bearer {{authToken}}
 
 {
   "name": "Tonkotsu",
@@ -40,7 +112,7 @@ x-api-key: {{apiKey}}
 # @name list_broth
 GET {{baseUrl}}/broths
 Content-Type: application/json
-x-api-key: {{apiKey}}
+# Rota pública! Não precisa do Token.
 
 
 ### ========================================
@@ -50,7 +122,7 @@ x-api-key: {{apiKey}}
 # @name create_protein
 POST {{baseUrl}}/proteins
 Content-Type: application/json
-x-api-key: {{apiKey}}
+Authorization: Bearer {{authToken}}
 
 {
   "name": "Chasu",
@@ -65,17 +137,17 @@ x-api-key: {{apiKey}}
 # @name list_protein
 GET {{baseUrl}}/proteins
 Content-Type: application/json
-x-api-key: {{apiKey}}
+# Rota pública! Não precisa do Token.
 
 
 ### ========================================
-### 🍜 PEDIDOS (ORDERS)
+### 🍜 PEDIDOS (ORDERS) (Protegido)
 ### ========================================
 
 # @name create_order
 POST {{baseUrl}}/orders
 Content-Type: application/json
-x-api-key: {{apiKey}}
+Authorization: Bearer {{authToken}}
 
 {
   "brothId": "b8e0b0e0-0e0e-4e0e-8e0e-0e0e0e0e0e0e",
@@ -90,4 +162,4 @@ x-api-key: {{apiKey}}
 
 GET {{baseUrl}}/orders/{{orderId}}
 Content-Type: application/json
-x-api-key: {{apiKey}}
+Authorization: Bearer {{authToken}}
