@@ -37,13 +37,13 @@
 **Domain & Application**
 - [x] Criar o contrato `user-repository.ts`.
 - [x] Criar os casos de uso de ciclo de vida e testes unitários (Register, Authenticate, Edit, Delete).
-- [ ] Implementar a lógica de geração de token e troca de senha (`user-send-password-reset` e `user-reset-password`).
+- [x] Implementar a lógica de geração de token e troca de senha (`user-send-password-reset` e `user-reset-password`).
 
 **HTTP (Controllers & E2E)**
 - [x] Criar controladores para as rotas de conta (`/accounts`, `/sessions`, `/profile`).
 - [x] Desenvolver os testes E2E do fluxo de conta.
-- [ ] Criar controladores para recuperação de senha (`POST /password/forgot` e `PATCH /password/reset`).
-- [ ] Desenvolver os testes E2E do fluxo de recuperação de senha.
+- [x] Criar controladores para recuperação de senha (`POST /password/forgot` e `PATCH /password/reset`).
+- [x] Desenvolver os testes E2E do fluxo de recuperação de senha.
 
 ---
 
