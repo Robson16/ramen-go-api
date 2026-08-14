@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.0](https://github.com/Robson16/ramen-go-api/compare/v1.0.1...v1.1.0) (2026-08-14)
+
+### Features
+
+* **account:** implement auth, profile management and standardize names ([e6c5398](https://github.com/Robson16/ramen-go-api/commit/e6c53987a9180b2e416ae4cc3bbe0639f7aa31f3))
+* **account:** implement password recovery controllers and finish epic 2 ([0e5db5d](https://github.com/Robson16/ramen-go-api/commit/0e5db5da988eb3e442f2806b897829ec54d4961c))
+* **account:** implement user domain, use cases and unit tests ([aa6a176](https://github.com/Robson16/ramen-go-api/commit/aa6a176d1d7252118df4b47347fdb7663927f481))
+* **auth:** migrate to JWT, implement bcrypt and mail provider mock ([c007758](https://github.com/Robson16/ramen-go-api/commit/c0077582a99baeecf8c06a13ab2b95577ba2a1bd))
+* create account and authenticate route ([96f74f2](https://github.com/Robson16/ramen-go-api/commit/96f74f2ca7d6ef215bb22fb4a3f120dcc47a2ad2))
+* **database:** create user and token tables, mappers and repositories ([61891a0](https://github.com/Robson16/ramen-go-api/commit/61891a035547e43244a4e510bd96a11899ef8341))
+* delete user route ([be5a784](https://github.com/Robson16/ramen-go-api/commit/be5a7846d7480b5d53f701c3e1661a85c7b1eb3f))
+* get user profile route ([c4376d2](https://github.com/Robson16/ramen-go-api/commit/c4376d21c098e07d4751f28da382a1777ece9b63))
+* user authenticate use case ([ec148a3](https://github.com/Robson16/ramen-go-api/commit/ec148a32e407008b0a2f96f7efb31531cb588942))
+* user delete use case ([de13cff](https://github.com/Robson16/ramen-go-api/commit/de13cffebbd9d6597c3c3e2330aa1019243f4c88))
+* user edit use case ([d41df8b](https://github.com/Robson16/ramen-go-api/commit/d41df8b3c9ab8722f22fbf719da4b351ab8426a0))
+* user entity and repository classes ([da5c37d](https://github.com/Robson16/ramen-go-api/commit/da5c37d983e4d3ffd0543b5edc71ffa4a577f1cd))
+* user get profile use case ([9d0c2d4](https://github.com/Robson16/ramen-go-api/commit/9d0c2d4d8f5a31fb33d9ea3bd12ec610675e3792))
+* user register use case ([0eee890](https://github.com/Robson16/ramen-go-api/commit/0eee8908da7dc991fee315f09dc221fe36cf6e5d))
+* user reset and update password use cases ([fe53dfc](https://github.com/Robson16/ramen-go-api/commit/fe53dfc84292575c552e821d485be5ac512648a0))
+* users table ([0ea62da](https://github.com/Robson16/ramen-go-api/commit/0ea62da0a68e94212657e567529122a93c71247b))
+
+### Bug Fixes
+
+* **env:** add missing APP_URL to environment validation schema ([2ed10dd](https://github.com/Robson16/ramen-go-api/commit/2ed10dd3d15dc5a7cc6c9e751e07abaf01c2ff06))
+* **restaurant:** migrate controllers and e2e tests to use JWT authentication ([4173080](https://github.com/Robson16/ramen-go-api/commit/4173080d9d562a1379bad25fae7548dc05bf1a4a))
 ## 1.0.1 (2026-08-08)
 
 ### Features
