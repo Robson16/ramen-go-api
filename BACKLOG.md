@@ -53,10 +53,10 @@
 > *"As a developer, I want to update core dependencies so that the project remains secure, performant, and aligned with modern ecosystem standards."*
 
 ### Tarefas
-- [ ] Atualizar ESLint para a v10 (Migrar para Flat Config `eslint.config.js`).
-- [ ] Atualizar NestJS para a v11 e resolver possíveis *breaking changes*.
-- [ ] Atualizar Prisma para a v7.
-- [ ] Atualizar Vitest para a v4.
+- [x] Atualizar ESLint para a v10 (Migrar para Flat Config `eslint.config.js`).
+- [x] Atualizar NestJS para a v11 e resolver possíveis *breaking changes*.
+- [x] Atualizar Prisma para a v7.
+- [x] Atualizar Vitest para a v4.
 
 ---
 
