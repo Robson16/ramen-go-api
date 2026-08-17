@@ -1,13 +1,14 @@
 import { execSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 
+import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/client'
 import { config } from 'dotenv'
 
 config({ path: '.env', override: true })
 config({ path: '.env.test.local', override: true })
 
-const prisma = new PrismaClient()
+let prisma: PrismaClient
 
 function generateUniqueDatabaseURL(schemaId: string) {
   if (!process.env.DATABASE_URL) {
@@ -28,10 +29,30 @@ beforeAll(async () => {
 
   process.env.DATABASE_URL = databaseURL
 
-  execSync('npx prisma migrate deploy')
+  prisma = new PrismaClient({
+    adapter: new PrismaPg({ connectionString: databaseURL }),
+  })
+
+  execSync('npx prisma migrate deploy', {
+    env: {
+      ...process.env,
+      DATABASE_URL: databaseURL,
+    },
+  })
+})
+
+beforeEach(async () => {
+  await prisma.order.deleteMany()
+  await prisma.userToken.deleteMany()
+  await prisma.user.deleteMany()
+  await prisma.broth.deleteMany()
+  await prisma.protein.deleteMany()
+  await prisma.image.deleteMany()
 })
 
 afterAll(async () => {
+  if (!prisma) return
+
   await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`)
   await prisma.$disconnect()
 })

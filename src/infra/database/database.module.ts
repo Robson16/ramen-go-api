@@ -6,6 +6,7 @@ import { BrothsRepository } from '@/domain/restaurant/application/repositories/b
 import { ImagesRepository } from '@/domain/restaurant/application/repositories/image-repository'
 import { OrdersRepository } from '@/domain/restaurant/application/repositories/order-repository'
 import { ProteinsRepository } from '@/domain/restaurant/application/repositories/protein-repository'
+import { EnvModule } from '@/infra/env/env.module'
 
 import { PrismaService } from './prisma/prisma.service'
 import { PrismaUsersRepository } from './prisma/repositories/account/prisma-user-repository'
@@ -16,7 +17,7 @@ import { PrismaOrdersRepository } from './prisma/repositories/restaurant/prisma-
 import { PrismaProteinsRepository } from './prisma/repositories/restaurant/prisma-protein-repository'
 
 @Module({
-  imports: [],
+  imports: [EnvModule],
   providers: [
     PrismaService,
     {
