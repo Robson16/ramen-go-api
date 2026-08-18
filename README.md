@@ -25,7 +25,7 @@ Para ajudar a imaginar como esses dados vão estar sendo utilizados pelo cliente
 - Testes: Vitest + Supertest — Testes unitários e E2E com mocks, banco de dados isolados em memória e fake providers.
 - Docker & Docker Compose — Facilita rodar serviços dependentes (PostgreSQL) localmente.
 
-## Como Começar
+## Como Começar 
 
 Siga os passos abaixo para configurar e executar o projeto localmente.
 

@@ -15,7 +15,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('RamenGO!')
     .setDescription(
-      'This API allows users to list available broths, available proteins and place an order.',
+      'RamenGO API for user accounts, JWT authentication, profile management, broth and protein catalog browsing, and custom ramen order creation. The platform also supports password recovery and image uploads for restaurant items.',
     )
     .setVersion(packageJson.version)
     .addBearerAuth()
