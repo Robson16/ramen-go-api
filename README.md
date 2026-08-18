@@ -20,8 +20,9 @@ Para ajudar a imaginar como esses dados vão estar sendo utilizados pelo cliente
 - [Zod](https://github.com/colinhacks/zod) — Validação de schemas e parsing seguro de variáveis de ambiente.
 - [Swagger / OpenAPI](https://swagger.io/) — Documentação interativa da API gerada via `@nestjs/swagger`.
 - **JWT & Bcrypt** — Autenticação segura via JSON Web Tokens e hash de senhas.
+- **Nodemailer & Handlebars** — Envio de e-mails transacionais (como recuperação de senha) utilizando templates HTML dinâmicos.
 - Armazenamento: Cloudflare R2 / S3 — Integração de arquivos usando `@aws-sdk/client-s3`.
-- Testes: Vitest + Supertest — Testes unitários e E2E com mocks e integrações.
+- Testes: Vitest + Supertest — Testes unitários e E2E com mocks, banco de dados isolados em memória e fake providers.
 - Docker & Docker Compose — Facilita rodar serviços dependentes (PostgreSQL) localmente.
 
 ## Como Começar
@@ -47,17 +48,32 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
 4.  **Configure as variáveis de ambiente**
     Crie um arquivo `.env` na raiz do projeto com base no `.env.example`:
     ```env
-    PORT=3333
+    # Application Front-End
+    APP_URL="http://localhost:3000"
+
+    # Application Back-End
+    APP_PORT="3333"
+
     DATABASE_URL="postgresql://postgres:docker@localhost:5432/ramengo?schema=public"
     JWT_SECRET="sua-chave-secreta-jwt"
-    APP_URL="http://localhost:3333"
 
     # Cloudflare R2 / S3
     CLOUDFLARE_ACCOUNT_ID=your-cloudflare-account-id
     AWS_BUCKET_NAME=your-r2-bucket-name
     AWS_ACCESS_KEY_ID=your-r2-access-key-id
     AWS_SECRET_ACCESS_KEY=your-r2-secret-access-key
+
+    # SMTP / E-mail
+    SMTP_HOST="sandbox.smtp.mailtrap.io"
+    SMTP_PORT=2525
+    SMTP_USER="seu_usuario_aqui"
+    SMTP_PASS="sua_senha_aqui"
+    MAIL_FROM="Equipe Ramen Go <noreply@ramengo.com>"
     ```
+
+    - `APP_URL`: URL do frontend, usada nos links de redefinição de senha enviados por e-mail.
+    - `APP_PORT`: porta em que a API backend será iniciada.
+    - `SMTP_*`: configurações do provedor de e-mail usado para envio real das mensagens.
 
 5.  **Execute as Migrations**
     Para criar as tabelas no banco de dados:
@@ -115,6 +131,8 @@ O projeto segue os princípios de Arquitetura Limpa (Clean Architecture) e Domai
 *   `GET /profile`: Retorna o perfil do usuário logado (protegido).
 *   `PUT /profile`: Edita os dados do próprio perfil (protegido).
 *   `DELETE /profile`: Exclui a própria conta permanentemente (protegido).
+*   `POST /password/forgot`: Solicita a recuperação de senha e envia um e-mail com o token.
+*   `PATCH /password/reset`: Redefine a senha do usuário utilizando o token de recuperação.
 
 ### 🍜 Catálogo e Pedidos (Restaurant)
 

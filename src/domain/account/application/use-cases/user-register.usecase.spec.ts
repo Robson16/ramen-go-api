@@ -1,4 +1,5 @@
 import { FakeHasher } from 'test/cryptography/fake-hasher'
+import { FakeMailProvider } from 'test/mailing/fake-mail-provider'
 import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-user-repository'
 
 import { UserAlreadyExistsError } from '@/domain/account/application/use-cases/errors/user-already-exists-error'
@@ -7,13 +8,19 @@ import { RegisterUserUseCase } from './user-register.usecase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let fakeHasher: FakeHasher
+let fakeMailProvider: FakeMailProvider
 let sut: RegisterUserUseCase // Subject Under Test
 
 describe('Register User Use Case', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository()
     fakeHasher = new FakeHasher()
-    sut = new RegisterUserUseCase(inMemoryUsersRepository, fakeHasher)
+    fakeMailProvider = new FakeMailProvider()
+    sut = new RegisterUserUseCase(
+      inMemoryUsersRepository,
+      fakeHasher,
+      fakeMailProvider,
+    )
   })
 
   it('should be able to register a new user', async () => {
