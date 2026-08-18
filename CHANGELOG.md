@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Robson16/ramen-go-api/compare/v1.1.1...v1.2.0) (2026-08-18)
+
+### Features
+
+* **email:** adds a welcome template and sends it upon user registration. ([739a68e](https://github.com/Robson16/ramen-go-api/commit/739a68eb1ad48594e9960fc5ca7d2a0df1b168c6))
+* **email:** implements nodemailer and password recovery template ([249843d](https://github.com/Robson16/ramen-go-api/commit/249843dc8c4653b5315af68ae3e4ebb788467629))
 ## [1.1.1](https://github.com/Robson16/ramen-go-api/compare/v1.1.0...v1.1.1) (2026-08-17)
 ## [1.1.0](https://github.com/Robson16/ramen-go-api/compare/v1.0.1...v1.1.0) (2026-08-14)
 
