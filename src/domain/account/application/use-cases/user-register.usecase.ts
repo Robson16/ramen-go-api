@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 
 import { Either, left, right } from '@/core/either'
 import { HashGenerator } from '@/domain/account/application/cryptography/hash-generator'
+import { MailProvider } from '@/domain/account/application/mailing/mail-provider'
 import { UsersRepository } from '@/domain/account/application/repositories/user-repository'
 import { UserAlreadyExistsError } from '@/domain/account/application/use-cases/errors/user-already-exists-error'
 import { User } from '@/domain/account/enterprise/entities/user'
@@ -24,6 +25,7 @@ export class RegisterUserUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private hashGenerator: HashGenerator,
+    private mailProvider: MailProvider,
   ) {}
 
   async execute({
@@ -46,6 +48,15 @@ export class RegisterUserUseCase {
     })
 
     await this.usersRepository.create(user)
+
+    await this.mailProvider.send({
+      to: user.email,
+      subject: 'Bem-vindo(a) ao Ramen Go! 🍜',
+      template: 'welcome',
+      variables: {
+        name: user.name,
+      },
+    })
 
     return right({
       user,

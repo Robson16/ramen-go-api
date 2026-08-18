@@ -45,6 +45,10 @@ export class NodemailerMailProvider implements MailProvider {
       customVariables.link = `${this.envService.get('APP_URL')}/reset-password?token=${variables.token}`
     }
 
+    if (template === 'welcome') {
+      customVariables.link = `${this.envService.get('APP_URL')}/`
+    }
+
     const htmlContent = parseTemplate(customVariables)
 
     await this.transporter.sendMail({

@@ -63,17 +63,20 @@
 ## 📧 Épico 4: Infraestrutura de E-mails (Produção)
 
 **User Story:**
-> *"As a system, I want to send real, formatted emails using an SMTP provider and template engine so that users receive professional recovery links in their real inboxes."*
+> *"As a system, I want to send real, formatted emails using an SMTP provider and template engine so that users receive professional recovery links and welcome messages in their real inboxes."*
 
 ### Tarefas
-- [ ] Instalar e configurar as bibliotecas `nodemailer` e `handlebars`.
-- [ ] Implementar o `NodemailerMailProvider` seguindo o contrato de envio de e-mails.
-- [ ] Desenvolver os templates HTML na pasta de views (ex: `password-reset.hbs`).
-- [ ] Substituir o provedor de console pelo provedor real no `MailModule` (ambiente de produção).
+- [x] Instalar e configurar as bibliotecas `nodemailer` e `handlebars`.
+- [x] Implementar o `NodemailerMailProvider` seguindo o contrato de envio de e-mails.
+- [x] Desenvolver os templates HTML na pasta de views (ex: `password-reset.hbs`).
+- [x] Substituir o provedor de console pelo provedor real no `MailModule` (ambiente de produção).
+- [x] Desenvolver o template HTML de boas-vindas (`welcome.hbs`).
+- [x] Injetar o `MailProvider` e disparar o e-mail de boas-vindas no caso de uso de registro (`user-register.usecase.ts`).
+- [x] Atualizar os testes (unitários e E2E) de registro para fazer mock do envio com o `FakeMailProvider`.
 
 ---
 
-## 🛡️ Épico 5: Painel Administrativo (Backoffice & RBAC)
+## 🛡️ Épico 5: Painel Administrativo (BackOffice & RBAC)
 
 **User Story:**
 > *"As a system administrator, I want a secure set of routes to manage all users, orders, and catalog items, ensuring full control over the platform's operation without mixing with the customer's self-service logic."*
