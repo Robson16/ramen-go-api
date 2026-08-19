@@ -76,24 +76,78 @@
 
 ---
 
-## 🛡️ Épico 5: Painel Administrativo (BackOffice & RBAC)
+## 🛡️ Épico 5: Painel Administrativo (BackOffice) e Histórico do Cliente
 
 **User Story:**
-> *"As a system administrator, I want a secure set of routes to manage all users, orders, and catalog items, ensuring full control over the platform's operation without mixing with the customer's self-service logic."*
+> *"As a system administrator, I want a secure set of routes to manage all users and orders. As a regular user, I want to see a history of all my own past orders."*
 
 ### Tarefas
 
 **Infraestrutura (Database & Segurança)**
-- [ ] Adicionar o `enum Role { USER, ADMIN }` no `schema.prisma` e vinculá-lo ao model `User`.
-- [ ] Rodar a migration (`add_user_role`) e atualizar a entidade e o mapper.
-- [ ] Criar o decorador `@Roles()` e o `RolesGuard` para proteger as rotas administrativas.
+- [x] Adicionar o `enum Role { USER, ADMIN }` no `schema.prisma` e vinculá-lo ao model `User`.
+- [x] Rodar a migration (`add_user_role`) e atualizar a entidade e o mapper.
+- [x] Criar o decorador `@Roles()` e o `RolesGuard` para proteger as rotas administrativas.
 
 **Domain & Application**
-- [ ] Criar o caso de uso `fetch-users.usecase.ts` (Account Domain).
-- [ ] Criar o caso de uso `order-list-all.usecase.ts` (Restaurant Domain).
+- [x] Criar o caso de uso `user-list.usecase.ts` (Account Domain).
+- [x] Criar o caso de uso `order-list-all.usecase.ts` (Restaurant Domain).
+- [ ] Criar o caso de uso `order-list-by-user.usecase.ts` (Restaurant Domain).
 
 **HTTP (Controllers & E2E)**
-- [ ] Criar a estrutura base de rotas administrativas em `src/infra/http/controllers/admin/`.
-- [ ] Implementar o controlador `fetch-users.controller.ts` (`GET /admin/users`).
-- [ ] Implementar o controlador `list-all-orders.controller.ts` (`GET /admin/orders`).
-- [ ] Desenvolver testes E2E garantindo que usuários com *role* `USER` recebam erro `403 Forbidden` nas rotas `/admin`.
+- [x] Criar a estrutura base de rotas administrativas em `src/infra/http/controllers/admin/`.
+- [x] Implementar o controlador `list-users.controller.ts` (`GET /admin/users`).
+- [x] Implementar o controlador `list-all-orders.controller.ts` (`GET /admin/orders`).
+- [ ] Implementar o controlador `list-user-orders.controller.ts` (`GET /orders`) para o cliente.
+- [x] Desenvolver testes E2E garantindo o funcionamento do RBAC e erro `403 Forbidden`.
+
+---
+
+## 🍽️ Épico 6: Gestão Completa de Catálogo e Pedidos (Admin CRUD)
+
+**User Story:**
+> *"As a system administrator, I want to fully manage the restaurant's catalog (edit and delete broths/proteins) and update the status of customer orders, ensuring the menu is always up to date and the operation flows correctly."*
+
+### Tarefas
+
+**Gestão de Catálogo (Broths & Proteins)**
+- [ ] Criar casos de uso para Edição e Exclusão de Caldos (`broth-edit` e `broth-delete`).
+- [ ] Criar casos de uso para Edição e Exclusão de Proteínas (`protein-edit` e `protein-delete`).
+- [ ] Implementar os respectivos controllers em `src/infra/http/controllers/admin/` (ex: `PUT /admin/broths/:id`, `DELETE /admin/broths/:id`).
+- [ ] Proteger todas essas rotas com `@Roles('ADMIN')` e garantir nos testes E2E o bloqueio (403) para usuários comuns.
+
+**Gestão de Pedidos (Orders)**
+- [ ] Criar enum de Status do Pedido no Prisma (ex: `PENDING`, `PREPARING`, `READY`, `DELIVERED`).
+- [ ] Criar caso de uso `order-update-status.usecase.ts` (ex: atualizar de pendente para em preparo).
+- [ ] Implementar o controller `PATCH /admin/orders/:id/status` restrito a administradores.
+
+---
+
+## 🧹 Épico 7: Padronização de Nomes de Arquivos
+
+**User Story:**
+> *"As a developer, I want files to follow a consistent naming convention so that I can locate and understand the project's modules more quickly."*
+
+**Convenção definida:**
+- Usar `kebab-case` nos nomes dos arquivos.
+- Nomear arquivos de acordo com o recurso e a ação: `recurso-ação`.
+- Manter os sufixos por responsabilidade: `.controller.ts`, `.usecase.ts`, `.repository.ts`, `.presenter.ts`, `.mapper.ts` e `.spec.ts`.
+- Manter as classes em `PascalCase`, refletindo o nome do arquivo (ex: `UserListController` e `UserListUseCase`).
+
+### Tarefas
+
+**Levantamento & Convenção**
+- [ ] Mapear arquivos que usam ordem ou formato diferente da convenção definida.
+- [ ] Confirmar a convenção na documentação do projeto e evitar novos nomes fora do padrão.
+
+**Domain & Application**
+- [ ] Revisar os arquivos de use cases e confirmar que seguem o formato `recurso-ação.usecase.ts` (ex: `user-list.usecase.ts`).
+- [ ] Renomear classes, imports, registros de módulos e referências nos testes para acompanhar o padrão `RecursoAçãoTipo`.
+
+**HTTP & Infraestrutura**
+- [ ] Renomear controllers para o formato `recurso-ação.controller.ts` (ex: `list-users.controller.ts` para `users-list.controller.ts`).
+- [ ] Revisar presenters, mappers, repositories e providers e padronizar seus nomes em `recurso-ação` quando houver ação explícita.
+- [ ] Atualizar os nomes dos arquivos de teste para acompanhar os arquivos testados e a convenção `recurso-ação`.
+
+**Validação**
+- [ ] Executar lint, testes unitários e testes E2E após a padronização.
+- [ ] Confirmar que não existem imports ou referências apontando para os nomes antigos.
