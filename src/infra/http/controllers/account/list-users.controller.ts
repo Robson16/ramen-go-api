@@ -10,10 +10,10 @@ import { ListUserUseCase } from '@/domain/account/application/use-cases/user-lis
 import { Roles } from '@/infra/auth/roles-decorator'
 import { UserPresenter } from '@/infra/http/presenters/account/user-presenter'
 
-@ApiTags('admin')
+@ApiTags('admin', 'accounts')
 @ApiBearerAuth()
 @Controller('/admin/users')
-export class ListUserController {
+export class ListUsersController {
   constructor(private listUser: ListUserUseCase) {}
 
   @Get()
