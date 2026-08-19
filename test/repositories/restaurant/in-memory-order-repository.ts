@@ -14,6 +14,14 @@ export class InMemoryOrdersRepository implements OrdersRepository {
     return order
   }
 
+  async findMany(): Promise<Order[]> {
+    return this.items
+  }
+
+  async findManyByUserId(userId: string): Promise<Order[]> {
+    return this.items.filter((item) => item.userId.toString() === userId)
+  }
+
   async create(order: Order) {
     this.items.push(order)
   }
