@@ -69,7 +69,7 @@ class CreateProtein {
   imageInactiveId: string = ''
 }
 
-@ApiTags('proteins')
+@ApiTags('admin', 'restaurant', 'proteins')
 @ApiBearerAuth()
 @Controller('/proteins')
 export class CreateProteinController {

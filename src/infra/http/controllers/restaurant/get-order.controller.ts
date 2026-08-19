@@ -21,7 +21,7 @@ import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { OrderPresenter } from '@/infra/http/presenters/restaurant/order-presenter'
 
-@ApiTags('orders')
+@ApiTags('restaurant', 'orders')
 @ApiBearerAuth()
 @Controller('/orders')
 export class GetOrderController {

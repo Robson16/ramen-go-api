@@ -25,7 +25,7 @@ class UploadImage {
   file: any
 }
 
-@ApiTags('images')
+@ApiTags('admin', 'restaurant', 'images')
 @ApiBearerAuth()
 @Controller('/images')
 export class UploadImageController {

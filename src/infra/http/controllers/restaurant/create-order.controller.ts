@@ -45,7 +45,7 @@ class CreateOrder {
   proteinId: string = ''
 }
 
-@ApiTags('orders')
+@ApiTags('restaurant', 'orders')
 @ApiBearerAuth()
 @Controller('/orders')
 export class CreateOrderController {
