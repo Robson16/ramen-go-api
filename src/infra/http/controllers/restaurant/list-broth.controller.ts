@@ -16,7 +16,7 @@ export class ListBrothController {
   constructor(private listBroth: ListBrothUseCase) {}
 
   @Get()
-  @ApiOperation({ summary: 'List a Broth.' })
+  @ApiOperation({ summary: 'List Broth.' })
   @ApiResponse({
     status: 200,
     description: 'A list of broths.',

@@ -37,6 +37,14 @@ export class PrismaUsersRepository implements UsersRepository {
     return PrismaUserMapper.toDomain(user)
   }
 
+  async findMany(): Promise<User[]> {
+    const users = await this.prisma.user.findMany({
+      orderBy: { createdAt: 'desc' },
+    })
+
+    return users.map(PrismaUserMapper.toDomain)
+  }
+
   async create(user: User): Promise<void> {
     const data = PrismaUserMapper.toPrisma(user)
 

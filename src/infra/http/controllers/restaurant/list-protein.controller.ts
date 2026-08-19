@@ -16,7 +16,7 @@ export class ListProteinController {
   constructor(private listProtein: ListProteinUseCase) {}
 
   @Get()
-  @ApiOperation({ summary: 'List a Protein.' })
+  @ApiOperation({ summary: 'List Protein.' })
   @ApiResponse({
     status: 200,
     description: 'A list of proteins.',

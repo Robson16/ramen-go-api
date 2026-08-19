@@ -28,6 +28,10 @@ export class InMemoryUsersRepository implements UsersRepository {
     return user
   }
 
+  async findMany(): Promise<User[]> {
+    return this.items
+  }
+
   async save(user: User): Promise<void> {
     const itemIndex = this.items.findIndex((item) => item.id === user.id)
 

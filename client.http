@@ -30,6 +30,19 @@ Content-Type: application/json
 @authToken = {{login.response.body.access_token}}
 ###
 
+# @name admin_login
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+  "email": "admin@ramengo.com",
+  "password": "admin123"
+}
+
+###
+@adminAuthToken = {{admin_login.response.body.access_token}}
+###
+
 # @name get_profile
 GET {{baseUrl}}/profile
 Authorization: Bearer {{authToken}}
@@ -78,9 +91,9 @@ Authorization: Bearer {{authToken}}
 ### ========================================
 
 # @name upload_image
-POST {{baseUrl}}/image-upload
+POST {{baseUrl}}/images
 Content-Type: multipart/form-data; boundary=boundary123
-Authorization: Bearer {{authToken}}
+Authorization: Bearer {{adminAuthToken}}
 
 --boundary123
 Content-Disposition: form-data; name="file"; filename="sample-upload.svg"
@@ -97,7 +110,7 @@ Content-Type: image/svg+xml
 # @name create_broth
 POST {{baseUrl}}/broths
 Content-Type: application/json
-Authorization: Bearer {{authToken}}
+Authorization: Bearer {{adminAuthToken}}
 
 {
   "name": "Tonkotsu",
@@ -111,8 +124,7 @@ Authorization: Bearer {{authToken}}
 
 # @name list_broth
 GET {{baseUrl}}/broths
-Content-Type: application/json
-# Rota pública! Não precisa do Token.
+Authorization: Bearer {{authToken}}
 
 
 ### ========================================
@@ -122,7 +134,7 @@ Content-Type: application/json
 # @name create_protein
 POST {{baseUrl}}/proteins
 Content-Type: application/json
-Authorization: Bearer {{authToken}}
+Authorization: Bearer {{adminAuthToken}}
 
 {
   "name": "Chasu",
@@ -136,8 +148,7 @@ Authorization: Bearer {{authToken}}
 
 # @name list_protein
 GET {{baseUrl}}/proteins
-Content-Type: application/json
-# Rota pública! Não precisa do Token.
+Authorization: Bearer {{authToken}}
 
 
 ### ========================================
@@ -163,3 +174,12 @@ Authorization: Bearer {{authToken}}
 GET {{baseUrl}}/orders/{{orderId}}
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+
+### ========================================
+### 👑 ADMINISTRAÇÃO
+### ========================================
+
+# @name list_users
+GET {{baseUrl}}/admin/users
+Authorization: Bearer {{adminAuthToken}}
