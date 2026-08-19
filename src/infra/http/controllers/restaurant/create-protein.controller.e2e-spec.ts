@@ -32,12 +32,16 @@ describe('Create protein (e2e)', () => {
     await app.init()
   })
 
-  test('[POST] /proteins', async () => {
+  test('[POST] /proteins - admin user', async () => {
+    const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
+
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
+
     const imageActive = await imageFactory.makePrismaImage()
     const imageInactive = await imageFactory.makePrismaImage()
-
-    const user = await userFactory.makePrismaUser()
-    const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const response = await request(app.getHttpServer())
       .post('/proteins')
@@ -59,5 +63,30 @@ describe('Create protein (e2e)', () => {
     })
 
     expect(proteinOnDatabase).toBeTruthy()
+  })
+
+  test('[POST] /proteins - regular user', async () => {
+    const user = await userFactory.makePrismaUser({ role: 'USER' })
+
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
+
+    const imageActive = await imageFactory.makePrismaImage()
+    const imageInactive = await imageFactory.makePrismaImage()
+
+    const response = await request(app.getHttpServer())
+      .post('/proteins')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        name: 'Salt',
+        description: 'Simple like the seawater, nothing more.',
+        price: 10,
+        imageActiveId: imageActive.id.toString(),
+        imageInactiveId: imageInactive.id.toString(),
+      })
+
+    expect(response.statusCode).toBe(403)
   })
 })

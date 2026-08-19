@@ -32,9 +32,13 @@ describe('Create broth (e2e)', () => {
     await app.init()
   })
 
-  test('[POST] /broths', async () => {
-    const user = await userFactory.makePrismaUser()
-    const accessToken = jwt.sign({ sub: user.id.toString() })
+  test('[POST] /broths - admin user', async () => {
+    const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
+
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
 
     const imageActive = await imageFactory.makePrismaImage()
     const imageInactive = await imageFactory.makePrismaImage()
@@ -59,5 +63,30 @@ describe('Create broth (e2e)', () => {
     })
 
     expect(brothOnDatabase).toBeTruthy()
+  })
+
+  test('[POST] /broths - regular user', async () => {
+    const user = await userFactory.makePrismaUser({ role: 'USER' })
+
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
+
+    const imageActive = await imageFactory.makePrismaImage()
+    const imageInactive = await imageFactory.makePrismaImage()
+
+    const response = await request(app.getHttpServer())
+      .post('/broths')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        name: 'Shio',
+        description: 'Light and salty broth.',
+        price: 10,
+        imageActiveId: imageActive.id.toString(),
+        imageInactiveId: imageInactive.id.toString(),
+      })
+
+    expect(response.statusCode).toBe(403)
   })
 })

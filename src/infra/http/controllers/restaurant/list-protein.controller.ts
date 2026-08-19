@@ -23,7 +23,10 @@ export class ListProteinController {
     isArray: true,
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing Bearer token.',
+  })
   async handle() {
     const result = await this.listProtein.execute()
 

@@ -26,9 +26,13 @@ describe('Upload Image (e2e)', () => {
     await app.init()
   })
 
-  test('[POST] /images', async () => {
-    const user = await userFactory.makePrismaUser()
-    const accessToken = jwt.sign({ sub: user.id.toString() })
+  test('[POST] /images - admin user', async () => {
+    const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
+
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
 
     const response = await request(app.getHttpServer())
       .post('/images')
@@ -39,5 +43,20 @@ describe('Upload Image (e2e)', () => {
     expect(response.body).toEqual({
       imageId: expect.any(String),
     })
+  })
+
+  test('[POST] /images - regular user', async () => {
+    const user = await userFactory.makePrismaUser({ role: 'USER' })
+
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
+
+    const response = await request(app.getHttpServer())
+      .post('/images')
+      .set('Authorization', `Bearer ${accessToken}`)
+
+    expect(response.statusCode).toBe(403)
   })
 })

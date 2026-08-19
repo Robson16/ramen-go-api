@@ -59,7 +59,10 @@ export class CreateOrderController {
     description:
       'Validation failed. Some data is invalid or has not been provided.',
   })
-  @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing Bearer token.',
+  })
   @ApiResponse({
     status: 404,
     description: 'NotFoundException. Broth or Protein not found in database.',
