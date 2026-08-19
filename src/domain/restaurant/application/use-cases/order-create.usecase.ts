@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 
 import { Either, left, right } from '@/core/either'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { BrothsRepository } from '@/domain/restaurant/application/repositories/broth-repository'
 import { OrdersRepository } from '@/domain/restaurant/application/repositories/order-repository'
@@ -8,6 +9,7 @@ import { ProteinsRepository } from '@/domain/restaurant/application/repositories
 import { Order } from '@/domain/restaurant/enterprise/entities/order'
 
 interface CreateOrderUseCaseRequest {
+  userId: string
   brothId: string
   proteinId: string
 }
@@ -28,6 +30,7 @@ export class CreateOrderUseCase {
   ) {}
 
   async execute({
+    userId,
     brothId,
     proteinId,
   }: CreateOrderUseCaseRequest): Promise<CreateOrderUseCaseResponse> {
@@ -44,6 +47,7 @@ export class CreateOrderUseCase {
     }
 
     const order = Order.create({
+      userId: new UniqueEntityID(userId),
       brothId: broth.id,
       proteinId: protein.id,
       description: `${broth.name} and ${protein.name} Ramen`,

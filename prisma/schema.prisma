@@ -21,6 +21,7 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   tokens UserToken[]
+  orders Order[]
 
   @@map("users")
 }
@@ -93,11 +94,15 @@ model Order {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
+  userId String @map("user_id")
+
   brothId String @map("broth_id")
   broth   Broth  @relation(fields: [brothId], references: [id])
 
   proteinId String  @map("protein_id")
   protein   Protein @relation(fields: [proteinId], references: [id])
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("orders")
 }

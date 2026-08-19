@@ -5,7 +5,6 @@ import {
   HttpCode,
   NotFoundException,
   Post,
-  UsePipes,
 } from '@nestjs/common'
 import {
   ApiBearerAuth,
@@ -19,6 +18,8 @@ import { z } from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { CreateOrderUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
+import { CurrentUser } from '@/infra/auth/current-user-decorator'
+import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 import { OrderPresenter } from '../../presenters/restaurant/order-presenter'
@@ -68,11 +69,15 @@ export class CreateOrderController {
     description: 'NotFoundException. Broth or Protein not found in database.',
   })
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createOrderBodySchema))
-  async handle(@Body() body: CreateOrderBodySchema) {
+  async handle(
+    @Body(new ZodValidationPipe(createOrderBodySchema))
+    body: CreateOrderBodySchema,
+    @CurrentUser() user: UserPayload,
+  ) {
     const { brothId, proteinId } = body
 
     const result = await this.createOrder.execute({
+      userId: user.sub,
       brothId,
       proteinId,
     })

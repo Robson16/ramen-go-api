@@ -61,15 +61,19 @@ describe('Get order by id (e2e)', () => {
       }),
     ])
 
+    const user = await userFactory.makePrismaUser({ role: 'USER' })
     const order = await orderFactory.makePrismaOrder({
+      userId: user.id,
       brothId: broth.id,
       proteinId: protein.id,
     })
 
     const orderId = order.id.toString()
 
-    const user = await userFactory.makePrismaUser()
-    const accessToken = jwt.sign({ sub: user.id.toString() })
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
 
     const response = await request(app.getHttpServer())
       .get(`/orders/${orderId}`)
@@ -83,5 +87,95 @@ describe('Get order by id (e2e)', () => {
         id: orderId,
       }),
     )
+  })
+
+  test('[GET] /orders/:id - denies another regular user', async () => {
+    const [imageActive, imageInactive] = await Promise.all([
+      imageFactory.makePrismaImage(),
+      imageFactory.makePrismaImage(),
+    ])
+    const [broth, protein] = await Promise.all([
+      brothFactory.makePrismaBroth({
+        imageActiveId: imageActive.id.toString(),
+        imageInactiveId: imageInactive.id.toString(),
+      }),
+      proteinFactory.makePrismaProtein({
+        imageActiveId: imageActive.id.toString(),
+        imageInactiveId: imageInactive.id.toString(),
+      }),
+    ])
+    const owner = await userFactory.makePrismaUser({ role: 'USER' })
+    const otherUser = await userFactory.makePrismaUser({ role: 'USER' })
+    const order = await orderFactory.makePrismaOrder({
+      userId: owner.id,
+      brothId: broth.id,
+      proteinId: protein.id,
+    })
+
+    const accessToken = jwt.sign({
+      sub: otherUser.id.toString(),
+      role: otherUser.role,
+    })
+    const response = await request(app.getHttpServer())
+      .get(`/orders/${order.id}`)
+      .set('Authorization', `Bearer ${accessToken}`)
+
+    expect(response.statusCode).toBe(403)
+  })
+
+  test('[GET] /orders/:id - allows admin user', async () => {
+    const [imageActive, imageInactive] = await Promise.all([
+      imageFactory.makePrismaImage(),
+      imageFactory.makePrismaImage(),
+    ])
+    const [broth, protein] = await Promise.all([
+      brothFactory.makePrismaBroth({
+        imageActiveId: imageActive.id.toString(),
+        imageInactiveId: imageInactive.id.toString(),
+      }),
+      proteinFactory.makePrismaProtein({
+        imageActiveId: imageActive.id.toString(),
+        imageInactiveId: imageInactive.id.toString(),
+      }),
+    ])
+    const owner = await userFactory.makePrismaUser({ role: 'USER' })
+    const admin = await userFactory.makePrismaUser({ role: 'ADMIN' })
+    const order = await orderFactory.makePrismaOrder({
+      userId: owner.id,
+      brothId: broth.id,
+      proteinId: protein.id,
+    })
+
+    const accessToken = jwt.sign({
+      sub: admin.id.toString(),
+      role: admin.role,
+    })
+    const response = await request(app.getHttpServer())
+      .get(`/orders/${order.id}`)
+      .set('Authorization', `Bearer ${accessToken}`)
+
+    expect(response.statusCode).toBe(200)
+  })
+
+  test('[GET] /orders/:id - returns not found for a missing order', async () => {
+    const user = await userFactory.makePrismaUser({ role: 'USER' })
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
+
+    const response = await request(app.getHttpServer())
+      .get('/orders/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${accessToken}`)
+
+    expect(response.statusCode).toBe(404)
+  })
+
+  test('[GET] /orders/:id - rejects an unauthenticated user', async () => {
+    const response = await request(app.getHttpServer()).get(
+      '/orders/00000000-0000-0000-0000-000000000000',
+    )
+
+    expect(response.statusCode).toBe(401)
   })
 })
