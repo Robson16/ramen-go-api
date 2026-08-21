@@ -21,6 +21,7 @@ import { z } from 'zod'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
 import { BrothAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/broth-already-exists-error'
+import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 const createBrothBodySchema = z.object({
@@ -67,13 +68,14 @@ class CreateBroth {
   imageInactiveId: string = ''
 }
 
-@ApiTags('broths')
+@ApiTags('admin', 'restaurant', 'broths')
 @ApiBearerAuth()
 @Controller('/broths')
 export class CreateBrothController {
   constructor(private createBroth: CreateBrothUseCase) {}
 
   @Post()
+  @Roles('ADMIN')
   @ApiOperation({ summary: 'Create a Broth.' })
   @ApiBody({ type: CreateBroth, description: 'The broth creation payload' })
   @ApiResponse({ status: 201, description: 'A new broth has been created.' })
@@ -82,7 +84,14 @@ export class CreateBrothController {
     description:
       'Validation failed. Some data is invalid or has not been provided.',
   })
-  @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing Bearer token.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden. Only admin users can create a broth.',
+  })
   @ApiResponse({
     status: 404,
     description:

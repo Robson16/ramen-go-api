@@ -21,6 +21,7 @@ import { z } from 'zod'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { ProteinAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/protein-already-exists-error'
 import { CreateProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
+import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 const createProteinBodySchema = z.object({
@@ -68,13 +69,14 @@ class CreateProtein {
   imageInactiveId: string = ''
 }
 
-@ApiTags('proteins')
+@ApiTags('admin', 'restaurant', 'proteins')
 @ApiBearerAuth()
 @Controller('/proteins')
 export class CreateProteinController {
   constructor(private createProtein: CreateProteinUseCase) {}
 
   @Post()
+  @Roles('ADMIN')
   @ApiOperation({ summary: 'Create a Protein.' })
   @ApiBody({ type: CreateProtein, description: 'The protein creation payload' })
   @ApiResponse({ status: 201, description: 'A new protein has been created.' })
@@ -83,7 +85,14 @@ export class CreateProteinController {
     description:
       'Validation failed. Some data is invalid or has not been provided.',
   })
-  @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing Bearer token.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden. Only admin users can create a protein.',
+  })
   @ApiResponse({
     status: 404,
     description:

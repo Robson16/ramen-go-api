@@ -1,5 +1,6 @@
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/client'
+import { hash } from 'bcryptjs'
 
 const prisma = new PrismaClient({
   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
@@ -17,6 +18,26 @@ async function main() {
 
   // 3. Delete images last (top of the relationship chain)
   await prisma.image.deleteMany()
+
+  const adminEmail = process.env.SEED_ADMIN_EMAIL ?? 'admin@ramengo.com'
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD ?? 'admin123'
+  const adminPasswordHash = await hash(adminPassword, 8)
+
+  const admin = await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: {
+      name: 'RamenGO Admin',
+      password: adminPasswordHash,
+      role: 'ADMIN',
+    },
+    create: {
+      name: 'RamenGO Admin',
+      email: adminEmail,
+      password: adminPasswordHash,
+      role: 'ADMIN',
+    },
+  })
+  console.log(`Seeded admin user: ${admin.email}`)
 
   // Seed Images
   const imagesData = [

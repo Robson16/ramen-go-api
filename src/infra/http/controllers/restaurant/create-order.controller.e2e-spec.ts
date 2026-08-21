@@ -62,12 +62,16 @@ describe('Create order (e2e)', () => {
       }),
     ])
 
-    const user = await userFactory.makePrismaUser()
-    const accessToken = jwt.sign({ sub: user.id.toString() })
+    const user = await userFactory.makePrismaUser({ role: 'USER' })
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
 
     const response = await request(app.getHttpServer())
       .post('/orders')
       .set('Authorization', `Bearer ${accessToken}`)
+      .set('Content-Type', 'application/json')
       .send({
         brothId: broth.id.toString(),
         proteinId: protein.id.toString(),
@@ -84,5 +88,89 @@ describe('Create order (e2e)', () => {
     })
 
     expect(orderOnDatabase).toBeTruthy()
+    expect(orderOnDatabase?.userId).toBe(user.id.toString())
+  })
+
+  test('[POST] /orders - rejects an unauthenticated user', async () => {
+    const response = await request(app.getHttpServer()).post('/orders').send({})
+
+    expect(response.statusCode).toBe(401)
+  })
+
+  test('[POST] /orders - rejects an invalid body', async () => {
+    const user = await userFactory.makePrismaUser({ role: 'USER' })
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
+
+    const response = await request(app.getHttpServer())
+      .post('/orders')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Content-Type', 'application/json')
+      .send({
+        brothId: 'invalid-id',
+        proteinId: 'invalid-id',
+      })
+
+    expect(response.statusCode).toBe(400)
+  })
+
+  test('[POST] /orders - rejects a missing broth', async () => {
+    const [imageActive, imageInactive] = await Promise.all([
+      imageFactory.makePrismaImage(),
+      imageFactory.makePrismaImage(),
+    ])
+
+    const protein = await proteinFactory.makePrismaProtein({
+      imageActiveId: imageActive.id.toString(),
+      imageInactiveId: imageInactive.id.toString(),
+    })
+
+    const user = await userFactory.makePrismaUser({ role: 'USER' })
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
+
+    const response = await request(app.getHttpServer())
+      .post('/orders')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Content-Type', 'application/json')
+      .send({
+        brothId: '00000000-0000-0000-0000-000000000001',
+        proteinId: protein.id.toString(),
+      })
+
+    expect(response.statusCode).toBe(404)
+  })
+
+  test('[POST] /orders - rejects a missing protein', async () => {
+    const [imageActive, imageInactive] = await Promise.all([
+      imageFactory.makePrismaImage(),
+      imageFactory.makePrismaImage(),
+    ])
+
+    const broth = await brothFactory.makePrismaBroth({
+      imageActiveId: imageActive.id.toString(),
+      imageInactiveId: imageInactive.id.toString(),
+    })
+
+    const user = await userFactory.makePrismaUser({ role: 'USER' })
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
+
+    const response = await request(app.getHttpServer())
+      .post('/orders')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Content-Type', 'application/json')
+      .send({
+        brothId: broth.id.toString(),
+        proteinId: '00000000-0000-0000-0000-000000000001',
+      })
+
+    expect(response.statusCode).toBe(404)
   })
 })

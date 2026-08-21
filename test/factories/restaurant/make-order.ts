@@ -12,6 +12,7 @@ export function makeOrder(
 ): Order {
   const order = Order.create(
     {
+      userId: new UniqueEntityID(),
       description: faker.lorem.sentence(),
       brothId: new UniqueEntityID(),
       proteinId: new UniqueEntityID(),

@@ -19,18 +19,20 @@ import {
 
 import { InvalidImageTypeError } from '@/domain/restaurant/application/use-cases/errors/invalid-image-type-error'
 import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use-cases/upload-and-create-image.usecase'
+import { Roles } from '@/infra/auth/roles-decorator'
 
 class UploadImage {
   file: any
 }
 
-@ApiTags('images')
+@ApiTags('admin', 'restaurant', 'images')
 @ApiBearerAuth()
 @Controller('/images')
 export class UploadImageController {
   constructor(private uploadAndCreateImage: UploadAndCreateImageUseCase) {}
 
   @Post()
+  @Roles('ADMIN')
   @ApiOperation({ summary: 'Upload an image' })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -41,7 +43,14 @@ export class UploadImageController {
     status: 201,
     description: 'The image has been successfully uploaded.',
   })
-  @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing Bearer token.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden. Only admin users can upload images.',
+  })
   @ApiResponse({
     status: 400,
     description: 'Bad Request. Invalid file type or size.',

@@ -7,7 +7,7 @@ import { UserFactory } from 'test/factories/account/user-factory'
 import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 
-describe('Upload Image (e2e)', () => {
+describe('List user (E2E)', () => {
   let app: INestApplication
   let userFactory: UserFactory
   let jwt: JwtService
@@ -26,37 +26,37 @@ describe('Upload Image (e2e)', () => {
     await app.init()
   })
 
-  test('[POST] /images - admin user', async () => {
+  test('[GET] /admin/users', async () => {
+    await Promise.all([
+      userFactory.makePrismaUser({
+        name: 'Robson',
+      }),
+      userFactory.makePrismaUser({
+        name: 'Henrique',
+      }),
+      userFactory.makePrismaUser({
+        name: 'Rodrigo',
+      }),
+    ])
+
     const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
-
     const accessToken = jwt.sign({
       sub: user.id.toString(),
       role: user.role,
     })
 
     const response = await request(app.getHttpServer())
-      .post('/images')
+      .get('/admin/users')
       .set('Authorization', `Bearer ${accessToken}`)
-      .attach('file', './test/e2e/sample-upload.svg')
+      .send()
 
-    expect(response.statusCode).toBe(201)
+    expect(response.statusCode).toBe(200)
     expect(response.body).toEqual({
-      imageId: expect.any(String),
+      users: expect.arrayContaining([
+        expect.objectContaining({ name: 'Robson' }),
+        expect.objectContaining({ name: 'Henrique' }),
+        expect.objectContaining({ name: 'Rodrigo' }),
+      ]),
     })
-  })
-
-  test('[POST] /images - regular user', async () => {
-    const user = await userFactory.makePrismaUser({ role: 'USER' })
-
-    const accessToken = jwt.sign({
-      sub: user.id.toString(),
-      role: user.role,
-    })
-
-    const response = await request(app.getHttpServer())
-      .post('/images')
-      .set('Authorization', `Bearer ${accessToken}`)
-
-    expect(response.statusCode).toBe(403)
   })
 })

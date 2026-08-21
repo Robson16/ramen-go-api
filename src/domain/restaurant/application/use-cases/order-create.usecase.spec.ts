@@ -42,6 +42,7 @@ describe('Create Order', () => {
     ])
 
     const result = await sut.execute({
+      userId: 'user-1',
       brothId: broth.id.toString(),
       proteinId: protein.id.toString(),
     })
@@ -50,6 +51,9 @@ describe('Create Order', () => {
     expect(result.value).toEqual({
       order: inMemoryOrdersRepository.items[0],
     })
+    expect(inMemoryOrdersRepository.items[0].userId.toString()).toEqual(
+      'user-1',
+    )
   })
 
   it('should not be able to create a order without broth', async () => {
@@ -60,6 +64,7 @@ describe('Create Order', () => {
     const result = await sut.execute({
       brothId: 'undefined-broth-id',
       proteinId: protein.id.toString(),
+      userId: 'user-1',
     })
 
     expect(result.isLeft()).toBe(true)
@@ -74,6 +79,7 @@ describe('Create Order', () => {
     const result = await sut.execute({
       brothId: broth.id.toString(),
       proteinId: 'undefined-protein-id',
+      userId: 'user-1',
     })
 
     expect(result.isLeft()).toBe(true)

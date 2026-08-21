@@ -9,21 +9,24 @@ import {
 import { ListProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
 import { ProteinPresenter } from '@/infra/http/presenters/restaurant/protein-presenter'
 
-@ApiTags('proteins')
+@ApiTags('restaurant', 'proteins')
 @ApiBearerAuth()
 @Controller('/proteins')
 export class ListProteinController {
   constructor(private listProtein: ListProteinUseCase) {}
 
   @Get()
-  @ApiOperation({ summary: 'List a Protein.' })
+  @ApiOperation({ summary: 'List Protein.' })
   @ApiResponse({
     status: 200,
     description: 'A list of proteins.',
     isArray: true,
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized. Invalid API Key.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing Bearer token.',
+  })
   async handle() {
     const result = await this.listProtein.execute()
 
