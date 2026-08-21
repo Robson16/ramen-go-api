@@ -104,18 +104,28 @@
 
 ## 🍽️ Épico 6: Gestão Completa de Catálogo e Pedidos (Admin CRUD)
 
-**User Story:**
-> *"As a system administrator, I want to fully manage the restaurant's catalog (edit and delete broths/proteins) and update the status of customer orders, ensuring the menu is always up to date and the operation flows correctly."*
-
 ### Tarefas
 
-**Gestão de Catálogo (Broths & Proteins)**
-- [ ] Criar casos de uso para Edição e Exclusão de Caldos (`broth-edit` e `broth-delete`).
-- [ ] Criar casos de uso para Edição e Exclusão de Proteínas (`protein-edit` e `protein-delete`).
-- [ ] Implementar os respectivos controllers em `src/infra/http/controllers/admin/` (ex: `PUT /admin/broths/:id`, `DELETE /admin/broths/:id`).
-- [ ] Proteger todas essas rotas com `@Roles('ADMIN')` e garantir nos testes E2E o bloqueio (403) para usuários comuns.
+### User Story 1: Acesso autenticado ao catálogo
 
-**Gestão de Pedidos (Orders)**
+> *"As an authenticated user, I want to browse the broth and protein catalog so that I can choose the ingredients for my order."*
+
+**Catálogo para usuários autenticados**
+- [ ] Exigir autenticação nas rotas de listagem (`GET /broths` e `GET /proteins`), permitindo acesso a usuários autenticados sem exigir a role `ADMIN`.
+- [ ] Adicionar testes E2E para garantir `401 Unauthorized` sem token e acesso permitido para usuários autenticados comuns.
+
+### User Story 2: Administração do catálogo e dos pedidos
+
+> *"As a system administrator, I want to fully manage the restaurant's catalog and update the status of customer orders, ensuring the menu is always up to date and the operation flows correctly."*
+
+**Gestão administrativa do Catálogo (Broths, Proteins & Images)**
+- [ ] Aplicar o Guardião de Segurança (`@Roles('ADMIN')`) nas rotas de criação já existentes (`POST /broths`, `POST /proteins` e `POST /images`).
+- [ ] Criar casos de uso para edição e exclusão de caldos (`broth-edit` e `broth-delete`).
+- [ ] Criar casos de uso para edição e exclusão de proteínas (`protein-edit` e `protein-delete`).
+- [ ] Implementar os respectivos controllers em `src/infra/http/controllers/admin/` (ex: `PUT /admin/broths/:id`, `DELETE /admin/broths/:id`).
+- [ ] Proteger todas essas novas rotas com `@Roles('ADMIN')` e garantir nos testes E2E o bloqueio (`403 Forbidden`) para usuários comuns.
+
+**Gestão administrativa de Pedidos (Orders)**
 - [ ] Criar enum de Status do Pedido no Prisma (ex: `PENDING`, `PREPARING`, `READY`, `DELIVERED`).
 - [ ] Criar caso de uso `order-update-status.usecase.ts` (ex: atualizar de pendente para em preparo).
 - [ ] Implementar o controller `PATCH /admin/orders/:id/status` restrito a administradores.

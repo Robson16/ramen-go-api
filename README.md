@@ -97,7 +97,11 @@ A API possui uma documentação interativa gerada automaticamente com o Swagger.
 1. Crie uma conta na rota `POST /accounts`.
 2. Faça login na rota `POST /sessions` para receber o seu `access_token`.
 3. Copie o token, clique no botão verde **"Authorize"** (no topo do Swagger) e cole o token.
-4. Agora você pode testar rotas protegidas (como gerenciar perfil ou criar pedidos).
+4. Agora você pode testar rotas protegidas, como gerenciar o perfil, criar pedidos e consultar o histórico de pedidos.
+
+**Rotas administrativas:**
+
+As rotas com o prefixo `/admin` exigem um JWT válido de um usuário com a role `ADMIN`. Usuários comuns recebem `403 Forbidden`.
 
 ## Estrutura do Código
 
@@ -134,6 +138,10 @@ O projeto segue os princípios de Arquitetura Limpa (Clean Architecture) e Domai
 *   `POST /password/forgot`: Solicita a recuperação de senha e envia um e-mail com o token.
 *   `PATCH /password/reset`: Redefine a senha do usuário utilizando o token de recuperação.
 
+#### Administração de Usuários
+
+*   `GET /admin/users`: Lista todos os usuários (restrito a administradores).
+
 ### 🍜 Catálogo e Pedidos (Restaurant)
 
 #### Caldos (Broths)
@@ -148,12 +156,17 @@ O projeto segue os princípios de Arquitetura Limpa (Clean Architecture) e Domai
 
 #### Pedidos (Orders)
 
-*   `GET /orders/:id`: Recupera os detalhes de um pedido específico (protegido).
+*   `GET /orders`: Lista os pedidos do usuário autenticado (protegido).
+*   `GET /orders/:id`: Recupera os detalhes de um pedido específico (protegido; o proprietário ou um administrador pode acessar).
 *   `POST /orders`: Realiza um novo pedido enviando ID do caldo e proteína (protegido).
+
+#### Administração de Pedidos
+
+*   `GET /admin/orders`: Lista todos os pedidos (restrito a administradores).
 
 #### Upload
 
-*   `POST /image-upload`: Faz upload de imagens para os ingredientes no R2 (protegido).
+*   `POST /images`: Faz upload de imagens para os ingredientes no R2 (protegido).
 
 ### Autenticação
 
@@ -163,4 +176,4 @@ A aplicação utiliza JWT (JSON Web Token). Após fazer login na rota de sessõe
 Authorization: Bearer <seu-jwt-token>
 ```
 
-Endpoints de catálogo (`GET /broths` e `GET /proteins`) são públicos e não exigem autenticação.
+Endpoints de catálogo (`GET /broths` e `GET /proteins`) são públicos e não exigem autenticação. As operações de criação de caldos e proteínas, pedidos, upload, perfil, histórico e consulta de pedidos exigem autenticação.
