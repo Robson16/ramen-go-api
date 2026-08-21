@@ -34,7 +34,7 @@ const createProteinBodySchema = z.object({
 
 type CreateProteinBodySchema = z.infer<typeof createProteinBodySchema>
 
-class CreateProtein {
+class CreateProteinDto {
   @ApiProperty({
     example: 'Chasu',
     description: 'The name of the protein',
@@ -78,7 +78,10 @@ export class CreateProteinController {
   @Post()
   @Roles('ADMIN')
   @ApiOperation({ summary: 'Create a Protein.' })
-  @ApiBody({ type: CreateProtein, description: 'The protein creation payload' })
+  @ApiBody({
+    type: CreateProteinDto,
+    description: 'The protein creation payload',
+  })
   @ApiResponse({ status: 201, description: 'A new protein has been created.' })
   @ApiResponse({
     status: 400,

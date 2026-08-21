@@ -31,7 +31,7 @@ const createOrderBodySchema = z.object({
 
 type CreateOrderBodySchema = z.infer<typeof createOrderBodySchema>
 
-class CreateOrder {
+class CreateOrderDto {
   @ApiProperty({
     example: 'ec82a6b8-ea86-4543-a286-809672bcc423',
     description: 'The ID for Broth',
@@ -53,7 +53,7 @@ export class CreateOrderController {
 
   @Post()
   @ApiOperation({ summary: 'Create a Order.' })
-  @ApiBody({ type: CreateOrder, description: 'The order creation payload' })
+  @ApiBody({ type: CreateOrderDto, description: 'The order creation payload' })
   @ApiResponse({ status: 201, description: 'A new order has been created.' })
   @ApiResponse({
     status: 400,

@@ -111,15 +111,15 @@
 > *"As an authenticated user, I want to browse the broth and protein catalog so that I can choose the ingredients for my order."*
 
 **Catálogo para usuários autenticados**
-- [ ] Exigir autenticação nas rotas de listagem (`GET /broths` e `GET /proteins`), permitindo acesso a usuários autenticados sem exigir a role `ADMIN`.
-- [ ] Adicionar testes E2E para garantir `401 Unauthorized` sem token e acesso permitido para usuários autenticados comuns.
+- [x] Exigir autenticação nas rotas de listagem (`GET /broths` e `GET /proteins`), permitindo acesso a usuários autenticados sem exigir a role `ADMIN`.
+- [x] Adicionar testes E2E para garantir `401 Unauthorized` sem token e acesso permitido para usuários autenticados comuns.
 
 ### User Story 2: Administração do catálogo e dos pedidos
 
 > *"As a system administrator, I want to fully manage the restaurant's catalog and update the status of customer orders, ensuring the menu is always up to date and the operation flows correctly."*
 
 **Gestão administrativa do Catálogo (Broths, Proteins & Images)**
-- [ ] Aplicar o Guardião de Segurança (`@Roles('ADMIN')`) nas rotas de criação já existentes (`POST /broths`, `POST /proteins` e `POST /images`).
+- [x] Confirmar a aplicação do Guardião de Segurança (`@Roles('ADMIN')`) nas rotas de criação já existentes (`POST /broths`, `POST /proteins` e `POST /images`).
 - [ ] Criar casos de uso para edição e exclusão de caldos (`broth-edit` e `broth-delete`).
 - [ ] Criar casos de uso para edição e exclusão de proteínas (`protein-edit` e `protein-delete`).
 - [ ] Implementar os respectivos controllers em `src/infra/http/controllers/admin/` (ex: `PUT /admin/broths/:id`, `DELETE /admin/broths/:id`).

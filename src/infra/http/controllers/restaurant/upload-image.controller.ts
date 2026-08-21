@@ -21,7 +21,7 @@ import { InvalidImageTypeError } from '@/domain/restaurant/application/use-cases
 import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use-cases/upload-and-create-image.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 
-class UploadImage {
+class UploadImageDto {
   file: any
 }
 
@@ -37,7 +37,7 @@ export class UploadImageController {
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     description: 'The image file to be uploaded',
-    type: UploadImage,
+    type: UploadImageDto,
   })
   @ApiResponse({
     status: 201,
