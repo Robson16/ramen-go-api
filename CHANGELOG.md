@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Robson16/ramen-go-api/compare/v1.2.0...v1.3.0) (2026-08-21)
+
+### Features
+
+* add user role table column ([f482c6b](https://github.com/Robson16/ramen-go-api/commit/f482c6b93ccfab7544d60b4b541fd53ff9474485))
+* **auth:** add role-based access control for users ([c5c030d](https://github.com/Robson16/ramen-go-api/commit/c5c030d5b888c4ed786ae0ea9b929c6c8f5de885))
+* **auth:** enforce role-based access and order ownership ([38c240f](https://github.com/Robson16/ramen-go-api/commit/38c240f9c1664b0fe804e4e11f314f56c5c267e4))
+* **auth:** protect restaurant routes with role-based access ([1f9138c](https://github.com/Robson16/ramen-go-api/commit/1f9138c0a3bbb40325d8c5883406693e95d1045b))
+* list users route ([2b94fa0](https://github.com/Robson16/ramen-go-api/commit/2b94fa05acc2a602f94c6391ea4eb46c255d9cba))
+* **orders:** add admin endpoint to list all orders ([194c1e3](https://github.com/Robson16/ramen-go-api/commit/194c1e349dbf0245f931b87b9036b0ce360422b2))
+* **orders:** add endpoint to list authenticated user orders ([55d922c](https://github.com/Robson16/ramen-go-api/commit/55d922c3996377d01458f807d8d9c41973dfb9d5))
+* **orders:** add use case to list all orders ([71ebff3](https://github.com/Robson16/ramen-go-api/commit/71ebff3d4ed06cb821031b4e462dd466b4a81843))
+* **orders:** add use case to list orders by user ([fca6878](https://github.com/Robson16/ramen-go-api/commit/fca6878711188a542f373c4b7336411de9789e7f))
+* **orders:** repository implementation for find many orders and find many by user ([f77aee4](https://github.com/Robson16/ramen-go-api/commit/f77aee4bcf86a3b31c5a3fa20288dd26bfc21e76))
 ## [1.2.0](https://github.com/Robson16/ramen-go-api/compare/v1.1.1...v1.2.0) (2026-08-18)
 
 ### Features
