@@ -91,7 +91,7 @@
 **Domain & Application**
 - [x] Criar o caso de uso `user-list.usecase.ts` (Account Domain).
 - [x] Criar o caso de uso `order-list-all.usecase.ts` (Restaurant Domain).
-- [ ] Criar o caso de uso `order-list-by-user.usecase.ts` (Restaurant Domain).
+- [x] Criar o caso de uso `order-list-by-user.usecase.ts` (Restaurant Domain).
 
 **HTTP (Controllers & E2E)**
 - [x] Criar a estrutura base de rotas administrativas em `src/infra/http/controllers/admin/`.
