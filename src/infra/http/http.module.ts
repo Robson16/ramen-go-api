@@ -13,6 +13,7 @@ import { ListBrothUseCase } from '@/domain/restaurant/application/use-cases/brot
 import { CreateOrderUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
 import { GetOrderByIdUseCase } from '@/domain/restaurant/application/use-cases/order-get-by-id.usecase'
 import { OrderListAllUseCase } from '@/domain/restaurant/application/use-cases/order-list-all.usecase'
+import { OrderListByUserUseCase } from '@/domain/restaurant/application/use-cases/order-list-by-user.usecase'
 import { CreateProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
 import { ListProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
 import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use-cases/upload-and-create-image.usecase'
@@ -36,6 +37,7 @@ import { GetOrderController } from './controllers/restaurant/get-order.controlle
 import { ListAllOrdersController } from './controllers/restaurant/list-all-orders.controller'
 import { ListBrothController } from './controllers/restaurant/list-broth.controller'
 import { ListProteinController } from './controllers/restaurant/list-protein.controller'
+import { ListOrdersByUserController } from './controllers/restaurant/list-user-orders.controller'
 import { UploadImageController } from './controllers/restaurant/upload-image.controller'
 
 @Module({
@@ -56,6 +58,7 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     CreateOrderController,
     GetOrderController,
     ListAllOrdersController,
+    ListOrdersByUserController,
     UploadImageController,
   ],
   providers: [
@@ -74,6 +77,7 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     CreateOrderUseCase,
     GetOrderByIdUseCase,
     OrderListAllUseCase,
+    OrderListByUserUseCase,
     UploadAndCreateImageUseCase,
   ],
 })

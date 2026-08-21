@@ -97,7 +97,7 @@
 - [x] Criar a estrutura base de rotas administrativas em `src/infra/http/controllers/admin/`.
 - [x] Implementar o controlador `list-users.controller.ts` (`GET /admin/users`).
 - [x] Implementar o controlador `list-all-orders.controller.ts` (`GET /admin/orders`).
-- [ ] Implementar o controlador `list-user-orders.controller.ts` (`GET /orders`) para o cliente.
+- [x] Implementar o controlador `list-user-orders.controller.ts` (`GET /orders`) para o cliente.
 - [x] Desenvolver testes E2E garantindo o funcionamento do RBAC e erro `403 Forbidden`.
 
 ---
