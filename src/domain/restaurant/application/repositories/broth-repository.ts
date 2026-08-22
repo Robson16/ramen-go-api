@@ -7,4 +7,6 @@ export abstract class BrothsRepository {
   abstract findMany(): Promise<Broth[]>
   abstract findManyWithImagesUrl(): Promise<BrothWithImagesUrl[]>
   abstract create(broth: Broth): Promise<void>
+  abstract save(broth: Broth): Promise<void>
+  abstract delete(broth: Broth): Promise<void>
 }
