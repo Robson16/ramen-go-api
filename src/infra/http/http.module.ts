@@ -15,6 +15,7 @@ import { GetOrderByIdUseCase } from '@/domain/restaurant/application/use-cases/o
 import { OrderListAllUseCase } from '@/domain/restaurant/application/use-cases/order-list-all.usecase'
 import { OrderListByUserUseCase } from '@/domain/restaurant/application/use-cases/order-list-by-user.usecase'
 import { CreateProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
+import { EditProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-edit'
 import { ListProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
 import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use-cases/upload-and-create-image.usecase'
 import { CryptographyModule } from '@/infra/cryptography/cryptography.module'
@@ -73,6 +74,7 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     CreateBrothUseCase,
     ListBrothUseCase,
     CreateProteinUseCase,
+    EditProteinUseCase,
     ListProteinUseCase,
     CreateOrderUseCase,
     GetOrderByIdUseCase,

@@ -7,4 +7,6 @@ export abstract class ProteinsRepository {
   abstract findMany(): Promise<Protein[]>
   abstract findManyWithImagesUrl(): Promise<ProteinWithImagesUrl[]>
   abstract create(protein: Protein): Promise<void>
+  abstract save(protein: Protein): Promise<void>
+  abstract delete(protein: Protein): Promise<void>
 }
