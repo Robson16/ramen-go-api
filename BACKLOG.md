@@ -94,9 +94,9 @@
 - [x] Criar o caso de uso `order-list-by-user.usecase.ts` (Restaurant Domain).
 
 **HTTP (Controllers & E2E)**
-- [x] Criar a estrutura base de rotas administrativas em `src/infra/http/controllers/admin/`.
-- [x] Implementar o controlador `list-users.controller.ts` (`GET /admin/users`).
-- [x] Implementar o controlador `list-all-orders.controller.ts` (`GET /admin/orders`).
+- [x] Criar a estrutura base de rotas administrativas em `src/infra/http/controllers/`.
+- [x] Implementar o controlador `list-users.controller.ts` (`GET /users`).
+- [x] Implementar o controlador `list-all-orders.controller.ts` (`GET /orders`).
 - [x] Implementar o controlador `list-user-orders.controller.ts` (`GET /orders`) para o cliente.
 - [x] Desenvolver testes E2E garantindo o funcionamento do RBAC e erro `403 Forbidden`.
 
@@ -122,13 +122,13 @@
 - [x] Confirmar a aplicação do Guardião de Segurança (`@Roles('ADMIN')`) nas rotas de criação já existentes (`POST /broths`, `POST /proteins` e `POST /images`).
 - [x] Criar casos de uso para edição e exclusão de caldos (`broth-edit` e `broth-delete`).
 - [x] Criar casos de uso para edição e exclusão de proteínas (`protein-edit` e `protein-delete`).
-- [ ] Implementar os respectivos controllers em `src/infra/http/controllers/admin/` (ex: `PUT /admin/broths/:id`, `DELETE /admin/broths/:id`).
+- [ ] Implementar os respectivos controllers em `src/infra/http/controllers/` (ex: `PUT /broths/:id`, `DELETE /broths/:id`).
 - [ ] Proteger todas essas novas rotas com `@Roles('ADMIN')` e garantir nos testes E2E o bloqueio (`403 Forbidden`) para usuários comuns.
 
 **Gestão administrativa de Pedidos (Orders)**
 - [ ] Criar enum de Status do Pedido no Prisma (ex: `PENDING`, `PREPARING`, `READY`, `DELIVERED`).
 - [ ] Criar caso de uso `order-update-status.usecase.ts` (ex: atualizar de pendente para em preparo).
-- [ ] Implementar o controller `PATCH /admin/orders/:id/status` restrito a administradores.
+- [ ] Implementar o controller `PATCH /orders/:id/status` restrito a administradores.
 
 ---
 

@@ -9,6 +9,7 @@ import { RegisterUserUseCase } from '@/domain/account/application/use-cases/user
 import { ResetUserPasswordUseCase } from '@/domain/account/application/use-cases/user-reset-password.usecase'
 import { SendUserPasswordResetUseCase } from '@/domain/account/application/use-cases/user-send-password-reset.usecase'
 import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
+import { EditBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-edit.usecase'
 import { ListBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-list.usecase'
 import { CreateOrderUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
 import { GetOrderByIdUseCase } from '@/domain/restaurant/application/use-cases/order-get-by-id.usecase'
@@ -34,6 +35,8 @@ import { SendUserPasswordResetController } from './controllers/account/send-user
 import { CreateBrothController } from './controllers/restaurant/create-broth.controller'
 import { CreateOrderController } from './controllers/restaurant/create-order.controller'
 import { CreateProteinController } from './controllers/restaurant/create-protein.controller'
+import { EditBrothController } from './controllers/restaurant/edit-broth.controller'
+import { EditProteinController } from './controllers/restaurant/edit-protein.controller'
 import { GetOrderController } from './controllers/restaurant/get-order.controller'
 import { ListAllOrdersController } from './controllers/restaurant/list-all-orders.controller'
 import { ListBrothController } from './controllers/restaurant/list-broth.controller'
@@ -54,8 +57,10 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     ListUsersController,
     CreateBrothController,
     ListBrothController,
+    EditBrothController,
     CreateProteinController,
     ListProteinController,
+    EditProteinController,
     CreateOrderController,
     GetOrderController,
     ListAllOrdersController,
@@ -73,6 +78,7 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     ListUserUseCase,
     CreateBrothUseCase,
     ListBrothUseCase,
+    EditBrothUseCase,
     CreateProteinUseCase,
     EditProteinUseCase,
     ListProteinUseCase,
