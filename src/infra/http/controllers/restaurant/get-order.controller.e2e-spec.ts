@@ -44,7 +44,7 @@ describe('Get order by id (e2e)', () => {
     await app.init()
   })
 
-  test('[GET] /orders/:id', async () => {
+  test('[GET] /orders/:orderId', async () => {
     const [imageActive, imageInactive] = await Promise.all([
       imageFactory.makePrismaImage(),
       imageFactory.makePrismaImage(),
@@ -89,7 +89,7 @@ describe('Get order by id (e2e)', () => {
     )
   })
 
-  test('[GET] /orders/:id - denies another regular user', async () => {
+  test('[GET] /orders/:orderId - denies another regular user', async () => {
     const [imageActive, imageInactive] = await Promise.all([
       imageFactory.makePrismaImage(),
       imageFactory.makePrismaImage(),
@@ -123,7 +123,7 @@ describe('Get order by id (e2e)', () => {
     expect(response.statusCode).toBe(403)
   })
 
-  test('[GET] /orders/:id - allows admin user', async () => {
+  test('[GET] /orders/:orderId - allows admin user', async () => {
     const [imageActive, imageInactive] = await Promise.all([
       imageFactory.makePrismaImage(),
       imageFactory.makePrismaImage(),
@@ -157,7 +157,7 @@ describe('Get order by id (e2e)', () => {
     expect(response.statusCode).toBe(200)
   })
 
-  test('[GET] /orders/:id - returns not found for a missing order', async () => {
+  test('[GET] /orders/:orderId - returns not found for a missing order', async () => {
     const user = await userFactory.makePrismaUser({ role: 'USER' })
     const accessToken = jwt.sign({
       sub: user.id.toString(),
@@ -171,7 +171,7 @@ describe('Get order by id (e2e)', () => {
     expect(response.statusCode).toBe(404)
   })
 
-  test('[GET] /orders/:id - rejects an unauthenticated user', async () => {
+  test('[GET] /orders/:orderId - rejects an unauthenticated user', async () => {
     const response = await request(app.getHttpServer()).get(
       '/orders/00000000-0000-0000-0000-000000000000',
     )

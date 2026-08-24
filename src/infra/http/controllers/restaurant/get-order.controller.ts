@@ -27,10 +27,10 @@ import { OrderPresenter } from '@/infra/http/presenters/restaurant/order-present
 export class GetOrderController {
   constructor(private getOrderById: GetOrderByIdUseCase) {}
 
-  @Get(':id')
+  @Get(':orderId')
   @ApiOperation({ summary: 'Get an order by ID.' })
   @ApiParam({
-    name: 'id',
+    name: 'orderId',
     description: 'The unique identifier of the order',
     example: 'ec82a6b8-ea86-4543-a286-809672bcc423',
   })
@@ -47,9 +47,12 @@ export class GetOrderController {
     status: 404,
     description: 'Order not found in database.',
   })
-  async handle(@Param('id') id: string, @CurrentUser() user: UserPayload) {
+  async handle(
+    @Param('orderId') orderId: string,
+    @CurrentUser() user: UserPayload,
+  ) {
     const result = await this.getOrderById.execute({
-      orderId: id,
+      orderId,
       userId: user.sub,
       role: user.role,
     })
