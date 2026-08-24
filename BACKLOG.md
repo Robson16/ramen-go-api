@@ -120,8 +120,8 @@
 
 **Gestão administrativa do Catálogo (Broths, Proteins & Images)**
 - [x] Confirmar a aplicação do Guardião de Segurança (`@Roles('ADMIN')`) nas rotas de criação já existentes (`POST /broths`, `POST /proteins` e `POST /images`).
-- [ ] Criar casos de uso para edição e exclusão de caldos (`broth-edit` e `broth-delete`).
-- [ ] Criar casos de uso para edição e exclusão de proteínas (`protein-edit` e `protein-delete`).
+- [x] Criar casos de uso para edição e exclusão de caldos (`broth-edit` e `broth-delete`).
+- [x] Criar casos de uso para edição e exclusão de proteínas (`protein-edit` e `protein-delete`).
 - [ ] Implementar os respectivos controllers em `src/infra/http/controllers/admin/` (ex: `PUT /admin/broths/:id`, `DELETE /admin/broths/:id`).
 - [ ] Proteger todas essas novas rotas com `@Roles('ADMIN')` e garantir nos testes E2E o bloqueio (`403 Forbidden`) para usuários comuns.
 
