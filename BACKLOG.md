@@ -122,8 +122,8 @@
 - [x] Confirmar a aplicação do Guardião de Segurança (`@Roles('ADMIN')`) nas rotas de criação já existentes (`POST /broths`, `POST /proteins` e `POST /images`).
 - [x] Criar casos de uso para edição e exclusão de caldos (`broth-edit` e `broth-delete`).
 - [x] Criar casos de uso para edição e exclusão de proteínas (`protein-edit` e `protein-delete`).
-- [ ] Implementar os respectivos controllers em `src/infra/http/controllers/` (ex: `PUT /broths/:id`, `DELETE /broths/:id`).
-- [ ] Proteger todas essas novas rotas com `@Roles('ADMIN')` e garantir nos testes E2E o bloqueio (`403 Forbidden`) para usuários comuns.
+- [x] Implementar os respectivos controllers em `src/infra/http/controllers/` (ex: `PUT /broths/:id`, `DELETE /broths/:id`).
+- [x] Proteger todas essas novas rotas com `@Roles('ADMIN')` e garantir nos testes E2E o bloqueio (`403 Forbidden`) para usuários comuns.
 
 **Gestão administrativa de Pedidos (Orders)**
 - [ ] Criar enum de Status do Pedido no Prisma (ex: `PENDING`, `PREPARING`, `READY`, `DELIVERED`).
