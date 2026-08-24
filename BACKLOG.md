@@ -122,11 +122,11 @@
 - [x] Confirmar a aplicação do Guardião de Segurança (`@Roles('ADMIN')`) nas rotas de criação já existentes (`POST /broths`, `POST /proteins` e `POST /images`).
 - [x] Criar casos de uso para edição e exclusão de caldos (`broth-edit` e `broth-delete`).
 - [x] Criar casos de uso para edição e exclusão de proteínas (`protein-edit` e `protein-delete`).
-- [x] Implementar os respectivos controllers em `src/infra/http/controllers/` (ex: `PUT /broths/:id`, `DELETE /broths/:id`).
+- [x] Implementar os controllers correspondentes em `src/infra/http/controllers/` (ex: `PUT /broths/:id`, `DELETE /broths/:id`).
 - [x] Proteger todas essas novas rotas com `@Roles('ADMIN')` e garantir nos testes E2E o bloqueio (`403 Forbidden`) para usuários comuns.
 
 **Gestão administrativa de Pedidos (Orders)**
-- [ ] Criar enum de Status do Pedido no Prisma (ex: `PENDING`, `PREPARING`, `READY`, `DELIVERED`).
+- [x] Criar enum de Status do Pedido no Prisma (ex: `PENDING`, `PREPARING`, `READY`, `DELIVERED`).
 - [ ] Criar caso de uso `order-update-status.usecase.ts` (ex: atualizar de pendente para em preparo).
 - [ ] Implementar o controller `PATCH /orders/:id/status` restrito a administradores.
 
@@ -151,7 +151,7 @@
 
 **Domain & Application**
 - [ ] Revisar os arquivos de use cases e confirmar que seguem o formato `recurso-ação.usecase.ts` (ex: `user-list.usecase.ts`).
-- [ ] Renomear classes, imports, registros de módulos e referências nos testes para acompanhar o padrão `RecursoAçãoTipo`.
+- [ ] Renomear classes, imports, configurações dos módulos e referências nos testes para acompanhar o padrão `RecursoAçãoTipo`.
 
 **HTTP & Infraestrutura**
 - [ ] Renomear controllers para o formato `recurso-ação.controller.ts` (ex: `list-users.controller.ts` para `users-list.controller.ts`).

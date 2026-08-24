@@ -12,6 +12,8 @@ export class PrismaProteinMapper {
         price: Number(raw.price),
         imageActiveId: raw.imageActiveId,
         imageInactiveId: raw.imageInactiveId,
+        createdAt: raw.createdAt,
+        updatedAt: raw.updatedAt,
       },
       new UniqueEntityID(raw.id),
     )
@@ -25,6 +27,8 @@ export class PrismaProteinMapper {
       price: protein.price,
       imageActiveId: protein.imageActiveId,
       imageInactiveId: protein.imageInactiveId,
+      createdAt: protein.createdAt,
+      updatedAt: protein.updatedAt,
     }
   }
 }

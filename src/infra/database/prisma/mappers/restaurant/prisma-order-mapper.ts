@@ -11,6 +11,9 @@ export class PrismaOrderMapper {
         brothId: new UniqueEntityID(raw.brothId),
         proteinId: new UniqueEntityID(raw.proteinId),
         description: raw.description,
+        status: raw.status,
+        createdAt: raw.createdAt,
+        updatedAt: raw.updatedAt,
       },
       new UniqueEntityID(raw.id),
     )
@@ -23,6 +26,9 @@ export class PrismaOrderMapper {
       brothId: order.brothId.toString(),
       proteinId: order.proteinId.toString(),
       description: order.description,
+      status: order.status,
+      createdAt: order.createdAt,
+      updatedAt: order.updatedAt ?? undefined,
     }
   }
 }

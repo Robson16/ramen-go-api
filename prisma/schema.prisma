@@ -88,11 +88,19 @@ model Image {
   @@map("images")
 }
 
+enum OrderStatus {
+  PENDING
+  PREPARING
+  READY
+  DELIVERED
+}
+
 model Order {
-  id          String    @id @default(uuid())
+  id          String      @id @default(uuid())
   description String
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime? @updatedAt @map("updated_at")
+  status      OrderStatus @default(PENDING)
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime?   @updatedAt @map("updated_at")
 
   userId String @map("user_id")
 

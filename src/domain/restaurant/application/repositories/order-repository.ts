@@ -5,4 +5,5 @@ export abstract class OrdersRepository {
   abstract findMany(): Promise<Order[]>
   abstract findManyByUserId(userId: string): Promise<Order[]>
   abstract create(order: Order): Promise<void>
+  abstract save(order: Order): Promise<void>
 }

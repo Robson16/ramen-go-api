@@ -12,6 +12,8 @@ export class PrismaBrothMapper {
         price: Number(raw.price),
         imageActiveId: raw.imageActiveId,
         imageInactiveId: raw.imageInactiveId,
+        createdAt: raw.createdAt,
+        updatedAt: raw.updatedAt,
       },
       new UniqueEntityID(raw.id),
     )
@@ -25,6 +27,8 @@ export class PrismaBrothMapper {
       price: broth.price,
       imageActiveId: broth.imageActiveId,
       imageInactiveId: broth.imageInactiveId,
+      createdAt: broth.createdAt,
+      updatedAt: broth.updatedAt,
     }
   }
 }
