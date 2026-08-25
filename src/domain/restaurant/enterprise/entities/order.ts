@@ -2,6 +2,8 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
+import { OrderAlreadyDeliveredError } from './errors/order-already-delivered-error'
+
 export type OrderStatus = 'PENDING' | 'PREPARING' | 'READY' | 'DELIVERED'
 
 export interface OrderProps {
@@ -17,11 +19,6 @@ export interface OrderProps {
 export class Order extends Entity<OrderProps> {
   get userId() {
     return this.props.userId
-  }
-
-  set userId(userId: UniqueEntityID) {
-    this.props.userId = userId
-    this.touch()
   }
 
   get brothId() {
@@ -55,11 +52,6 @@ export class Order extends Entity<OrderProps> {
     return this.props.status
   }
 
-  set status(status: OrderStatus) {
-    this.props.status = status
-    this.touch()
-  }
-
   get createdAt() {
     return this.props.createdAt
   }
@@ -74,7 +66,7 @@ export class Order extends Entity<OrderProps> {
 
   changeStatus(status: OrderStatus) {
     if (this.props.status === 'DELIVERED' && status !== 'DELIVERED') {
-      throw new Error('Cannot change the status of an already delivered order.')
+      throw new OrderAlreadyDeliveredError()
     }
 
     this.props.status = status
