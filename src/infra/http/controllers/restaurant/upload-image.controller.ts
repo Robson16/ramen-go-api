@@ -13,6 +13,7 @@ import {
   ApiBody,
   ApiConsumes,
   ApiOperation,
+  ApiProperty,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger'
@@ -21,7 +22,12 @@ import { InvalidImageTypeError } from '@/domain/restaurant/application/use-cases
 import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use-cases/upload-and-create-image.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 
-class UploadImage {
+class UploadImageDto {
+  @ApiProperty({
+    type: 'string',
+    format: 'binary',
+    description: 'The image file to upload.',
+  })
   file: any
 }
 
@@ -37,7 +43,7 @@ export class UploadImageController {
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     description: 'The image file to be uploaded',
-    type: UploadImage,
+    type: UploadImageDto,
   })
   @ApiResponse({
     status: 201,

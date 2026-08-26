@@ -68,4 +68,10 @@ describe('List protein (e2e)', () => {
       ]),
     })
   })
+
+  test('[GET] /proteins (Unauthorized)', async () => {
+    const response = await request(app.getHttpServer()).get('/proteins').send()
+
+    expect(response.statusCode).toBe(401)
+  })
 })

@@ -75,4 +75,16 @@ export class InMemoryBrothsRepository implements BrothsRepository {
   async create(broth: Broth) {
     this.items.push(broth)
   }
+
+  async save(broth: Broth): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === broth.id)
+
+    this.items[itemIndex] = broth
+  }
+
+  async delete(broth: Broth): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === broth.id)
+
+    this.items.splice(itemIndex, 1)
+  }
 }

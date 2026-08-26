@@ -9,12 +9,17 @@ import { RegisterUserUseCase } from '@/domain/account/application/use-cases/user
 import { ResetUserPasswordUseCase } from '@/domain/account/application/use-cases/user-reset-password.usecase'
 import { SendUserPasswordResetUseCase } from '@/domain/account/application/use-cases/user-send-password-reset.usecase'
 import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
+import { DeleteBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-delete.usecase'
+import { EditBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-edit.usecase'
 import { ListBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-list.usecase'
 import { CreateOrderUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
 import { GetOrderByIdUseCase } from '@/domain/restaurant/application/use-cases/order-get-by-id.usecase'
 import { OrderListAllUseCase } from '@/domain/restaurant/application/use-cases/order-list-all.usecase'
 import { OrderListByUserUseCase } from '@/domain/restaurant/application/use-cases/order-list-by-user.usecase'
+import { UpdateOrderStatusUseCase } from '@/domain/restaurant/application/use-cases/order-update-status.usecase'
 import { CreateProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
+import { DeleteProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-delete.usecase'
+import { EditProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-edit'
 import { ListProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
 import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use-cases/upload-and-create-image.usecase'
 import { CryptographyModule } from '@/infra/cryptography/cryptography.module'
@@ -33,11 +38,16 @@ import { SendUserPasswordResetController } from './controllers/account/send-user
 import { CreateBrothController } from './controllers/restaurant/create-broth.controller'
 import { CreateOrderController } from './controllers/restaurant/create-order.controller'
 import { CreateProteinController } from './controllers/restaurant/create-protein.controller'
+import { DeleteBrothController } from './controllers/restaurant/delete-broth.controller'
+import { DeleteProteinController } from './controllers/restaurant/delete-protein.controller'
+import { EditBrothController } from './controllers/restaurant/edit-broth.controller'
+import { EditProteinController } from './controllers/restaurant/edit-protein.controller'
 import { GetOrderController } from './controllers/restaurant/get-order.controller'
 import { ListAllOrdersController } from './controllers/restaurant/list-all-orders.controller'
 import { ListBrothController } from './controllers/restaurant/list-broth.controller'
 import { ListProteinController } from './controllers/restaurant/list-protein.controller'
 import { ListOrdersByUserController } from './controllers/restaurant/list-user-orders.controller'
+import { UpdateOrderStatusController } from './controllers/restaurant/update-order-status.controller'
 import { UploadImageController } from './controllers/restaurant/upload-image.controller'
 
 @Module({
@@ -53,12 +63,17 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     ListUsersController,
     CreateBrothController,
     ListBrothController,
+    EditBrothController,
+    DeleteBrothController,
     CreateProteinController,
     ListProteinController,
+    EditProteinController,
+    DeleteProteinController,
     CreateOrderController,
     GetOrderController,
     ListAllOrdersController,
     ListOrdersByUserController,
+    UpdateOrderStatusController,
     UploadImageController,
   ],
   providers: [
@@ -72,12 +87,17 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     ListUserUseCase,
     CreateBrothUseCase,
     ListBrothUseCase,
+    EditBrothUseCase,
+    DeleteBrothUseCase,
     CreateProteinUseCase,
+    EditProteinUseCase,
     ListProteinUseCase,
+    DeleteProteinUseCase,
     CreateOrderUseCase,
     GetOrderByIdUseCase,
     OrderListAllUseCase,
     OrderListByUserUseCase,
+    UpdateOrderStatusUseCase,
     UploadAndCreateImageUseCase,
   ],
 })

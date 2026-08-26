@@ -68,4 +68,10 @@ describe('List broth (e2e)', () => {
       ]),
     })
   })
+
+  test('[GET] /broths (Unauthorized)', async () => {
+    const response = await request(app.getHttpServer()).get('/broths').send()
+
+    expect(response.statusCode).toBe(401)
+  })
 })

@@ -34,7 +34,7 @@ const createBrothBodySchema = z.object({
 
 type CreateBrothBodySchema = z.infer<typeof createBrothBodySchema>
 
-class CreateBroth {
+class CreateBrothDto {
   @ApiProperty({
     example: 'Shoyu',
     description: 'The name of the broth',
@@ -77,7 +77,7 @@ export class CreateBrothController {
   @Post()
   @Roles('ADMIN')
   @ApiOperation({ summary: 'Create a Broth.' })
-  @ApiBody({ type: CreateBroth, description: 'The broth creation payload' })
+  @ApiBody({ type: CreateBrothDto, description: 'The broth creation payload' })
   @ApiResponse({ status: 201, description: 'A new broth has been created.' })
   @ApiResponse({
     status: 400,

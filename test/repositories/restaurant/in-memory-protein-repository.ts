@@ -75,4 +75,16 @@ export class InMemoryProteinsRepository implements ProteinsRepository {
   async create(protein: Protein) {
     this.items.push(protein)
   }
+
+  async save(protein: Protein): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === protein.id)
+
+    this.items[itemIndex] = protein
+  }
+
+  async delete(protein: Protein): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === protein.id)
+
+    this.items.splice(itemIndex, 1)
+  }
 }

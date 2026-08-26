@@ -8,16 +8,19 @@ import { ImageFactory } from 'test/factories/restaurant/image-factory'
 import { OrderFactory } from 'test/factories/restaurant/order-factory'
 import { ProteinFactory } from 'test/factories/restaurant/protein-factory'
 
+import { OrderProps } from '@/domain/restaurant/enterprise/entities/order'
 import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
-describe('Get order by id (e2e)', () => {
+describe('Update order status (e2e)', () => {
   let app: INestApplication
   let imageFactory: ImageFactory
   let brothFactory: BrothFactory
   let proteinFactory: ProteinFactory
   let orderFactory: OrderFactory
   let userFactory: UserFactory
+  let prisma: PrismaService
   let jwt: JwtService
 
   beforeAll(async () => {
@@ -39,12 +42,16 @@ describe('Get order by id (e2e)', () => {
     proteinFactory = moduleRef.get(ProteinFactory)
     orderFactory = moduleRef.get(OrderFactory)
     userFactory = moduleRef.get(UserFactory)
+    prisma = moduleRef.get(PrismaService)
     jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
 
-  test('[GET] /orders/:orderId', async () => {
+  async function createOrder(
+    userId: OrderProps['userId'],
+    status?: 'PENDING' | 'DELIVERED',
+  ) {
     const [imageActive, imageInactive] = await Promise.all([
       imageFactory.makePrismaImage(),
       imageFactory.makePrismaImage(),
@@ -61,121 +68,108 @@ describe('Get order by id (e2e)', () => {
       }),
     ])
 
-    const user = await userFactory.makePrismaUser({ role: 'USER' })
-    const order = await orderFactory.makePrismaOrder({
-      userId: user.id,
+    return orderFactory.makePrismaOrder({
+      userId,
       brothId: broth.id,
       proteinId: protein.id,
+      status,
     })
+  }
 
-    const orderId = order.id.toString()
-
-    const accessToken = jwt.sign({
-      sub: user.id.toString(),
-      role: user.role,
-    })
-
-    const response = await request(app.getHttpServer())
-      .get(`/orders/${orderId}`)
-      .set('Authorization', `Bearer ${accessToken}`)
-      .send()
-
-    expect(response.statusCode).toBe(200)
-
-    expect(response.body).toEqual(
-      expect.objectContaining({
-        id: orderId,
-      }),
-    )
-  })
-
-  test('[GET] /orders/:orderId - denies another regular user', async () => {
-    const [imageActive, imageInactive] = await Promise.all([
-      imageFactory.makePrismaImage(),
-      imageFactory.makePrismaImage(),
-    ])
-    const [broth, protein] = await Promise.all([
-      brothFactory.makePrismaBroth({
-        imageActiveId: imageActive.id.toString(),
-        imageInactiveId: imageInactive.id.toString(),
-      }),
-      proteinFactory.makePrismaProtein({
-        imageActiveId: imageActive.id.toString(),
-        imageInactiveId: imageInactive.id.toString(),
-      }),
-    ])
-    const owner = await userFactory.makePrismaUser({ role: 'USER' })
-    const otherUser = await userFactory.makePrismaUser({ role: 'USER' })
-    const order = await orderFactory.makePrismaOrder({
-      userId: owner.id,
-      brothId: broth.id,
-      proteinId: protein.id,
-    })
-
-    const accessToken = jwt.sign({
-      sub: otherUser.id.toString(),
-      role: otherUser.role,
-    })
-    const response = await request(app.getHttpServer())
-      .get(`/orders/${order.id}`)
-      .set('Authorization', `Bearer ${accessToken}`)
-
-    expect(response.statusCode).toBe(403)
-  })
-
-  test('[GET] /orders/:orderId - allows admin user', async () => {
-    const [imageActive, imageInactive] = await Promise.all([
-      imageFactory.makePrismaImage(),
-      imageFactory.makePrismaImage(),
-    ])
-    const [broth, protein] = await Promise.all([
-      brothFactory.makePrismaBroth({
-        imageActiveId: imageActive.id.toString(),
-        imageInactiveId: imageInactive.id.toString(),
-      }),
-      proteinFactory.makePrismaProtein({
-        imageActiveId: imageActive.id.toString(),
-        imageInactiveId: imageInactive.id.toString(),
-      }),
-    ])
-    const owner = await userFactory.makePrismaUser({ role: 'USER' })
+  test('[PATCH] /orders/:orderId/status - updates an order status', async () => {
     const admin = await userFactory.makePrismaUser({ role: 'ADMIN' })
-    const order = await orderFactory.makePrismaOrder({
-      userId: owner.id,
-      brothId: broth.id,
-      proteinId: protein.id,
-    })
-
     const accessToken = jwt.sign({
       sub: admin.id.toString(),
       role: admin.role,
     })
-    const response = await request(app.getHttpServer())
-      .get(`/orders/${order.id}`)
-      .set('Authorization', `Bearer ${accessToken}`)
 
-    expect(response.statusCode).toBe(200)
+    const order = await createOrder(admin.id, 'PENDING')
+
+    const response = await request(app.getHttpServer())
+      .patch(`/orders/${order.id.toString()}/status`)
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({ status: 'PREPARING' })
+
+    expect(response.statusCode).toBe(204)
+
+    const orderOnDatabase = await prisma.order.findUnique({
+      where: { id: order.id.toString() },
+    })
+
+    expect(orderOnDatabase?.status).toBe('PREPARING')
   })
 
-  test('[GET] /orders/:orderId - returns not found for a missing order', async () => {
+  test('[PATCH] /orders/:orderId/status - rejects an unauthenticated user', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/orders/00000000-0000-0000-0000-000000000000/status')
+      .send({ status: 'PREPARING' })
+
+    expect(response.statusCode).toBe(401)
+  })
+
+  test('[PATCH] /orders/:orderId/status - rejects a regular user', async () => {
     const user = await userFactory.makePrismaUser({ role: 'USER' })
     const accessToken = jwt.sign({
       sub: user.id.toString(),
       role: user.role,
     })
 
+    const order = await createOrder(user.id)
+
     const response = await request(app.getHttpServer())
-      .get('/orders/00000000-0000-0000-0000-000000000000')
+      .patch(`/orders/${order.id.toString()}/status`)
       .set('Authorization', `Bearer ${accessToken}`)
+      .send({ status: 'PREPARING' })
+
+    expect(response.statusCode).toBe(403)
+  })
+
+  test('[PATCH] /orders/:orderId/status - rejects an invalid body', async () => {
+    const admin = await userFactory.makePrismaUser({ role: 'ADMIN' })
+    const accessToken = jwt.sign({
+      sub: admin.id.toString(),
+      role: admin.role,
+    })
+
+    const order = await createOrder(admin.id)
+
+    const response = await request(app.getHttpServer())
+      .patch(`/orders/${order.id.toString()}/status`)
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({ status: 'INVALID' })
+
+    expect(response.statusCode).toBe(400)
+  })
+
+  test('[PATCH] /orders/:orderId/status - returns not found for a missing order', async () => {
+    const admin = await userFactory.makePrismaUser({ role: 'ADMIN' })
+    const accessToken = jwt.sign({
+      sub: admin.id.toString(),
+      role: admin.role,
+    })
+
+    const response = await request(app.getHttpServer())
+      .patch('/orders/00000000-0000-0000-0000-000000000000/status')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({ status: 'PREPARING' })
 
     expect(response.statusCode).toBe(404)
   })
 
-  test('[GET] /orders/:orderId - rejects an unauthenticated user', async () => {
-    const response = await request(app.getHttpServer()).get(
-      '/orders/00000000-0000-0000-0000-000000000000',
-    )
+  test('[PATCH] /orders/:orderId/status - rejects changing a delivered order', async () => {
+    const admin = await userFactory.makePrismaUser({ role: 'ADMIN' })
+    const accessToken = jwt.sign({
+      sub: admin.id.toString(),
+      role: admin.role,
+    })
 
-    expect(response.statusCode).toBe(401)
+    const order = await createOrder(admin.id, 'DELIVERED')
+
+    const response = await request(app.getHttpServer())
+      .patch(`/orders/${order.id.toString()}/status`)
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({ status: 'READY' })
+
+    expect(response.statusCode).toBe(409)
   })
 })

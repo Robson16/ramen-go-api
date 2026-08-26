@@ -175,5 +175,3 @@ A aplicação utiliza JWT (JSON Web Token). Após fazer login na rota de sessõe
 ```
 Authorization: Bearer <seu-jwt-token>
 ```
-
-Endpoints de catálogo (`GET /broths` e `GET /proteins`) são públicos e não exigem autenticação. As operações de criação de caldos e proteínas, pedidos, upload, perfil, histórico e consulta de pedidos exigem autenticação.

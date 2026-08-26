@@ -6,16 +6,16 @@ import { InMemoryOrdersRepository } from 'test/repositories/restaurant/in-memory
 import { OrderListByUserUseCase } from './order-list-by-user.usecase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
-let inMemoryOrderRepository: InMemoryOrdersRepository
+let inMemoryOrdersRepository: InMemoryOrdersRepository
 let sut: OrderListByUserUseCase // Subject Under Test
 
-describe('List Orders by User', () => {
+describe('List Orders by User Use Case', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository()
-    inMemoryOrderRepository = new InMemoryOrdersRepository()
+    inMemoryOrdersRepository = new InMemoryOrdersRepository()
     sut = new OrderListByUserUseCase(
       inMemoryUsersRepository,
-      inMemoryOrderRepository,
+      inMemoryOrdersRepository,
     )
   })
 
@@ -27,7 +27,7 @@ describe('List Orders by User', () => {
     await inMemoryUsersRepository.create(user2)
 
     for (let i = 1; i <= 10; i++) {
-      await inMemoryOrderRepository.create(
+      await inMemoryOrdersRepository.create(
         makeOrder({
           userId: user1.id,
         }),
@@ -35,7 +35,7 @@ describe('List Orders by User', () => {
     }
 
     for (let i = 1; i <= 3; i++) {
-      await inMemoryOrderRepository.create(
+      await inMemoryOrdersRepository.create(
         makeOrder({
           userId: user2.id,
         }),
@@ -74,7 +74,7 @@ describe('List Orders by User', () => {
 
   it('should not be able to list orders for an invalid user', async () => {
     for (let i = 1; i <= 10; i++) {
-      await inMemoryOrderRepository.create(makeOrder())
+      await inMemoryOrdersRepository.create(makeOrder())
     }
 
     const result = await sut.execute({

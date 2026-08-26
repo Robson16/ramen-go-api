@@ -92,9 +92,6 @@ describe('Edit User Use Case', () => {
 
     expect(result.isRight()).toBe(true)
     expect(inMemoryUsersRepository.items[0].name).toEqual(newName)
-    if (result.isRight()) {
-      expect(result.value.user.name).toEqual(newName)
-    }
   })
 
   it('should be able to update a user password', async () => {

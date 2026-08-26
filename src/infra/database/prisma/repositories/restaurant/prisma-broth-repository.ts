@@ -70,4 +70,23 @@ export class PrismaBrothsRepository implements BrothsRepository {
       data,
     })
   }
+
+  async save(broth: Broth): Promise<void> {
+    const data = PrismaBrothMapper.toPrisma(broth)
+
+    await this.prisma.broth.update({
+      where: {
+        id: broth.id.toString(),
+      },
+      data,
+    })
+  }
+
+  async delete(broth: Broth): Promise<void> {
+    await this.prisma.broth.delete({
+      where: {
+        id: broth.id.toString(),
+      },
+    })
+  }
 }

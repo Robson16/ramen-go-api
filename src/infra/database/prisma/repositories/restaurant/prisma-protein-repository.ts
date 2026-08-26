@@ -70,4 +70,27 @@ export class PrismaProteinsRepository implements ProteinsRepository {
       data,
     })
   }
+
+  async save(protein: Protein): Promise<void> {
+    await this.prisma.protein.update({
+      where: {
+        id: protein.id.toString(),
+      },
+      data: {
+        name: protein.name,
+        description: protein.description,
+        price: protein.price,
+        imageActiveId: protein.imageActiveId,
+        imageInactiveId: protein.imageInactiveId,
+      },
+    })
+  }
+
+  async delete(protein: Protein): Promise<void> {
+    await this.prisma.protein.delete({
+      where: {
+        id: protein.id.toString(),
+      },
+    })
+  }
 }

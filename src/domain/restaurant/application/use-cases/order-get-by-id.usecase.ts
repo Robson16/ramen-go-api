@@ -4,9 +4,8 @@ import { Either, left, right } from '@/core/either'
 import { ForbiddenError } from '@/core/errors/forbidden-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { Role } from '@/domain/account/enterprise/entities/user'
-
-import { Order } from '../../enterprise/entities/order'
-import { OrdersRepository } from '../repositories/order-repository'
+import { OrdersRepository } from '@/domain/restaurant/application/repositories/order-repository'
+import { Order } from '@/domain/restaurant/enterprise/entities/order'
 
 interface GetOrderByIdUseCaseRequest {
   orderId: string
