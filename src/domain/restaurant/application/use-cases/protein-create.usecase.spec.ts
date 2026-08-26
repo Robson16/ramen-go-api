@@ -5,11 +5,11 @@ import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory
 import { InMemoryProteinsRepository } from 'test/repositories/restaurant/in-memory-protein-repository'
 
 import { ProteinAlreadyExistsError } from './errors/protein-already-exists-error'
-import { CreateProteinUseCase } from './protein-create.usecase'
+import { ProteinCreateUseCase } from './protein-create.usecase'
 
 let inMemoryProteinRepository: InMemoryProteinsRepository
 let inMemoryImagesRepository: InMemoryImagesRepository
-let sut: CreateProteinUseCase // Subject Under Test
+let sut: ProteinCreateUseCase // Subject Under Test
 
 describe('Create Protein', () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('Create Protein', () => {
     inMemoryProteinRepository = new InMemoryProteinsRepository(
       inMemoryImagesRepository,
     )
-    sut = new CreateProteinUseCase(
+    sut = new ProteinCreateUseCase(
       inMemoryProteinRepository,
       inMemoryImagesRepository,
     )

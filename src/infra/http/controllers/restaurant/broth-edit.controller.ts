@@ -20,12 +20,12 @@ import {
 import z from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { EditBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-edit.usecase'
+import { BrothEditUseCase } from '@/domain/restaurant/application/use-cases/broth-edit.usecase'
 import { BrothAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/broth-already-exists-error'
 import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-const editBrothBodySchema = z.object({
+const brothEditBodySchema = z.object({
   name: z.string().min(3).optional(),
   description: z.string().optional(),
   price: z.number().optional(),
@@ -33,7 +33,7 @@ const editBrothBodySchema = z.object({
   imageInactiveId: z.string().uuid().optional(),
 })
 
-type EditBrothBodySchema = z.infer<typeof editBrothBodySchema>
+type BrothEditBodySchema = z.infer<typeof brothEditBodySchema>
 
 class EditBrothDto {
   @ApiProperty({ example: 'Shoyu', required: false })
@@ -64,8 +64,8 @@ class EditBrothDto {
 @ApiTags('admin', 'restaurant', 'broths')
 @ApiBearerAuth()
 @Controller('/broths')
-export class EditBrothController {
-  constructor(private editBrothUseCase: EditBrothUseCase) {}
+export class BrothEditController {
+  constructor(private editBrothUseCase: BrothEditUseCase) {}
 
   @Put(':brothId')
   @Roles('ADMIN')
@@ -103,8 +103,8 @@ export class EditBrothController {
   })
   async handle(
     @Param('brothId') brothId: string,
-    @Body(new ZodValidationPipe(editBrothBodySchema))
-    body: EditBrothBodySchema,
+    @Body(new ZodValidationPipe(brothEditBodySchema))
+    body: BrothEditBodySchema,
   ) {
     const { name, description, price, imageActiveId, imageInactiveId } = body
 

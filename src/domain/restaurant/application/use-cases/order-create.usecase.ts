@@ -22,7 +22,7 @@ type CreateOrderUseCaseResponse = Either<
 >
 
 @Injectable()
-export class CreateOrderUseCase {
+export class OrderCreateUseCase {
   constructor(
     private brothsRepository: BrothsRepository,
     private proteinsRepository: ProteinsRepository,

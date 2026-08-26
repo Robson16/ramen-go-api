@@ -3,19 +3,19 @@ import { FakeMailProvider } from 'test/mailing/fake-mail-provider'
 import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-user-repository'
 import { InMemoryUserTokensRepository } from 'test/repositories/account/in-memory-user-token-repository'
 
-import { SendUserPasswordResetUseCase } from './user-send-password-reset.usecase'
+import { UserSendPasswordResetUseCase } from './user-send-password-reset.usecase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let inMemoryUsersTokensRepository: InMemoryUserTokensRepository
 let fakeMailProvider: FakeMailProvider
-let sut: SendUserPasswordResetUseCase // Subject Under Test
+let sut: UserSendPasswordResetUseCase // Subject Under Test
 
 describe('Send Password Reset Use Case', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository()
     inMemoryUsersTokensRepository = new InMemoryUserTokensRepository()
     fakeMailProvider = new FakeMailProvider()
-    sut = new SendUserPasswordResetUseCase(
+    sut = new UserSendPasswordResetUseCase(
       inMemoryUsersRepository,
       inMemoryUsersTokensRepository,
       fakeMailProvider,

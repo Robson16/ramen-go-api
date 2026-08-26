@@ -24,7 +24,7 @@ type CreateBrothUseCaseResponse = Either<
 >
 
 @Injectable()
-export class CreateBrothUseCase {
+export class BrothCreateUseCase {
   constructor(
     private brothsRepository: BrothsRepository,
     private imagesRepository: ImagesRepository,

@@ -3,15 +3,15 @@ import { InMemoryOrdersRepository } from 'test/repositories/restaurant/in-memory
 
 import { OrderAlreadyDeliveredError } from '@/domain/restaurant/enterprise/entities/errors/order-already-delivered-error'
 
-import { UpdateOrderStatusUseCase } from './order-update-status.usecase'
+import { OrderUpdateStatusUseCase } from './order-update-status.usecase'
 
 let inMemoryOrdersRepository: InMemoryOrdersRepository
-let sut: UpdateOrderStatusUseCase
+let sut: OrderUpdateStatusUseCase
 
 describe('Update Order Status Use Case', () => {
   beforeEach(() => {
     inMemoryOrdersRepository = new InMemoryOrdersRepository()
-    sut = new UpdateOrderStatusUseCase(inMemoryOrdersRepository)
+    sut = new OrderUpdateStatusUseCase(inMemoryOrdersRepository)
   })
 
   it('should be able to update an order status', async () => {

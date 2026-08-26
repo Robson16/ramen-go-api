@@ -7,11 +7,11 @@ import { InMemoryProteinsRepository } from 'test/repositories/restaurant/in-memo
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
 import { ProteinAlreadyExistsError } from './errors/protein-already-exists-error'
-import { EditProteinUseCase } from './protein-edit'
+import { ProteinEditUseCase } from './protein-edit.usecase'
 
 let inMemoryProteinsRepository: InMemoryProteinsRepository
 let inMemoryImagesRepository: InMemoryImagesRepository
-let sut: EditProteinUseCase
+let sut: ProteinEditUseCase
 
 describe('Edit Protein Use Case', () => {
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('Edit Protein Use Case', () => {
     inMemoryProteinsRepository = new InMemoryProteinsRepository(
       inMemoryImagesRepository,
     )
-    sut = new EditProteinUseCase(
+    sut = new ProteinEditUseCase(
       inMemoryProteinsRepository,
       inMemoryImagesRepository,
     )

@@ -13,15 +13,15 @@ import {
 } from '@nestjs/swagger'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { DeleteUserUseCase } from '@/domain/account/application/use-cases/user-delete.usecase'
+import { UserDeleteUseCase } from '@/domain/account/application/use-cases/user-delete.usecase'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 
 @ApiTags('accounts')
 @Controller('/profile')
 @ApiBearerAuth()
-export class DeleteUserProfileController {
-  constructor(private deleteUserUseCase: DeleteUserUseCase) {}
+export class UserDeleteProfileController {
+  constructor(private deleteUserUseCase: UserDeleteUseCase) {}
 
   @Delete()
   @HttpCode(204)

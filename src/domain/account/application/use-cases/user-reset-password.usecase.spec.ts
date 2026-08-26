@@ -7,12 +7,12 @@ import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { UserToken } from '@/domain/account/enterprise/entities/user-token'
 
 import { InvalidTokenError } from './errors/invalid-token-error'
-import { ResetUserPasswordUseCase } from './user-reset-password.usecase'
+import { UserResetPasswordUseCase } from './user-reset-password.usecase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let inMemoryUserTokensRepository: InMemoryUserTokensRepository
 let fakeHasher: FakeHasher
-let sut: ResetUserPasswordUseCase // Subject Under Test
+let sut: UserResetPasswordUseCase // Subject Under Test
 
 describe('Reset User Password Use Case', () => {
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('Reset User Password Use Case', () => {
     inMemoryUserTokensRepository = new InMemoryUserTokensRepository()
     fakeHasher = new FakeHasher()
 
-    sut = new ResetUserPasswordUseCase(
+    sut = new UserResetPasswordUseCase(
       inMemoryUsersRepository,
       inMemoryUserTokensRepository,
       fakeHasher,

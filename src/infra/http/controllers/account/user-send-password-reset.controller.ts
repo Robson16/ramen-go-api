@@ -15,16 +15,16 @@ import {
 } from '@nestjs/swagger'
 import z from 'zod'
 
-import { SendUserPasswordResetUseCase } from '@/domain/account/application/use-cases/user-send-password-reset.usecase'
+import { UserSendPasswordResetUseCase } from '@/domain/account/application/use-cases/user-send-password-reset.usecase'
 import { Public } from '@/infra/auth/public'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-const sendUserPasswordResetBodySchema = z.object({
+const userSendPasswordResetBodySchema = z.object({
   email: z.string().email(),
 })
 
-type SendUserPasswordResetBodySchema = z.infer<
-  typeof sendUserPasswordResetBodySchema
+type UserSendPasswordResetBodySchema = z.infer<
+  typeof userSendPasswordResetBodySchema
 >
 
 class SendUserPasswordResetDto {
@@ -38,9 +38,9 @@ class SendUserPasswordResetDto {
 @ApiTags('accounts')
 @Controller('/password/forgot')
 @Public()
-export class SendUserPasswordResetController {
+export class UserSendPasswordResetController {
   constructor(
-    private sendUserPasswordResetUseCase: SendUserPasswordResetUseCase,
+    private sendUserPasswordResetUseCase: UserSendPasswordResetUseCase,
   ) {}
 
   @Post()
@@ -52,8 +52,8 @@ export class SendUserPasswordResetController {
     description: 'Password reset link sent successfully.',
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
-  @UsePipes(new ZodValidationPipe(sendUserPasswordResetBodySchema))
-  async handle(@Body() body: SendUserPasswordResetBodySchema) {
+  @UsePipes(new ZodValidationPipe(userSendPasswordResetBodySchema))
+  async handle(@Body() body: UserSendPasswordResetBodySchema) {
     const { email } = body
 
     const result = await this.sendUserPasswordResetUseCase.execute({

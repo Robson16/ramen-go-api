@@ -1,15 +1,15 @@
 import { makeUser } from 'test/factories/account/make-user'
 import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-user-repository'
 
-import { ListUserUseCase } from './user-list.usecase'
+import { UserListUseCase } from './user-list.usecase'
 
 let inMemoryUserRepository: InMemoryUsersRepository
-let sut: ListUserUseCase // Subject Under Test
+let sut: UserListUseCase // Subject Under Test
 
 describe('List User', () => {
   beforeEach(() => {
     inMemoryUserRepository = new InMemoryUsersRepository()
-    sut = new ListUserUseCase(inMemoryUserRepository)
+    sut = new UserListUseCase(inMemoryUserRepository)
   })
 
   it('should be able to list users', async () => {

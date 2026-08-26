@@ -20,11 +20,11 @@ import { z } from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { ProteinAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/protein-already-exists-error'
-import { CreateProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
+import { ProteinCreateUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-const createProteinBodySchema = z.object({
+const proteinCreateBodySchema = z.object({
   name: z.string(),
   description: z.string(),
   price: z.number(),
@@ -32,7 +32,7 @@ const createProteinBodySchema = z.object({
   imageInactiveId: z.string().uuid(),
 })
 
-type CreateProteinBodySchema = z.infer<typeof createProteinBodySchema>
+type ProteinCreateBodySchema = z.infer<typeof proteinCreateBodySchema>
 
 class CreateProteinDto {
   @ApiProperty({
@@ -72,8 +72,8 @@ class CreateProteinDto {
 @ApiTags('admin', 'restaurant', 'proteins')
 @ApiBearerAuth()
 @Controller('/proteins')
-export class CreateProteinController {
-  constructor(private createProtein: CreateProteinUseCase) {}
+export class ProteinCreateController {
+  constructor(private createProtein: ProteinCreateUseCase) {}
 
   @Post()
   @Roles('ADMIN')
@@ -107,8 +107,8 @@ export class CreateProteinController {
       'ConflictException. A protein with the same name already exists.',
   })
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createProteinBodySchema))
-  async handle(@Body() body: CreateProteinBodySchema) {
+  @UsePipes(new ZodValidationPipe(proteinCreateBodySchema))
+  async handle(@Body() body: ProteinCreateBodySchema) {
     const { name, description, price, imageActiveId, imageInactiveId } = body
 
     const result = await this.createProtein.execute({

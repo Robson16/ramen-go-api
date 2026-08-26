@@ -17,7 +17,7 @@ type GetUserProfileUseCaseResponse = Either<
 >
 
 @Injectable()
-export class GetUserProfileUseCase {
+export class UserGetProfileUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({

@@ -6,14 +6,14 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 
-import { ListBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-list.usecase'
+import { BrothListUseCase } from '@/domain/restaurant/application/use-cases/broth-list.usecase'
 import { BrothPresenter } from '@/infra/http/presenters/restaurant/broth-presenter'
 
 @ApiTags('restaurant', 'broths')
 @ApiBearerAuth()
 @Controller('/broths')
-export class ListBrothController {
-  constructor(private listBroth: ListBrothUseCase) {}
+export class BrothListController {
+  constructor(private listBroth: BrothListUseCase) {}
 
   @Get()
   @ApiOperation({ summary: 'List Broth.' })

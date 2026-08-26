@@ -3,11 +3,11 @@ import { makeImage } from 'test/factories/restaurant/make-image'
 import { InMemoryBrothsRepository } from 'test/repositories/restaurant/in-memory-broth-repository'
 import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
 
-import { ListBrothUseCase } from './broth-list.usecase'
+import { BrothListUseCase } from './broth-list.usecase'
 
 let inMemoryImagesRepository: InMemoryImagesRepository
 let inMemoryBrothsRepository: InMemoryBrothsRepository
-let sut: ListBrothUseCase // Subject Under Test
+let sut: BrothListUseCase // Subject Under Test
 
 describe('List Broth', () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('List Broth', () => {
     inMemoryBrothsRepository = new InMemoryBrothsRepository(
       inMemoryImagesRepository,
     )
-    sut = new ListBrothUseCase(inMemoryBrothsRepository)
+    sut = new BrothListUseCase(inMemoryBrothsRepository)
   })
 
   it('should be able to list broths', async () => {

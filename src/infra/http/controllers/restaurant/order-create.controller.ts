@@ -17,19 +17,19 @@ import {
 import { z } from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { CreateOrderUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
+import { OrderCreateUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 import { OrderPresenter } from '../../presenters/restaurant/order-presenter'
 
-const createOrderBodySchema = z.object({
+const orderCreateBodySchema = z.object({
   brothId: z.string().uuid(),
   proteinId: z.string().uuid(),
 })
 
-type CreateOrderBodySchema = z.infer<typeof createOrderBodySchema>
+type OrderCreateBodySchema = z.infer<typeof orderCreateBodySchema>
 
 class CreateOrderDto {
   @ApiProperty({
@@ -48,8 +48,8 @@ class CreateOrderDto {
 @ApiTags('restaurant', 'orders')
 @ApiBearerAuth()
 @Controller('/orders')
-export class CreateOrderController {
-  constructor(private createOrder: CreateOrderUseCase) {}
+export class OrderCreateController {
+  constructor(private createOrder: OrderCreateUseCase) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a Order.' })
@@ -70,8 +70,8 @@ export class CreateOrderController {
   })
   @HttpCode(201)
   async handle(
-    @Body(new ZodValidationPipe(createOrderBodySchema))
-    body: CreateOrderBodySchema,
+    @Body(new ZodValidationPipe(orderCreateBodySchema))
+    body: OrderCreateBodySchema,
     @CurrentUser() user: UserPayload,
   ) {
     const { brothId, proteinId } = body

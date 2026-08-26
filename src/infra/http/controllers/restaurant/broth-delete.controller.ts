@@ -15,14 +15,14 @@ import {
 } from '@nestjs/swagger'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { DeleteBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-delete.usecase'
+import { BrothDeleteUseCase } from '@/domain/restaurant/application/use-cases/broth-delete.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 
 @ApiTags('admin', 'restaurant', 'broths')
 @ApiBearerAuth()
 @Controller('/broths')
-export class DeleteBrothController {
-  constructor(private deleteBrothUseCase: DeleteBrothUseCase) {}
+export class BrothDeleteController {
+  constructor(private deleteBrothUseCase: BrothDeleteUseCase) {}
 
   @Delete(':brothId')
   @Roles('ADMIN')

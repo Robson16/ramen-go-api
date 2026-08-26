@@ -17,16 +17,16 @@ import z from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { InvalidTokenError } from '@/domain/account/application/use-cases/errors/invalid-token-error'
-import { ResetUserPasswordUseCase } from '@/domain/account/application/use-cases/user-reset-password.usecase'
+import { UserResetPasswordUseCase } from '@/domain/account/application/use-cases/user-reset-password.usecase'
 import { Public } from '@/infra/auth/public'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-const resetUserPasswordBodySchema = z.object({
+const userResetPasswordBodySchema = z.object({
   token: z.string().uuid(),
   password: z.string().min(8),
 })
 
-type ResetUserPasswordBodySchema = z.infer<typeof resetUserPasswordBodySchema>
+type UserResetPasswordBodySchema = z.infer<typeof userResetPasswordBodySchema>
 
 class ResetUserPasswordDto {
   @ApiProperty({
@@ -46,8 +46,8 @@ class ResetUserPasswordDto {
 @ApiTags('accounts')
 @Controller('/password/reset')
 @Public()
-export class ResetUserPasswordController {
-  constructor(private resetUserPasswordUseCase: ResetUserPasswordUseCase) {}
+export class UserResetPasswordController {
+  constructor(private resetUserPasswordUseCase: UserResetPasswordUseCase) {}
 
   @Patch()
   @HttpCode(204)
@@ -58,8 +58,8 @@ export class ResetUserPasswordController {
     status: 400,
     description: 'Bad Request. Invalid token or validation error.',
   })
-  @UsePipes(new ZodValidationPipe(resetUserPasswordBodySchema))
-  async handle(@Body() body: ResetUserPasswordBodySchema) {
+  @UsePipes(new ZodValidationPipe(userResetPasswordBodySchema))
+  async handle(@Body() body: UserResetPasswordBodySchema) {
     const { token, password } = body
 
     const result = await this.resetUserPasswordUseCase.execute({

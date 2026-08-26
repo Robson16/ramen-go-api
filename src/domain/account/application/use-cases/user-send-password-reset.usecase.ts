@@ -15,7 +15,7 @@ interface SendUserPasswordResetUseCaseRequest {
 type SendUserPasswordResetUseCaseResponse = Either<null, null>
 
 @Injectable()
-export class SendUserPasswordResetUseCase {
+export class UserSendPasswordResetUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private userTokensRepository: UserTokensRepository,

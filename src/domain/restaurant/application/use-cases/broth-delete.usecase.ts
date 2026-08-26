@@ -11,7 +11,7 @@ interface DeleteBrothUseCaseRequest {
 type DeleteBrothUseCaseResponse = Either<ResourceNotFoundError, null>
 
 @Injectable()
-export class DeleteBrothUseCase {
+export class BrothDeleteUseCase {
   constructor(private brothsRepository: BrothsRepository) {}
 
   async execute({

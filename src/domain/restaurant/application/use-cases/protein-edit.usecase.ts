@@ -25,7 +25,7 @@ type EditProteinUseCaseResponse = Either<
 >
 
 @Injectable()
-export class EditProteinUseCase {
+export class ProteinEditUseCase {
   constructor(
     private proteinsRepository: ProteinsRepository,
     private imagesRepository: ImagesRepository,

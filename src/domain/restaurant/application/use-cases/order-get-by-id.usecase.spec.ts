@@ -5,15 +5,15 @@ import { ForbiddenError } from '@/core/errors/forbidden-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
 import { Order } from '../../enterprise/entities/order'
-import { GetOrderByIdUseCase } from './order-get-by-id.usecase'
+import { OrderGetByIdUseCase } from './order-get-by-id.usecase'
 
 let inMemoryOrdersRepository: InMemoryOrdersRepository
-let sut: GetOrderByIdUseCase // SUT = Subject Under Test
+let sut: OrderGetByIdUseCase // SUT = Subject Under Test
 
 describe('Get Order By Id Use Case', () => {
   beforeEach(() => {
     inMemoryOrdersRepository = new InMemoryOrdersRepository()
-    sut = new GetOrderByIdUseCase(inMemoryOrdersRepository)
+    sut = new OrderGetByIdUseCase(inMemoryOrdersRepository)
   })
 
   it('should be able to get an order by id', async () => {

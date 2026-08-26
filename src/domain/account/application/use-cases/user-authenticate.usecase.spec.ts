@@ -4,19 +4,19 @@ import { makeUser } from 'test/factories/account/make-user'
 import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-user-repository'
 
 import { WrongCredentialsError } from './errors/wrong-credentials-error'
-import { AuthenticateUserUseCase } from './user-authenticate.usecase'
+import { UserAuthenticateUseCase } from './user-authenticate.usecase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let fakeHasher: FakeHasher
 let fakeEncrypter: FakeEncrypter
-let sut: AuthenticateUserUseCase // Subject Under Test
+let sut: UserAuthenticateUseCase // Subject Under Test
 
 describe('Authenticate User Use Case', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository()
     fakeHasher = new FakeHasher()
     fakeEncrypter = new FakeEncrypter()
-    sut = new AuthenticateUserUseCase(
+    sut = new UserAuthenticateUseCase(
       inMemoryUsersRepository,
       fakeHasher,
       fakeEncrypter,

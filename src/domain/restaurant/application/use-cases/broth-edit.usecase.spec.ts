@@ -6,12 +6,12 @@ import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
-import { EditBrothUseCase } from './broth-edit.usecase'
+import { BrothEditUseCase } from './broth-edit.usecase'
 import { BrothAlreadyExistsError } from './errors/broth-already-exists-error'
 
 let inMemoryBrothsRepository: InMemoryBrothsRepository
 let inMemoryImagesRepository: InMemoryImagesRepository
-let sut: EditBrothUseCase // Subject Under Test
+let sut: BrothEditUseCase // Subject Under Test
 
 describe('edit Broth Use Case', () => {
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('edit Broth Use Case', () => {
     inMemoryBrothsRepository = new InMemoryBrothsRepository(
       inMemoryImagesRepository,
     )
-    sut = new EditBrothUseCase(
+    sut = new BrothEditUseCase(
       inMemoryBrothsRepository,
       inMemoryImagesRepository,
     )

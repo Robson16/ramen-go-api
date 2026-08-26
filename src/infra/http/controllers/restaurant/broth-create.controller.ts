@@ -19,12 +19,12 @@ import {
 import { z } from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
+import { BrothCreateUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
 import { BrothAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/broth-already-exists-error'
 import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-const createBrothBodySchema = z.object({
+const brothCreateBodySchema = z.object({
   name: z.string(),
   description: z.string(),
   price: z.number(),
@@ -32,7 +32,7 @@ const createBrothBodySchema = z.object({
   imageInactiveId: z.string().uuid(),
 })
 
-type CreateBrothBodySchema = z.infer<typeof createBrothBodySchema>
+type BrothCreateBodySchema = z.infer<typeof brothCreateBodySchema>
 
 class CreateBrothDto {
   @ApiProperty({
@@ -71,8 +71,8 @@ class CreateBrothDto {
 @ApiTags('admin', 'restaurant', 'broths')
 @ApiBearerAuth()
 @Controller('/broths')
-export class CreateBrothController {
-  constructor(private createBroth: CreateBrothUseCase) {}
+export class BrothCreateController {
+  constructor(private createBroth: BrothCreateUseCase) {}
 
   @Post()
   @Roles('ADMIN')
@@ -103,8 +103,8 @@ export class CreateBrothController {
       'ConflictException. A broth with the same name already exists.',
   })
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createBrothBodySchema))
-  async handle(@Body() body: CreateBrothBodySchema) {
+  @UsePipes(new ZodValidationPipe(brothCreateBodySchema))
+  async handle(@Body() body: BrothCreateBodySchema) {
     const { name, description, price, imageActiveId, imageInactiveId } = body
 
     const result = await this.createBroth.execute({

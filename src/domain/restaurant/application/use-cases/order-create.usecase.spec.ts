@@ -7,13 +7,13 @@ import { InMemoryProteinsRepository } from 'test/repositories/restaurant/in-memo
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
-import { CreateOrderUseCase } from './order-create.usecase'
+import { OrderCreateUseCase } from './order-create.usecase'
 
 let inMemoryImagesRepository: InMemoryImagesRepository
 let inMemoryBrothsRepository: InMemoryBrothsRepository
 let inMemoryProteinsRepository: InMemoryProteinsRepository
 let inMemoryOrdersRepository: InMemoryOrdersRepository
-let sut: CreateOrderUseCase // Subject Under Test
+let sut: OrderCreateUseCase // Subject Under Test
 
 describe('Create Order', () => {
   beforeEach(() => {
@@ -25,7 +25,7 @@ describe('Create Order', () => {
       inMemoryImagesRepository,
     )
     inMemoryOrdersRepository = new InMemoryOrdersRepository()
-    sut = new CreateOrderUseCase(
+    sut = new OrderCreateUseCase(
       inMemoryBrothsRepository,
       inMemoryProteinsRepository,
       inMemoryOrdersRepository,

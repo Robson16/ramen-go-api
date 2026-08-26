@@ -23,7 +23,7 @@ type UpdateUserPasswordUseCaseResponse = Either<
 >
 
 @Injectable()
-export class UpdateUserPasswordUseCase {
+export class UserUpdatePasswordUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private hashComparer: HashComparer,
