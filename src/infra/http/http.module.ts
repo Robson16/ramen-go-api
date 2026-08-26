@@ -27,64 +27,64 @@ import { DatabaseModule } from '@/infra/database/database.module'
 import { MailModule } from '@/infra/mailing/mail.module'
 import { StorageModule } from '@/infra/storage/storage.module'
 
-import { AuthenticateUserController } from './controllers/account/authenticate-user.controller'
-import { DeleteUserProfileController } from './controllers/account/delete-user-profile.controller'
-import { EditUserProfileController } from './controllers/account/edit-user-profile.controller'
-import { GetUserProfileController } from './controllers/account/get-user-profile.controller'
-import { ListUsersController } from './controllers/account/list-users.controller'
-import { RegisterUserController } from './controllers/account/register-user.controller'
-import { ResetUserPasswordController } from './controllers/account/reset-user-password.controller'
-import { SendUserPasswordResetController } from './controllers/account/send-user-password-reset.controller'
-import { CreateBrothController } from './controllers/restaurant/create-broth.controller'
-import { CreateOrderController } from './controllers/restaurant/create-order.controller'
-import { CreateProteinController } from './controllers/restaurant/create-protein.controller'
-import { DeleteBrothController } from './controllers/restaurant/delete-broth.controller'
-import { DeleteProteinController } from './controllers/restaurant/delete-protein.controller'
-import { EditBrothController } from './controllers/restaurant/edit-broth.controller'
-import { EditProteinController } from './controllers/restaurant/edit-protein.controller'
-import { GetOrderController } from './controllers/restaurant/get-order.controller'
-import { ListAllOrdersController } from './controllers/restaurant/list-all-orders.controller'
-import { ListBrothController } from './controllers/restaurant/list-broth.controller'
-import { ListProteinController } from './controllers/restaurant/list-protein.controller'
-import { ListOrdersByUserController } from './controllers/restaurant/list-user-orders.controller'
-import { UpdateOrderStatusController } from './controllers/restaurant/update-order-status.controller'
-import { UploadImageController } from './controllers/restaurant/upload-image.controller'
+import { UserAuthenticateController } from './controllers/account/user-authenticate.controller'
+import { UserDeleteProfileController } from './controllers/account/user-delete-profile.controller'
+import { UserEditProfileController } from './controllers/account/user-edit-profile.controller'
+import { UserGetProfileController } from './controllers/account/user-get-profile.controller'
+import { UserListController } from './controllers/account/user-list.controller'
+import { UserRegisterController } from './controllers/account/user-register.controller'
+import { UserResetPasswordController } from './controllers/account/user-reset-password.controller'
+import { UserSendPasswordResetController } from './controllers/account/user-send-password-reset.controller'
+import { BrothCreateController } from './controllers/restaurant/broth-create.controller'
+import { BrothDeleteController } from './controllers/restaurant/broth-delete.controller'
+import { BrothEditController } from './controllers/restaurant/broth-edit.controller'
+import { BrothListController } from './controllers/restaurant/broth-list.controller'
+import { ImageUploadController } from './controllers/restaurant/image-upload.controller'
+import { OrderCreateController } from './controllers/restaurant/order-create.controller'
+import { OrderGetByIdController } from './controllers/restaurant/order-get-by-id.controller'
+import { OrderListAllController } from './controllers/restaurant/order-list-all.controller'
+import { OrderListByUserController } from './controllers/restaurant/order-list-user.controller'
+import { OrderUpdateStatusController } from './controllers/restaurant/order-update-status.controller'
+import { ProteinCreateController } from './controllers/restaurant/protein-create.controller'
+import { ProteinDeleteController } from './controllers/restaurant/protein-delete.controller'
+import { ProteinEditController } from './controllers/restaurant/protein-edit.controller'
+import { ProteinListController } from './controllers/restaurant/protein-list.controller'
 
 @Module({
   imports: [DatabaseModule, StorageModule, CryptographyModule, MailModule],
   controllers: [
-    RegisterUserController,
-    AuthenticateUserController,
-    GetUserProfileController,
-    EditUserProfileController,
-    DeleteUserProfileController,
-    SendUserPasswordResetController,
-    ResetUserPasswordController,
-    ListUsersController,
-    CreateBrothController,
-    ListBrothController,
-    EditBrothController,
-    DeleteBrothController,
-    CreateProteinController,
-    ListProteinController,
-    EditProteinController,
-    DeleteProteinController,
-    CreateOrderController,
-    GetOrderController,
-    ListAllOrdersController,
-    ListOrdersByUserController,
-    UpdateOrderStatusController,
-    UploadImageController,
+    UserRegisterController,
+    UserAuthenticateController,
+    UserListController,
+    UserGetProfileController,
+    UserEditProfileController,
+    UserDeleteProfileController,
+    UserSendPasswordResetController,
+    UserResetPasswordController,
+    BrothCreateController,
+    BrothListController,
+    BrothEditController,
+    BrothDeleteController,
+    ProteinCreateController,
+    ProteinListController,
+    ProteinEditController,
+    ProteinDeleteController,
+    OrderCreateController,
+    OrderGetByIdController,
+    OrderListAllController,
+    OrderListByUserController,
+    OrderUpdateStatusController,
+    ImageUploadController,
   ],
   providers: [
     UserRegisterUseCase,
     UserAuthenticateUseCase,
+    UserListUseCase,
     UserGetProfileUseCase,
     UserEditProfileUseCase,
     UserDeleteUseCase,
     UserSendPasswordResetUseCase,
     UserResetPasswordUseCase,
-    UserListUseCase,
     BrothCreateUseCase,
     BrothListUseCase,
     BrothEditUseCase,

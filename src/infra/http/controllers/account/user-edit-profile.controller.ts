@@ -24,13 +24,13 @@ import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-const editProfileBodySchema = z.object({
+const userEditProfileBodySchema = z.object({
   name: z.string().min(3).optional(),
   email: z.string().email().optional(),
   password: z.string().min(8).optional(),
 })
 
-type EditProfileBodySchema = z.infer<typeof editProfileBodySchema>
+type UserEditProfileBodySchema = z.infer<typeof userEditProfileBodySchema>
 
 class EditProfileDto {
   @ApiProperty({ example: 'John Doe', required: false })
@@ -46,7 +46,7 @@ class EditProfileDto {
 @ApiTags('accounts')
 @Controller('/profile')
 @ApiBearerAuth()
-export class EditUserProfileController {
+export class UserEditProfileController {
   constructor(private editUserProfileUseCase: UserEditProfileUseCase) {}
 
   @Put()
@@ -66,8 +66,8 @@ export class EditUserProfileController {
   })
   async handle(
     @CurrentUser() user: UserPayload,
-    @Body(new ZodValidationPipe(editProfileBodySchema))
-    body: EditProfileBodySchema,
+    @Body(new ZodValidationPipe(userEditProfileBodySchema))
+    body: UserEditProfileBodySchema,
   ) {
     const { name, email, password } = body
 

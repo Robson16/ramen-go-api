@@ -15,27 +15,27 @@ import {
 } from '@nestjs/swagger'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { ProteinDeleteUseCase } from '@/domain/restaurant/application/use-cases/protein-delete.usecase'
+import { BrothDeleteUseCase } from '@/domain/restaurant/application/use-cases/broth-delete.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 
-@ApiTags('admin', 'restaurant', 'proteins')
+@ApiTags('admin', 'restaurant', 'broths')
 @ApiBearerAuth()
-@Controller('/proteins')
-export class DeleteProteinController {
-  constructor(private deleteProteinUseCase: ProteinDeleteUseCase) {}
+@Controller('/broths')
+export class BrothDeleteController {
+  constructor(private deleteBrothUseCase: BrothDeleteUseCase) {}
 
-  @Delete(':proteinId')
+  @Delete(':brothId')
   @Roles('ADMIN')
   @HttpCode(204)
-  @ApiOperation({ summary: 'Delete a protein.' })
+  @ApiOperation({ summary: 'Delete a broth.' })
   @ApiParam({
-    name: 'proteinId',
-    description: 'The unique identifier of the protein',
+    name: 'brothId',
+    description: 'The unique identifier of the broth',
     example: 'ec82a6b8-ea86-4543-a286-809672bcc423',
   })
   @ApiResponse({
     status: 204,
-    description: 'The protein has been deleted successfully.',
+    description: 'The broth has been deleted successfully.',
   })
   @ApiResponse({
     status: 400,
@@ -47,15 +47,15 @@ export class DeleteProteinController {
   })
   @ApiResponse({
     status: 403,
-    description: 'Forbidden. Only admin users can delete a protein.',
+    description: 'Forbidden. Only admin users can delete a broth.',
   })
   @ApiResponse({
     status: 404,
-    description: 'Protein not found.',
+    description: 'Broth not found.',
   })
-  async handle(@Param('proteinId') proteinId: string) {
-    const result = await this.deleteProteinUseCase.execute({
-      proteinId,
+  async handle(@Param('brothId') brothId: string) {
+    const result = await this.deleteBrothUseCase.execute({
+      brothId,
     })
 
     if (result.isLeft()) {

@@ -25,7 +25,7 @@ import { BrothAlreadyExistsError } from '@/domain/restaurant/application/use-cas
 import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-const editBrothBodySchema = z.object({
+const brothEditBodySchema = z.object({
   name: z.string().min(3).optional(),
   description: z.string().optional(),
   price: z.number().optional(),
@@ -33,7 +33,7 @@ const editBrothBodySchema = z.object({
   imageInactiveId: z.string().uuid().optional(),
 })
 
-type EditBrothBodySchema = z.infer<typeof editBrothBodySchema>
+type BrothEditBodySchema = z.infer<typeof brothEditBodySchema>
 
 class EditBrothDto {
   @ApiProperty({ example: 'Shoyu', required: false })
@@ -64,7 +64,7 @@ class EditBrothDto {
 @ApiTags('admin', 'restaurant', 'broths')
 @ApiBearerAuth()
 @Controller('/broths')
-export class EditBrothController {
+export class BrothEditController {
   constructor(private editBrothUseCase: BrothEditUseCase) {}
 
   @Put(':brothId')
@@ -103,8 +103,8 @@ export class EditBrothController {
   })
   async handle(
     @Param('brothId') brothId: string,
-    @Body(new ZodValidationPipe(editBrothBodySchema))
-    body: EditBrothBodySchema,
+    @Body(new ZodValidationPipe(brothEditBodySchema))
+    body: BrothEditBodySchema,
   ) {
     const { name, description, price, imageActiveId, imageInactiveId } = body
 

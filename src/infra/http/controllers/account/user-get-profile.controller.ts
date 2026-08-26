@@ -44,7 +44,7 @@ class GetUserProfileResponseDto {
 @ApiTags('accounts')
 @Controller('/profile')
 @ApiBearerAuth()
-export class GetUserProfileController {
+export class UserGetProfileController {
   constructor(private getUserProfileUseCase: UserGetProfileUseCase) {}
 
   @Get()

@@ -20,7 +20,7 @@ import { OrderPresenter } from '@/infra/http/presenters/restaurant/order-present
 @ApiTags('restaurant', 'orders')
 @ApiBearerAuth()
 @Controller('/orders')
-export class ListOrdersByUserController {
+export class OrderListByUserController {
   constructor(private listOrdersByUser: OrderListByUserUseCase) {}
 
   @Get()

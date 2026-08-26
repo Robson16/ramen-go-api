@@ -21,12 +21,12 @@ import { UserResetPasswordUseCase } from '@/domain/account/application/use-cases
 import { Public } from '@/infra/auth/public'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-const resetUserPasswordBodySchema = z.object({
+const userResetPasswordBodySchema = z.object({
   token: z.string().uuid(),
   password: z.string().min(8),
 })
 
-type ResetUserPasswordBodySchema = z.infer<typeof resetUserPasswordBodySchema>
+type UserResetPasswordBodySchema = z.infer<typeof userResetPasswordBodySchema>
 
 class ResetUserPasswordDto {
   @ApiProperty({
@@ -46,7 +46,7 @@ class ResetUserPasswordDto {
 @ApiTags('accounts')
 @Controller('/password/reset')
 @Public()
-export class ResetUserPasswordController {
+export class UserResetPasswordController {
   constructor(private resetUserPasswordUseCase: UserResetPasswordUseCase) {}
 
   @Patch()
@@ -58,8 +58,8 @@ export class ResetUserPasswordController {
     status: 400,
     description: 'Bad Request. Invalid token or validation error.',
   })
-  @UsePipes(new ZodValidationPipe(resetUserPasswordBodySchema))
-  async handle(@Body() body: ResetUserPasswordBodySchema) {
+  @UsePipes(new ZodValidationPipe(userResetPasswordBodySchema))
+  async handle(@Body() body: UserResetPasswordBodySchema) {
     const { token, password } = body
 
     const result = await this.resetUserPasswordUseCase.execute({

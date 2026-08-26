@@ -24,7 +24,7 @@ import { OrderPresenter } from '@/infra/http/presenters/restaurant/order-present
 @ApiTags('restaurant', 'orders')
 @ApiBearerAuth()
 @Controller('/orders')
-export class GetOrderController {
+export class OrderGetByIdController {
   constructor(private getOrderById: OrderGetByIdUseCase) {}
 
   @Get(':orderId')

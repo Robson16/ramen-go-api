@@ -19,12 +19,12 @@ import {
 import { z } from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { ProteinAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/protein-already-exists-error'
-import { ProteinCreateUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
+import { BrothCreateUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
+import { BrothAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/broth-already-exists-error'
 import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-const createProteinBodySchema = z.object({
+const brothCreateBodySchema = z.object({
   name: z.string(),
   description: z.string(),
   price: z.number(),
@@ -32,25 +32,24 @@ const createProteinBodySchema = z.object({
   imageInactiveId: z.string().uuid(),
 })
 
-type CreateProteinBodySchema = z.infer<typeof createProteinBodySchema>
+type BrothCreateBodySchema = z.infer<typeof brothCreateBodySchema>
 
-class CreateProteinDto {
+class CreateBrothDto {
   @ApiProperty({
-    example: 'Chasu',
-    description: 'The name of the protein',
+    example: 'Shoyu',
+    description: 'The name of the broth',
   })
   name: string = ''
 
   @ApiProperty({
-    example:
-      'A sliced flavourful pork meat with a selection of season vegetables.',
-    description: 'The description of the protein',
+    example: 'A rich and savory chicken broth.',
+    description: 'The description of the broth',
   })
   description: string = ''
 
   @ApiProperty({
     example: 10,
-    description: 'The price of the protein',
+    description: 'The price of the broth',
   })
   price: number = 10
 
@@ -69,20 +68,17 @@ class CreateProteinDto {
   imageInactiveId: string = ''
 }
 
-@ApiTags('admin', 'restaurant', 'proteins')
+@ApiTags('admin', 'restaurant', 'broths')
 @ApiBearerAuth()
-@Controller('/proteins')
-export class CreateProteinController {
-  constructor(private createProtein: ProteinCreateUseCase) {}
+@Controller('/broths')
+export class BrothCreateController {
+  constructor(private createBroth: BrothCreateUseCase) {}
 
   @Post()
   @Roles('ADMIN')
-  @ApiOperation({ summary: 'Create a Protein.' })
-  @ApiBody({
-    type: CreateProteinDto,
-    description: 'The protein creation payload',
-  })
-  @ApiResponse({ status: 201, description: 'A new protein has been created.' })
+  @ApiOperation({ summary: 'Create a Broth.' })
+  @ApiBody({ type: CreateBrothDto, description: 'The broth creation payload' })
+  @ApiResponse({ status: 201, description: 'A new broth has been created.' })
   @ApiResponse({
     status: 400,
     description:
@@ -94,7 +90,7 @@ export class CreateProteinController {
   })
   @ApiResponse({
     status: 403,
-    description: 'Forbidden. Only admin users can create a protein.',
+    description: 'Forbidden. Only admin users can create a broth.',
   })
   @ApiResponse({
     status: 404,
@@ -104,14 +100,14 @@ export class CreateProteinController {
   @ApiResponse({
     status: 409,
     description:
-      'ConflictException. A protein with the same name already exists.',
+      'ConflictException. A broth with the same name already exists.',
   })
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createProteinBodySchema))
-  async handle(@Body() body: CreateProteinBodySchema) {
+  @UsePipes(new ZodValidationPipe(brothCreateBodySchema))
+  async handle(@Body() body: BrothCreateBodySchema) {
     const { name, description, price, imageActiveId, imageInactiveId } = body
 
-    const result = await this.createProtein.execute({
+    const result = await this.createBroth.execute({
       name,
       description,
       price,
@@ -125,7 +121,7 @@ export class CreateProteinController {
       switch (error.constructor) {
         case ResourceNotFoundError:
           throw new NotFoundException(error.message)
-        case ProteinAlreadyExistsError:
+        case BrothAlreadyExistsError:
           throw new ConflictException(error.message)
         default:
           throw new BadRequestException('An unexpected error occurred.')

@@ -12,7 +12,7 @@ import { BrothPresenter } from '@/infra/http/presenters/restaurant/broth-present
 @ApiTags('restaurant', 'broths')
 @ApiBearerAuth()
 @Controller('/broths')
-export class ListBrothController {
+export class BrothListController {
   constructor(private listBroth: BrothListUseCase) {}
 
   @Get()

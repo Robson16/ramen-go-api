@@ -15,27 +15,27 @@ import {
 } from '@nestjs/swagger'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { BrothDeleteUseCase } from '@/domain/restaurant/application/use-cases/broth-delete.usecase'
+import { ProteinDeleteUseCase } from '@/domain/restaurant/application/use-cases/protein-delete.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 
-@ApiTags('admin', 'restaurant', 'broths')
+@ApiTags('admin', 'restaurant', 'proteins')
 @ApiBearerAuth()
-@Controller('/broths')
-export class DeleteBrothController {
-  constructor(private deleteBrothUseCase: BrothDeleteUseCase) {}
+@Controller('/proteins')
+export class ProteinDeleteController {
+  constructor(private deleteProteinUseCase: ProteinDeleteUseCase) {}
 
-  @Delete(':brothId')
+  @Delete(':proteinId')
   @Roles('ADMIN')
   @HttpCode(204)
-  @ApiOperation({ summary: 'Delete a broth.' })
+  @ApiOperation({ summary: 'Delete a protein.' })
   @ApiParam({
-    name: 'brothId',
-    description: 'The unique identifier of the broth',
+    name: 'proteinId',
+    description: 'The unique identifier of the protein',
     example: 'ec82a6b8-ea86-4543-a286-809672bcc423',
   })
   @ApiResponse({
     status: 204,
-    description: 'The broth has been deleted successfully.',
+    description: 'The protein has been deleted successfully.',
   })
   @ApiResponse({
     status: 400,
@@ -47,15 +47,15 @@ export class DeleteBrothController {
   })
   @ApiResponse({
     status: 403,
-    description: 'Forbidden. Only admin users can delete a broth.',
+    description: 'Forbidden. Only admin users can delete a protein.',
   })
   @ApiResponse({
     status: 404,
-    description: 'Broth not found.',
+    description: 'Protein not found.',
   })
-  async handle(@Param('brothId') brothId: string) {
-    const result = await this.deleteBrothUseCase.execute({
-      brothId,
+  async handle(@Param('proteinId') proteinId: string) {
+    const result = await this.deleteProteinUseCase.execute({
+      proteinId,
     })
 
     if (result.isLeft()) {

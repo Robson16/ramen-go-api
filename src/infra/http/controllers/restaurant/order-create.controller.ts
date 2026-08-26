@@ -24,12 +24,12 @@ import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 import { OrderPresenter } from '../../presenters/restaurant/order-presenter'
 
-const createOrderBodySchema = z.object({
+const orderCreateBodySchema = z.object({
   brothId: z.string().uuid(),
   proteinId: z.string().uuid(),
 })
 
-type CreateOrderBodySchema = z.infer<typeof createOrderBodySchema>
+type OrderCreateBodySchema = z.infer<typeof orderCreateBodySchema>
 
 class CreateOrderDto {
   @ApiProperty({
@@ -48,7 +48,7 @@ class CreateOrderDto {
 @ApiTags('restaurant', 'orders')
 @ApiBearerAuth()
 @Controller('/orders')
-export class CreateOrderController {
+export class OrderCreateController {
   constructor(private createOrder: OrderCreateUseCase) {}
 
   @Post()
@@ -70,8 +70,8 @@ export class CreateOrderController {
   })
   @HttpCode(201)
   async handle(
-    @Body(new ZodValidationPipe(createOrderBodySchema))
-    body: CreateOrderBodySchema,
+    @Body(new ZodValidationPipe(orderCreateBodySchema))
+    body: OrderCreateBodySchema,
     @CurrentUser() user: UserPayload,
   ) {
     const { brothId, proteinId } = body

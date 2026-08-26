@@ -20,7 +20,7 @@ import { UserPayload } from '@/infra/auth/jwt.strategy'
 @ApiTags('accounts')
 @Controller('/profile')
 @ApiBearerAuth()
-export class DeleteUserProfileController {
+export class UserDeleteProfileController {
   constructor(private deleteUserUseCase: UserDeleteUseCase) {}
 
   @Delete()

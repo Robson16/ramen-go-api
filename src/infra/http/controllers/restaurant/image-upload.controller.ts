@@ -34,7 +34,7 @@ class UploadImageDto {
 @ApiTags('admin', 'restaurant', 'images')
 @ApiBearerAuth()
 @Controller('/images')
-export class UploadImageController {
+export class ImageUploadController {
   constructor(private uploadAndCreateImage: ImageUploadAndCreateUseCase) {}
 
   @Post()

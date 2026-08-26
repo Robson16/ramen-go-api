@@ -21,12 +21,12 @@ import { UserAuthenticateUseCase } from '@/domain/account/application/use-cases/
 import { Public } from '@/infra/auth/public'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-const authenticateBodySchema = z.object({
+const userAuthenticateBodySchema = z.object({
   email: z.string().email(),
   password: z.string(),
 })
 
-type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
+type UserAuthenticateBodySchema = z.infer<typeof userAuthenticateBodySchema>
 
 class AuthenticateDto {
   @ApiProperty({ example: 'john.doe@example.com' })
@@ -48,7 +48,7 @@ class AuthenticateResponseDto {
 @ApiTags('accounts')
 @Controller('/sessions')
 @Public()
-export class AuthenticateUserController {
+export class UserAuthenticateController {
   constructor(private authenticateUserUseCase: UserAuthenticateUseCase) {}
 
   @Post()
@@ -62,8 +62,8 @@ export class AuthenticateUserController {
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized. Wrong credentials.' })
-  @UsePipes(new ZodValidationPipe(authenticateBodySchema))
-  async handle(@Body() body: AuthenticateBodySchema) {
+  @UsePipes(new ZodValidationPipe(userAuthenticateBodySchema))
+  async handle(@Body() body: UserAuthenticateBodySchema) {
     const { email, password } = body
 
     const result = await this.authenticateUserUseCase.execute({

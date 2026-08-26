@@ -146,18 +146,18 @@
 ### Tarefas
 
 **Levantamento & Convenção**
-- [ ] Mapear arquivos que usam ordem ou formato diferente da convenção definida.
-- [ ] Confirmar a convenção na documentação do projeto e evitar novos nomes fora do padrão.
+- [x] Mapear arquivos que usam ordem ou formato diferente da convenção definida.
+- [x] Confirmar a convenção na documentação do projeto e evitar novos nomes fora do padrão.
 
 **Domain & Application**
-- [ ] Revisar os arquivos de use cases e confirmar que seguem o formato `recurso-ação.usecase.ts` (ex: `user-list.usecase.ts`).
-- [ ] Renomear classes, imports, configurações dos módulos e referências nos testes para acompanhar o padrão `RecursoAçãoTipo`.
+- [x] Revisar os arquivos de use cases e confirmar que seguem o formato `recurso-ação.usecase.ts` (ex: `user-list.usecase.ts`).
+- [x] Renomear classes, imports, configurações dos módulos e referências nos testes para acompanhar o padrão `RecursoAçãoTipo`.
 
 **HTTP & Infraestrutura**
-- [ ] Renomear controllers para o formato `recurso-ação.controller.ts` (ex: `list-users.controller.ts` para `users-list.controller.ts`).
-- [ ] Revisar presenters, mappers, repositories e providers e padronizar seus nomes em `recurso-ação` quando houver ação explícita.
-- [ ] Atualizar os nomes dos arquivos de teste para acompanhar os arquivos testados e a convenção `recurso-ação`.
+- [x] Renomear controllers para o formato `recurso-ação.controller.ts` (ex: `list-users.controller.ts` para `users-list.controller.ts`).
+- [x] Revisar presenters, mappers, repositories e providers e padronizar seus nomes em `recurso-ação` quando houver ação explícita.
+- [x] Atualizar os nomes dos arquivos de teste para acompanhar os arquivos testados e a convenção `recurso-ação`.
 
 **Validação**
-- [ ] Executar lint, testes unitários e testes E2E após a padronização.
-- [ ] Confirmar que não existem imports ou referências apontando para os nomes antigos.
+- [x] Executar lint, testes unitários e testes E2E após a padronização.
+- [x] Confirmar que não existem imports ou referências apontando para os nomes antigos.

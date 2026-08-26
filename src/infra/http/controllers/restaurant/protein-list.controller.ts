@@ -12,7 +12,7 @@ import { ProteinPresenter } from '@/infra/http/presenters/restaurant/protein-pre
 @ApiTags('restaurant', 'proteins')
 @ApiBearerAuth()
 @Controller('/proteins')
-export class ListProteinController {
+export class ProteinListController {
   constructor(private listProtein: ProteinListUseCase) {}
 
   @Get()

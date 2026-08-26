@@ -47,7 +47,7 @@ class UpdateOrderStatusDto {
 @ApiBearerAuth()
 @Controller('/orders/:orderId/status')
 @UseGuards(JwtAuthGuard, RolesGuard)
-export class UpdateOrderStatusController {
+export class OrderUpdateStatusController {
   constructor(private updateOrderStatus: OrderUpdateStatusUseCase) {}
 
   @Patch()
