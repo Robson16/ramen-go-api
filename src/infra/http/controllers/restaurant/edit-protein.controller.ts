@@ -21,7 +21,7 @@ import z from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { ProteinAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/protein-already-exists-error'
-import { EditProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-edit'
+import { ProteinEditUseCase } from '@/domain/restaurant/application/use-cases/protein-edit.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
@@ -65,7 +65,7 @@ class EditProteinDto {
 @ApiBearerAuth()
 @Controller('/proteins')
 export class EditProteinController {
-  constructor(private editProteinUseCase: EditProteinUseCase) {}
+  constructor(private editProteinUseCase: ProteinEditUseCase) {}
 
   @Put(':proteinId')
   @Roles('ADMIN')

@@ -15,7 +15,7 @@ import {
 } from '@nestjs/swagger'
 import z from 'zod'
 
-import { SendUserPasswordResetUseCase } from '@/domain/account/application/use-cases/user-send-password-reset.usecase'
+import { UserSendPasswordResetUseCase } from '@/domain/account/application/use-cases/user-send-password-reset.usecase'
 import { Public } from '@/infra/auth/public'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
@@ -40,7 +40,7 @@ class SendUserPasswordResetDto {
 @Public()
 export class SendUserPasswordResetController {
   constructor(
-    private sendUserPasswordResetUseCase: SendUserPasswordResetUseCase,
+    private sendUserPasswordResetUseCase: UserSendPasswordResetUseCase,
   ) {}
 
   @Post()

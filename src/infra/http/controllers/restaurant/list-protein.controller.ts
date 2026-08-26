@@ -6,14 +6,14 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 
-import { ListProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
+import { ProteinListUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
 import { ProteinPresenter } from '@/infra/http/presenters/restaurant/protein-presenter'
 
 @ApiTags('restaurant', 'proteins')
 @ApiBearerAuth()
 @Controller('/proteins')
 export class ListProteinController {
-  constructor(private listProtein: ListProteinUseCase) {}
+  constructor(private listProtein: ProteinListUseCase) {}
 
   @Get()
   @ApiOperation({ summary: 'List Protein.' })

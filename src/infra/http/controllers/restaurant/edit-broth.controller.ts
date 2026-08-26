@@ -20,7 +20,7 @@ import {
 import z from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { EditBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-edit.usecase'
+import { BrothEditUseCase } from '@/domain/restaurant/application/use-cases/broth-edit.usecase'
 import { BrothAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/broth-already-exists-error'
 import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
@@ -65,7 +65,7 @@ class EditBrothDto {
 @ApiBearerAuth()
 @Controller('/broths')
 export class EditBrothController {
-  constructor(private editBrothUseCase: EditBrothUseCase) {}
+  constructor(private editBrothUseCase: BrothEditUseCase) {}
 
   @Put(':brothId')
   @Roles('ADMIN')

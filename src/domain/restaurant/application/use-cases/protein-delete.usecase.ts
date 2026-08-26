@@ -11,7 +11,7 @@ interface DeleteProteinUseCaseRequest {
 type DeleteProteinUseCaseResponse = Either<ResourceNotFoundError, null>
 
 @Injectable()
-export class DeleteProteinUseCase {
+export class ProteinDeleteUseCase {
   constructor(private proteinsRepository: ProteinsRepository) {}
 
   async execute({

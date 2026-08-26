@@ -21,7 +21,7 @@ type GetOrderByIdUseCaseResponse = Either<
 >
 
 @Injectable()
-export class GetOrderByIdUseCase {
+export class OrderGetByIdUseCase {
   constructor(private ordersRepository: OrdersRepository) {}
 
   async execute({

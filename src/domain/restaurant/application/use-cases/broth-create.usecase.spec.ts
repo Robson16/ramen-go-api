@@ -4,12 +4,12 @@ import { makeImage } from 'test/factories/restaurant/make-image'
 import { InMemoryBrothsRepository } from 'test/repositories/restaurant/in-memory-broth-repository'
 import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
 
-import { CreateBrothUseCase } from './broth-create.usecase'
+import { BrothCreateUseCase } from './broth-create.usecase'
 import { BrothAlreadyExistsError } from './errors/broth-already-exists-error'
 
 let inMemoryBrothsRepository: InMemoryBrothsRepository
 let inMemoryImagesRepository: InMemoryImagesRepository
-let sut: CreateBrothUseCase // Subject Under Test
+let sut: BrothCreateUseCase // Subject Under Test
 
 describe('Create Broth', () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('Create Broth', () => {
     inMemoryBrothsRepository = new InMemoryBrothsRepository(
       inMemoryImagesRepository,
     )
-    sut = new CreateBrothUseCase(
+    sut = new BrothCreateUseCase(
       inMemoryBrothsRepository,
       inMemoryImagesRepository,
     )

@@ -6,7 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 
-import { ListUserUseCase } from '@/domain/account/application/use-cases/user-list.usecase'
+import { UserListUseCase } from '@/domain/account/application/use-cases/user-list.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 import { UserPresenter } from '@/infra/http/presenters/account/user-presenter'
 
@@ -14,7 +14,7 @@ import { UserPresenter } from '@/infra/http/presenters/account/user-presenter'
 @ApiBearerAuth()
 @Controller('/admin/users')
 export class ListUsersController {
-  constructor(private listUser: ListUserUseCase) {}
+  constructor(private listUser: UserListUseCase) {}
 
   @Get()
   @Roles('ADMIN')

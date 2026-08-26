@@ -17,7 +17,7 @@ import {
 import { z } from 'zod'
 
 import { WrongCredentialsError } from '@/domain/account/application/use-cases/errors/wrong-credentials-error'
-import { AuthenticateUserUseCase } from '@/domain/account/application/use-cases/user-authenticate.usecase'
+import { UserAuthenticateUseCase } from '@/domain/account/application/use-cases/user-authenticate.usecase'
 import { Public } from '@/infra/auth/public'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
@@ -49,7 +49,7 @@ class AuthenticateResponseDto {
 @Controller('/sessions')
 @Public()
 export class AuthenticateUserController {
-  constructor(private authenticateUserUseCase: AuthenticateUserUseCase) {}
+  constructor(private authenticateUserUseCase: UserAuthenticateUseCase) {}
 
   @Post()
   @HttpCode(201)

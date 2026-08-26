@@ -20,7 +20,7 @@ import { z } from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { ProteinAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/protein-already-exists-error'
-import { CreateProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
+import { ProteinCreateUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
@@ -73,7 +73,7 @@ class CreateProteinDto {
 @ApiBearerAuth()
 @Controller('/proteins')
 export class CreateProteinController {
-  constructor(private createProtein: CreateProteinUseCase) {}
+  constructor(private createProtein: ProteinCreateUseCase) {}
 
   @Post()
   @Roles('ADMIN')

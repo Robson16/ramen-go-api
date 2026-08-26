@@ -23,7 +23,7 @@ type EditUserProfileUseCaseResponse = Either<
 >
 
 @Injectable()
-export class EditUserProfileUseCase {
+export class UserEditProfileUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private hashGenerator: HashGenerator,

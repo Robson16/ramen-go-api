@@ -20,7 +20,7 @@ type AuthenticateUserUseCaseResponse = Either<
 >
 
 @Injectable()
-export class AuthenticateUserUseCase {
+export class UserAuthenticateUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private hashCompare: HashComparer,

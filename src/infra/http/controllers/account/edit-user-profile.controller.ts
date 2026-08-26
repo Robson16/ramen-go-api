@@ -19,7 +19,7 @@ import z from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { UserAlreadyExistsError } from '@/domain/account/application/use-cases/errors/user-already-exists-error'
-import { EditUserProfileUseCase } from '@/domain/account/application/use-cases/user-edit-profile.usecase'
+import { UserEditProfileUseCase } from '@/domain/account/application/use-cases/user-edit-profile.usecase'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
@@ -47,7 +47,7 @@ class EditProfileDto {
 @Controller('/profile')
 @ApiBearerAuth()
 export class EditUserProfileController {
-  constructor(private editUserProfileUseCase: EditUserProfileUseCase) {}
+  constructor(private editUserProfileUseCase: UserEditProfileUseCase) {}
 
   @Put()
   @HttpCode(204)

@@ -12,7 +12,7 @@ type ListBrothUseCaseResponse = Either<
 >
 
 @Injectable()
-export class ListBrothUseCase {
+export class BrothListUseCase {
   constructor(private brothsRepository: BrothsRepository) {}
 
   async execute(): Promise<ListBrothUseCaseResponse> {

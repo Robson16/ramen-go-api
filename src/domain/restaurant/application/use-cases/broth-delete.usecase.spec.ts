@@ -4,11 +4,11 @@ import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
-import { DeleteBrothUseCase } from './broth-delete.usecase'
+import { BrothDeleteUseCase } from './broth-delete.usecase'
 
 let inMemoryImagesRepository: InMemoryImagesRepository
 let inMemoryBrothsRepository: InMemoryBrothsRepository
-let sut: DeleteBrothUseCase // Subject Under Test
+let sut: BrothDeleteUseCase // Subject Under Test
 
 describe('Delete Broth Use Case', () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('Delete Broth Use Case', () => {
     inMemoryBrothsRepository = new InMemoryBrothsRepository(
       inMemoryImagesRepository,
     )
-    sut = new DeleteBrothUseCase(inMemoryBrothsRepository)
+    sut = new BrothDeleteUseCase(inMemoryBrothsRepository)
   })
 
   it('should be able to delete a broth', async () => {

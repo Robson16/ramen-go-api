@@ -21,7 +21,7 @@ import {
 import { z } from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { UpdateOrderStatusUseCase } from '@/domain/restaurant/application/use-cases/order-update-status.usecase'
+import { OrderUpdateStatusUseCase } from '@/domain/restaurant/application/use-cases/order-update-status.usecase'
 import { OrderAlreadyDeliveredError } from '@/domain/restaurant/enterprise/entities/errors/order-already-delivered-error'
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
 import { RolesGuard } from '@/infra/auth/roles.guard'
@@ -48,7 +48,7 @@ class UpdateOrderStatusDto {
 @Controller('/orders/:orderId/status')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class UpdateOrderStatusController {
-  constructor(private updateOrderStatus: UpdateOrderStatusUseCase) {}
+  constructor(private updateOrderStatus: OrderUpdateStatusUseCase) {}
 
   @Patch()
   @Roles('ADMIN')

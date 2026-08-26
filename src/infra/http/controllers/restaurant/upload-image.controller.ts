@@ -19,7 +19,7 @@ import {
 } from '@nestjs/swagger'
 
 import { InvalidImageTypeError } from '@/domain/restaurant/application/use-cases/errors/invalid-image-type-error'
-import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use-cases/upload-and-create-image.usecase'
+import { ImageUploadAndCreateUseCase } from '@/domain/restaurant/application/use-cases/image-upload-and-create.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 
 class UploadImageDto {
@@ -35,7 +35,7 @@ class UploadImageDto {
 @ApiBearerAuth()
 @Controller('/images')
 export class UploadImageController {
-  constructor(private uploadAndCreateImage: UploadAndCreateImageUseCase) {}
+  constructor(private uploadAndCreateImage: ImageUploadAndCreateUseCase) {}
 
   @Post()
   @Roles('ADMIN')

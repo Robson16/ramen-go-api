@@ -1,27 +1,27 @@
 import { Module } from '@nestjs/common'
 
-import { AuthenticateUserUseCase } from '@/domain/account/application/use-cases/user-authenticate.usecase'
-import { DeleteUserUseCase } from '@/domain/account/application/use-cases/user-delete.usecase'
-import { EditUserProfileUseCase } from '@/domain/account/application/use-cases/user-edit-profile.usecase'
-import { GetUserProfileUseCase } from '@/domain/account/application/use-cases/user-get-profile.usecase'
-import { ListUserUseCase } from '@/domain/account/application/use-cases/user-list.usecase'
-import { RegisterUserUseCase } from '@/domain/account/application/use-cases/user-register.usecase'
-import { ResetUserPasswordUseCase } from '@/domain/account/application/use-cases/user-reset-password.usecase'
-import { SendUserPasswordResetUseCase } from '@/domain/account/application/use-cases/user-send-password-reset.usecase'
-import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
-import { DeleteBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-delete.usecase'
-import { EditBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-edit.usecase'
-import { ListBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-list.usecase'
-import { CreateOrderUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
-import { GetOrderByIdUseCase } from '@/domain/restaurant/application/use-cases/order-get-by-id.usecase'
+import { UserAuthenticateUseCase } from '@/domain/account/application/use-cases/user-authenticate.usecase'
+import { UserDeleteUseCase } from '@/domain/account/application/use-cases/user-delete.usecase'
+import { UserEditProfileUseCase } from '@/domain/account/application/use-cases/user-edit-profile.usecase'
+import { UserGetProfileUseCase } from '@/domain/account/application/use-cases/user-get-profile.usecase'
+import { UserListUseCase } from '@/domain/account/application/use-cases/user-list.usecase'
+import { UserRegisterUseCase } from '@/domain/account/application/use-cases/user-register.usecase'
+import { UserResetPasswordUseCase } from '@/domain/account/application/use-cases/user-reset-password.usecase'
+import { UserSendPasswordResetUseCase } from '@/domain/account/application/use-cases/user-send-password-reset.usecase'
+import { BrothCreateUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
+import { BrothDeleteUseCase } from '@/domain/restaurant/application/use-cases/broth-delete.usecase'
+import { BrothEditUseCase } from '@/domain/restaurant/application/use-cases/broth-edit.usecase'
+import { BrothListUseCase } from '@/domain/restaurant/application/use-cases/broth-list.usecase'
+import { ImageUploadAndCreateUseCase } from '@/domain/restaurant/application/use-cases/image-upload-and-create.usecase'
+import { OrderCreateUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
+import { OrderGetByIdUseCase } from '@/domain/restaurant/application/use-cases/order-get-by-id.usecase'
 import { OrderListAllUseCase } from '@/domain/restaurant/application/use-cases/order-list-all.usecase'
 import { OrderListByUserUseCase } from '@/domain/restaurant/application/use-cases/order-list-by-user.usecase'
-import { UpdateOrderStatusUseCase } from '@/domain/restaurant/application/use-cases/order-update-status.usecase'
-import { CreateProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
-import { DeleteProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-delete.usecase'
-import { EditProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-edit'
-import { ListProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
-import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use-cases/upload-and-create-image.usecase'
+import { OrderUpdateStatusUseCase } from '@/domain/restaurant/application/use-cases/order-update-status.usecase'
+import { ProteinCreateUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
+import { ProteinDeleteUseCase } from '@/domain/restaurant/application/use-cases/protein-delete.usecase'
+import { ProteinEditUseCase } from '@/domain/restaurant/application/use-cases/protein-edit.usecase'
+import { ProteinListUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
 import { CryptographyModule } from '@/infra/cryptography/cryptography.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 import { MailModule } from '@/infra/mailing/mail.module'
@@ -77,28 +77,28 @@ import { UploadImageController } from './controllers/restaurant/upload-image.con
     UploadImageController,
   ],
   providers: [
-    RegisterUserUseCase,
-    AuthenticateUserUseCase,
-    GetUserProfileUseCase,
-    EditUserProfileUseCase,
-    DeleteUserUseCase,
-    SendUserPasswordResetUseCase,
-    ResetUserPasswordUseCase,
-    ListUserUseCase,
-    CreateBrothUseCase,
-    ListBrothUseCase,
-    EditBrothUseCase,
-    DeleteBrothUseCase,
-    CreateProteinUseCase,
-    EditProteinUseCase,
-    ListProteinUseCase,
-    DeleteProteinUseCase,
-    CreateOrderUseCase,
-    GetOrderByIdUseCase,
+    UserRegisterUseCase,
+    UserAuthenticateUseCase,
+    UserGetProfileUseCase,
+    UserEditProfileUseCase,
+    UserDeleteUseCase,
+    UserSendPasswordResetUseCase,
+    UserResetPasswordUseCase,
+    UserListUseCase,
+    BrothCreateUseCase,
+    BrothListUseCase,
+    BrothEditUseCase,
+    BrothDeleteUseCase,
+    ProteinCreateUseCase,
+    ProteinEditUseCase,
+    ProteinListUseCase,
+    ProteinDeleteUseCase,
+    OrderCreateUseCase,
+    OrderGetByIdUseCase,
     OrderListAllUseCase,
     OrderListByUserUseCase,
-    UpdateOrderStatusUseCase,
-    UploadAndCreateImageUseCase,
+    OrderUpdateStatusUseCase,
+    ImageUploadAndCreateUseCase,
   ],
 })
 export class HttpModule {}

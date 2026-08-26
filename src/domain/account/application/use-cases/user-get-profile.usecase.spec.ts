@@ -3,15 +3,15 @@ import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-use
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
-import { GetUserProfileUseCase } from './user-get-profile.usecase'
+import { UserGetProfileUseCase } from './user-get-profile.usecase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
-let sut: GetUserProfileUseCase // Subject Under Test
+let sut: UserGetProfileUseCase // Subject Under Test
 
 describe('Get User Profile Use Case', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository()
-    sut = new GetUserProfileUseCase(inMemoryUsersRepository)
+    sut = new UserGetProfileUseCase(inMemoryUsersRepository)
   })
 
   it('should be able to get user profile by id', async () => {

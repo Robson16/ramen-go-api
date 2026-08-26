@@ -4,11 +4,11 @@ import { InMemoryProteinsRepository } from 'test/repositories/restaurant/in-memo
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
-import { DeleteProteinUseCase } from './protein-delete.usecase'
+import { ProteinDeleteUseCase } from './protein-delete.usecase'
 
 let inMemoryImagesRepository: InMemoryImagesRepository
 let inMemoryProteinsRepository: InMemoryProteinsRepository
-let sut: DeleteProteinUseCase // Subject Under Test
+let sut: ProteinDeleteUseCase // Subject Under Test
 
 describe('Delete Protein Use Case', () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('Delete Protein Use Case', () => {
     inMemoryProteinsRepository = new InMemoryProteinsRepository(
       inMemoryImagesRepository,
     )
-    sut = new DeleteProteinUseCase(inMemoryProteinsRepository)
+    sut = new ProteinDeleteUseCase(inMemoryProteinsRepository)
   })
 
   it('should be able to delete a protein', async () => {

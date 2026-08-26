@@ -11,7 +11,7 @@ interface DeleteUserUseCaseRequest {
 type DeleteUserUseCaseResponse = Either<ResourceNotFoundError, null>
 
 @Injectable()
-export class DeleteUserUseCase {
+export class UserDeleteUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({

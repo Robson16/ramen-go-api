@@ -22,7 +22,7 @@ type UpdateOrderStatusUseCaseResponse = Either<
 >
 
 @Injectable()
-export class UpdateOrderStatusUseCase {
+export class OrderUpdateStatusUseCase {
   constructor(private ordersRepository: OrdersRepository) {}
 
   async execute({

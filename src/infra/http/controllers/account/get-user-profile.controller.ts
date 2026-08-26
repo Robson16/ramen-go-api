@@ -14,7 +14,7 @@ import {
 } from '@nestjs/swagger'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { GetUserProfileUseCase } from '@/domain/account/application/use-cases/user-get-profile.usecase'
+import { UserGetProfileUseCase } from '@/domain/account/application/use-cases/user-get-profile.usecase'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { UserPresenter } from '@/infra/http/presenters/account/user-presenter'
@@ -45,7 +45,7 @@ class GetUserProfileResponseDto {
 @Controller('/profile')
 @ApiBearerAuth()
 export class GetUserProfileController {
-  constructor(private getUserProfileUseCase: GetUserProfileUseCase) {}
+  constructor(private getUserProfileUseCase: UserGetProfileUseCase) {}
 
   @Get()
   @HttpCode(200)

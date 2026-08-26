@@ -22,7 +22,7 @@ type ResetUserPasswordUseCaseResponse = Either<
 >
 
 @Injectable()
-export class ResetUserPasswordUseCase {
+export class UserResetPasswordUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private userTokensRepository: UserTokensRepository,

@@ -17,7 +17,7 @@ import z from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { InvalidTokenError } from '@/domain/account/application/use-cases/errors/invalid-token-error'
-import { ResetUserPasswordUseCase } from '@/domain/account/application/use-cases/user-reset-password.usecase'
+import { UserResetPasswordUseCase } from '@/domain/account/application/use-cases/user-reset-password.usecase'
 import { Public } from '@/infra/auth/public'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
@@ -47,7 +47,7 @@ class ResetUserPasswordDto {
 @Controller('/password/reset')
 @Public()
 export class ResetUserPasswordController {
-  constructor(private resetUserPasswordUseCase: ResetUserPasswordUseCase) {}
+  constructor(private resetUserPasswordUseCase: UserResetPasswordUseCase) {}
 
   @Patch()
   @HttpCode(204)

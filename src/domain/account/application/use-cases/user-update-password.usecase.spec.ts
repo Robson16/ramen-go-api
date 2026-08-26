@@ -5,17 +5,17 @@ import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-use
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
 import { WrongCredentialsError } from './errors/wrong-credentials-error'
-import { UpdateUserPasswordUseCase } from './user-update-password.usecase'
+import { UserUpdatePasswordUseCase } from './user-update-password.usecase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let fakeHasher: FakeHasher
-let sut: UpdateUserPasswordUseCase // Subject Under Test
+let sut: UserUpdatePasswordUseCase // Subject Under Test
 
 describe('Update User Password Use Case', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository()
     fakeHasher = new FakeHasher()
-    sut = new UpdateUserPasswordUseCase(
+    sut = new UserUpdatePasswordUseCase(
       inMemoryUsersRepository,
       fakeHasher,
       fakeHasher,

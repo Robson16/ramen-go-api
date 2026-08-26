@@ -19,7 +19,7 @@ import {
 import { z } from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { CreateBrothUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
+import { BrothCreateUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
 import { BrothAlreadyExistsError } from '@/domain/restaurant/application/use-cases/errors/broth-already-exists-error'
 import { Roles } from '@/infra/auth/roles-decorator'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
@@ -72,7 +72,7 @@ class CreateBrothDto {
 @ApiBearerAuth()
 @Controller('/broths')
 export class CreateBrothController {
-  constructor(private createBroth: CreateBrothUseCase) {}
+  constructor(private createBroth: BrothCreateUseCase) {}
 
   @Post()
   @Roles('ADMIN')

@@ -17,7 +17,7 @@ import {
 import { z } from 'zod'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { CreateOrderUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
+import { OrderCreateUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
@@ -49,7 +49,7 @@ class CreateOrderDto {
 @ApiBearerAuth()
 @Controller('/orders')
 export class CreateOrderController {
-  constructor(private createOrder: CreateOrderUseCase) {}
+  constructor(private createOrder: OrderCreateUseCase) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a Order.' })

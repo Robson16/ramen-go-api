@@ -15,14 +15,14 @@ import {
 } from '@nestjs/swagger'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { DeleteProteinUseCase } from '@/domain/restaurant/application/use-cases/protein-delete.usecase'
+import { ProteinDeleteUseCase } from '@/domain/restaurant/application/use-cases/protein-delete.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 
 @ApiTags('admin', 'restaurant', 'proteins')
 @ApiBearerAuth()
 @Controller('/proteins')
 export class DeleteProteinController {
-  constructor(private deleteProteinUseCase: DeleteProteinUseCase) {}
+  constructor(private deleteProteinUseCase: ProteinDeleteUseCase) {}
 
   @Delete(':proteinId')
   @Roles('ADMIN')

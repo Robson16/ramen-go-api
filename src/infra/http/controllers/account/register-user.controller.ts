@@ -17,7 +17,7 @@ import {
 import { z } from 'zod'
 
 import { UserAlreadyExistsError } from '@/domain/account/application/use-cases/errors/user-already-exists-error'
-import { RegisterUserUseCase } from '@/domain/account/application/use-cases/user-register.usecase'
+import { UserRegisterUseCase } from '@/domain/account/application/use-cases/user-register.usecase'
 import { Public } from '@/infra/auth/public'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
@@ -53,7 +53,7 @@ class CreateAccountDto {
 @Controller('/accounts')
 @Public()
 export class RegisterUserController {
-  constructor(private registerUserUseCase: RegisterUserUseCase) {}
+  constructor(private registerUserUseCase: UserRegisterUseCase) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new user account.' })

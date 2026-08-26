@@ -16,7 +16,7 @@ import {
 
 import { ForbiddenError } from '@/core/errors/forbidden-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { GetOrderByIdUseCase } from '@/domain/restaurant/application/use-cases/order-get-by-id.usecase'
+import { OrderGetByIdUseCase } from '@/domain/restaurant/application/use-cases/order-get-by-id.usecase'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { OrderPresenter } from '@/infra/http/presenters/restaurant/order-presenter'
@@ -25,7 +25,7 @@ import { OrderPresenter } from '@/infra/http/presenters/restaurant/order-present
 @ApiBearerAuth()
 @Controller('/orders')
 export class GetOrderController {
-  constructor(private getOrderById: GetOrderByIdUseCase) {}
+  constructor(private getOrderById: OrderGetByIdUseCase) {}
 
   @Get(':orderId')
   @ApiOperation({ summary: 'Get an order by ID.' })
