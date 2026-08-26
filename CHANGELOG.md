@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Robson16/ramen-go-api/compare/v1.3.0...v1.4.0) (2026-08-26)
+
+### Features
+
+* **auth:** Protect catalog and consolidate global guards ([4c005b1](https://github.com/Robson16/ramen-go-api/commit/4c005b12ce461471dba2771a0771a6889bea90e8))
+* **order:** add use case to update order status ([933e7af](https://github.com/Robson16/ramen-go-api/commit/933e7af289209b1e3cfd0e64ead47a57289ef1a4))
+* **orders:** add admin order status update endpoint and E2E tests ([ce0f75b](https://github.com/Robson16/ramen-go-api/commit/ce0f75b5d83a709e2744ae00c7bf5ce2e280a2a1))
+* **orders:** add order status enum and lifecycle support ([2d93692](https://github.com/Robson16/ramen-go-api/commit/2d936929f42e82bc8c023073281a8555e25e4e94))
+* **restaurant:** add broth and protein delete controllers ([e624b04](https://github.com/Robson16/ramen-go-api/commit/e624b04c1649860402e6427c15ecfd9bbc1b2dca))
+* **restaurant:** add broth and protein deletion use cases ([b129e91](https://github.com/Robson16/ramen-go-api/commit/b129e91d9ece886e92fa84f8b7287c06f273d408))
+* **restaurant:** add broth and protein edit controllers ([803210a](https://github.com/Robson16/ramen-go-api/commit/803210a7a9cb4f88fdf3a88485498d6ddf0ffad7))
+* **restaurant:** add broth and protein edit use cases ([f8dc345](https://github.com/Robson16/ramen-go-api/commit/f8dc3451d20755a18da64ac48f9948156e251e4f))
+* **restaurant:** add broth update and deletion support ([becd43e](https://github.com/Robson16/ramen-go-api/commit/becd43e85648996961a67edba967ad0a0d7eaa95))
 ## [1.3.0](https://github.com/Robson16/ramen-go-api/compare/v1.2.0...v1.3.0) (2026-08-21)
 
 ### Features
