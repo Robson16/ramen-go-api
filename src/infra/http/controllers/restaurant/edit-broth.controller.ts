@@ -12,6 +12,7 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiOperation,
+  ApiParam,
   ApiProperty,
   ApiResponse,
   ApiTags,
@@ -70,6 +71,11 @@ export class EditBrothController {
   @Roles('ADMIN')
   @HttpCode(204)
   @ApiOperation({ summary: 'Edit a broth.' })
+  @ApiParam({
+    name: 'brothId',
+    description: 'The unique identifier of the broth.',
+    example: 'ec82a6b8-ea86-4543-a286-809672bcc423',
+  })
   @ApiBody({ type: EditBrothDto, description: 'The broth update payload' })
   @ApiResponse({
     status: 204,

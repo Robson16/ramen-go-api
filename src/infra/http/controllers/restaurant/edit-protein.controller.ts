@@ -12,6 +12,7 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiOperation,
+  ApiParam,
   ApiProperty,
   ApiResponse,
   ApiTags,
@@ -70,6 +71,11 @@ export class EditProteinController {
   @Roles('ADMIN')
   @HttpCode(204)
   @ApiOperation({ summary: 'Edit a protein.' })
+  @ApiParam({
+    name: 'proteinId',
+    description: 'The unique identifier of the protein.',
+    example: 'ec82a6b8-ea86-4543-a286-809672bcc423',
+  })
   @ApiBody({ type: EditProteinDto, description: 'The protein update payload' })
   @ApiResponse({
     status: 204,

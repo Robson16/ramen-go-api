@@ -13,6 +13,7 @@ import {
   ApiBody,
   ApiConsumes,
   ApiOperation,
+  ApiProperty,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger'
@@ -22,6 +23,11 @@ import { UploadAndCreateImageUseCase } from '@/domain/restaurant/application/use
 import { Roles } from '@/infra/auth/roles-decorator'
 
 class UploadImageDto {
+  @ApiProperty({
+    type: 'string',
+    format: 'binary',
+    description: 'The image file to upload.',
+  })
   file: any
 }
 
