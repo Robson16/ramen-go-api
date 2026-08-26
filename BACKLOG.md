@@ -128,7 +128,7 @@
 **Gestão administrativa de Pedidos (Orders)**
 - [x] Criar enum de Status do Pedido no Prisma (ex: `PENDING`, `PREPARING`, `READY`, `DELIVERED`).
 - [x] Criar caso de uso `order-update-status.usecase.ts` (ex: atualizar de pendente para em preparo).
-- [ ] Implementar o controller `PATCH /orders/:id/status` restrito a administradores.
+- [x] Implementar o controller `PATCH /orders/:orderId/status` restrito a administradores.
 
 ---
 
