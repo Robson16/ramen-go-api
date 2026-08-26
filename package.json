@@ -1,7 +1,7 @@
 {
   "name": "ramen-go-api",
   "version": "1.4.1",
-  "description": "RamenGO API built with NestJS and TypeScript for managing user accounts, JWT authentication, broth and protein catalog, and custom ramen orders.",
+  "description": "Ramen Go API built with NestJS and TypeScript for user accounts, JWT authentication, admin catalog management, and custom ramen orders.",
   "main": "index.js",
   "homepage": "",
   "repository": "https://github.com/Robson16/ramen-go-api",
@@ -11,7 +11,7 @@
     "NodeJS",
     "NestJS",
     "TypeScript",
-    "ViTest"
+    "Vitest"
   ],
   "scripts": {
     "migrate": "npx prisma migrate deploy",

@@ -101,7 +101,7 @@ A API possui uma documentação interativa gerada automaticamente com o Swagger.
 
 **Rotas administrativas:**
 
-As rotas com o prefixo `/admin` exigem um JWT válido de um usuário com a role `ADMIN`. Usuários comuns recebem `403 Forbidden`.
+As rotas administrativas exigem um JWT válido de um usuário com a role `ADMIN`. Usuários comuns recebem `403 Forbidden`. A role padrão de novas contas é `USER`.
 
 ## Estrutura do Código
 
@@ -147,18 +147,23 @@ O projeto segue os princípios de Arquitetura Limpa (Clean Architecture) e Domai
 #### Caldos (Broths)
 
 *   `GET /broths`: Lista todos os caldos disponíveis.
-*   `POST /broths`: Cria um novo caldo (protegido).
+*   `POST /broths`: Cria um novo caldo (restrito a administradores).
+*   `PUT /broths/:brothId`: Edita um caldo (restrito a administradores).
+*   `DELETE /broths/:brothId`: Exclui um caldo (restrito a administradores).
 
 #### Proteínas (Proteins)
 
 *   `GET /proteins`: Lista todas as proteínas disponíveis.
-*   `POST /proteins`: Cria uma nova proteína (protegida).
+*   `POST /proteins`: Cria uma nova proteína (restrito a administradores).
+*   `PUT /proteins/:proteinId`: Edita uma proteína (restrito a administradores).
+*   `DELETE /proteins/:proteinId`: Exclui uma proteína (restrito a administradores).
 
 #### Pedidos (Orders)
 
 *   `GET /orders`: Lista os pedidos do usuário autenticado (protegido).
-*   `GET /orders/:id`: Recupera os detalhes de um pedido específico (protegido; o proprietário ou um administrador pode acessar).
+*   `GET /orders/:orderId`: Recupera os detalhes de um pedido específico (protegido; o proprietário ou um administrador pode acessar).
 *   `POST /orders`: Realiza um novo pedido enviando ID do caldo e proteína (protegido).
+*   `PATCH /orders/:orderId/status`: Atualiza o status de um pedido (restrito a administradores). Os status possíveis são `PENDING`, `PREPARING`, `READY` e `DELIVERED`.
 
 #### Administração de Pedidos
 
@@ -166,7 +171,7 @@ O projeto segue os princípios de Arquitetura Limpa (Clean Architecture) e Domai
 
 #### Upload
 
-*   `POST /images`: Faz upload de imagens para os ingredientes no R2 (protegido).
+*   `POST /images`: Faz upload de imagens para os ingredientes no R2 (restrito a administradores).
 
 ### Autenticação
 

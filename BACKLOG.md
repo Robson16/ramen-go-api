@@ -161,3 +161,35 @@
 **Validação**
 - [x] Executar lint, testes unitários e testes E2E após a padronização.
 - [x] Confirmar que não existem imports ou referências apontando para os nomes antigos.
+
+## 🖼️ Épico 8: Desacoplamento de Uploads e Avatares de Usuário (Segregação de Contextos)
+
+**User Story:**
+> *"As a developer, I want to segregate image upload responsibilities so that domains do not share generic media endpoints. As a user, I want to upload my own profile avatar in standard image formats."*
+
+**Contexto Arquitetural:**
+- O upload de imagens atual atende aos SVGs de caldos e proteínas e deve ser restrito administrativamente ao domínio `restaurant`.
+- Um novo fluxo de upload deve ser criado no domínio `account` exclusivamente para a foto de perfil (`avatarUrl`) do usuário.
+- O upload de avatar deve ser acoplado apenas ao usuário, não gerando registros na tabela global `images` (que é exclusiva do catálogo do restaurante).
+
+### Tarefas
+
+**Refactor do Domínio de Restaurante**
+- [ ] Renomear o caso de uso `image-upload-and-create.usecase.ts` para `ingredient-image-upload.usecase.ts`, deixando claro o seu escopo.
+- [ ] Renomear o controller `image-upload.controller.ts` para refletir a especificidade do catálogo administrativo.
+- [ ] Garantir que a validação deste caso de uso permita estritamente arquivos `.svg` (padrão de UI do catálogo).
+
+**Banco de Dados & Entidades**
+- [ ] Adicionar a coluna opcional `avatarUrl` (string) na tabela `users` no `schema.prisma` e gerar a migration.
+- [ ] Atualizar a entidade `User` e o `prisma-user-mapper.ts` no domínio `account` para mapear e refletir o novo campo.
+
+**Domínio de Conta (Account)**
+- [ ] Criar o caso de uso `user-avatar-upload.usecase.ts` na camada de aplicação de conta.
+- [ ] Implementar a regra de negócio para utilizar o `uploader` da infraestrutura e fazer o update direto do `avatarUrl` via `UserRepository`.
+- [ ] Adicionar validação de payload permitindo apenas imagens `.png`, `.jpg` e `.jpeg`, com limite máximo de tamanho (ex: 2MB).
+- [ ] Implementar o controller `PATCH /profile/avatar` restrito ao usuário autenticado (`@UseGuards(JwtAuthGuard)`).
+
+**Validação**
+- [ ] Atualizar testes unitários e testes E2E afetados pela renomeação no domínio `restaurant`.
+- [ ] Criar testes unitários para o novo caso de uso `user-avatar-upload`.
+- [ ] Criar teste E2E garantindo o funcionamento e a segurança da nova rota `PATCH /profile/avatar`.
