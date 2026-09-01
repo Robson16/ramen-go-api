@@ -9,7 +9,7 @@ import {
 import { ProteinListUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
 import { ProteinPresenter } from '@/infra/http/presenters/restaurant/protein-presenter'
 
-@ApiTags('restaurant', 'proteins')
+@ApiTags('Catalog (Public)')
 @ApiBearerAuth()
 @Controller('/proteins')
 export class ProteinListController {

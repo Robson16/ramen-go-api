@@ -10,7 +10,7 @@ import { UserListUseCase } from '@/domain/account/application/use-cases/user-lis
 import { Roles } from '@/infra/auth/roles-decorator'
 import { UserPresenter } from '@/infra/http/presenters/account/user-presenter'
 
-@ApiTags('admin', 'accounts')
+@ApiTags('Accounts')
 @ApiBearerAuth()
 @Controller('/admin/users')
 export class UserListController {

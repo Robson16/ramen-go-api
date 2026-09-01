@@ -18,7 +18,7 @@ import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { ProteinDeleteUseCase } from '@/domain/restaurant/application/use-cases/protein-delete.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 
-@ApiTags('admin', 'restaurant', 'proteins')
+@ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
 @Controller('/proteins')
 export class ProteinDeleteController {

@@ -35,7 +35,7 @@ class SendUserPasswordResetDto {
   email: string = ''
 }
 
-@ApiTags('accounts')
+@ApiTags('Accounts')
 @Controller('/password/forgot')
 @Public()
 export class UserSendPasswordResetController {

@@ -10,7 +10,7 @@ import { OrderListAllUseCase } from '@/domain/restaurant/application/use-cases/o
 import { Roles } from '@/infra/auth/roles-decorator'
 import { OrderPresenter } from '@/infra/http/presenters/restaurant/order-presenter'
 
-@ApiTags('admin', 'restaurant', 'orders')
+@ApiTags('Orders')
 @ApiBearerAuth()
 @Controller('/admin/orders')
 export class OrderListAllController {

@@ -43,7 +43,7 @@ class EditProfileDto {
   password?: string
 }
 
-@ApiTags('accounts')
+@ApiTags('Accounts')
 @Controller('/profile')
 @ApiBearerAuth()
 export class UserEditProfileController {

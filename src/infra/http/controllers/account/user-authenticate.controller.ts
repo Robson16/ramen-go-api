@@ -45,7 +45,7 @@ class AuthenticateResponseDto {
   access_token: string = ''
 }
 
-@ApiTags('accounts')
+@ApiTags('Accounts')
 @Controller('/sessions')
 @Public()
 export class UserAuthenticateController {

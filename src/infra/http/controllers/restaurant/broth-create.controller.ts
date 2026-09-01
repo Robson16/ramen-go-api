@@ -68,7 +68,7 @@ class CreateBrothDto {
   imageInactiveId: string = ''
 }
 
-@ApiTags('admin', 'restaurant', 'broths')
+@ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
 @Controller('/broths')
 export class BrothCreateController {

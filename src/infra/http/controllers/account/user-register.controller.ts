@@ -49,7 +49,7 @@ class CreateAccountDto {
   password: string = ''
 }
 
-@ApiTags('accounts')
+@ApiTags('Accounts')
 @Controller('/accounts')
 @Public()
 export class UserRegisterController {

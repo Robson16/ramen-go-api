@@ -17,7 +17,7 @@ import { UserDeleteUseCase } from '@/domain/account/application/use-cases/user-d
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 
-@ApiTags('accounts')
+@ApiTags('Accounts')
 @Controller('/profile')
 @ApiBearerAuth()
 export class UserDeleteProfileController {

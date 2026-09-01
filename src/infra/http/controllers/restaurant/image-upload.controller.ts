@@ -31,7 +31,7 @@ class UploadImageDto {
   file: any
 }
 
-@ApiTags('admin', 'restaurant', 'images')
+@ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
 @Controller('/images')
 export class ImageUploadController {

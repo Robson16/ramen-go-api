@@ -69,7 +69,7 @@ class CreateProteinDto {
   imageInactiveId: string = ''
 }
 
-@ApiTags('admin', 'restaurant', 'proteins')
+@ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
 @Controller('/proteins')
 export class ProteinCreateController {

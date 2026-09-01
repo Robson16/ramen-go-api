@@ -41,7 +41,7 @@ class GetUserProfileResponseDto {
   user: UserProfileDto = new UserProfileDto()
 }
 
-@ApiTags('accounts')
+@ApiTags('Accounts')
 @Controller('/profile')
 @ApiBearerAuth()
 export class UserGetProfileController {

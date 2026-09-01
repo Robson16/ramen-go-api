@@ -18,7 +18,7 @@ import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { BrothDeleteUseCase } from '@/domain/restaurant/application/use-cases/broth-delete.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 
-@ApiTags('admin', 'restaurant', 'broths')
+@ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
 @Controller('/broths')
 export class BrothDeleteController {

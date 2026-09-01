@@ -9,7 +9,7 @@ import {
 import { BrothListUseCase } from '@/domain/restaurant/application/use-cases/broth-list.usecase'
 import { BrothPresenter } from '@/infra/http/presenters/restaurant/broth-presenter'
 
-@ApiTags('restaurant', 'broths')
+@ApiTags('Catalog (Public)')
 @ApiBearerAuth()
 @Controller('/broths')
 export class BrothListController {

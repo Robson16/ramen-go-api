@@ -193,3 +193,132 @@
 - [ ] Atualizar testes unitários e testes E2E afetados pela renomeação no domínio `restaurant`.
 - [ ] Criar testes unitários para o novo caso de uso `user-avatar-upload`.
 - [ ] Criar teste E2E garantindo o funcionamento e a segurança da nova rota `PATCH /profile/avatar`.
+
+---
+
+## 📊 Épico 9: Métricas do Painel Administrativo (Dashboard)
+
+**User Story:**
+> *"As a system administrator, I want an optimized endpoint to retrieve system metrics (total orders, total broths, total proteins) so that the admin dashboard loads instantly without fetching large datasets (preventing overfetching)."*
+
+### Tarefas
+
+**Domain & Application**
+- [ ] Adicionar os métodos de contagem (`count()`) nos contratos `order-repository.ts`, `broth-repository.ts` e `protein-repository.ts`.
+- [ ] Criar o caso de uso `admin-get-metrics.usecase.ts` que orquestra as chamadas de contagem e retorna o compilado.
+- [ ] Desenvolver testes unitários garantindo que o caso de uso retorne a estrutura correta.
+
+**Infraestrutura (Database)**
+- [ ] Implementar os métodos de contagem (`count()`) nos repositórios do Prisma utilizando agregações nativas (`prisma.order.count()`, etc).
+- [ ] Implementar as contagens nos repositórios em memória para os testes.
+
+**HTTP (Controllers & E2E)**
+- [ ] Criar o controller `admin-get-metrics.controller.ts` para a rota `GET /admin/metrics`.
+- [ ] Proteger a rota garantindo que apenas usuários com `@Roles('ADMIN')` tenham acesso.
+- [ ] Desenvolver teste E2E validando o retorno do JSON com os números corretos de entidades cadastradas.
+
+---
+
+## 📖 Épico 10: Organização e Padronização da Documentação (Swagger)
+
+**User Story:**
+> *"As a front-end developer or API consumer, I want the Swagger documentation to be clean, deduplicated, and logically grouped by tags so that I can easily find and understand the available endpoints."*
+
+### Tarefas
+- [x] Revisar todos os controllers mapeando o uso redundante ou incorreto do decorator `@ApiTags()`.
+- [x] Definir e documentar um padrão central de tags (ex: `Accounts`, `Catalog (Admin)`, `Catalog (Public)`, `Orders`, `Metrics`).
+- [x] Refatorar os decorators (`@ApiOperation`, `@ApiResponse`, `@ApiBearerAuth`) em todos os controllers para garantir que os esquemas de Request e Response (DTOs) estejam documentados e com exemplos.
+- [x] Remover tags duplicadas ou categorias vazias geradas acidentalmente.
+- [x] Acessar a rota `/api` localmente para validar visualmente a nova organização.
+
+---
+
+## 🚀 Épico 11: Padronização de Rotas e Contratos da API (Boas Práticas de Mercado)
+
+**User Story:**
+> *"As a front-end developer and API consumer, I want the route structure and HTTP contracts to follow a consistent, scalable convention so that integrations are predictable, secure, and easy to maintain."*
+
+### Objetivo
+Padronizar a estrutura das rotas, nomes de recursos e convenções de autenticação/administrativo para reduzir ambiguidades de consumo e facilitar a evolução do produto sem quebrar o frontend.
+
+### Exemplo de Hierarquia da Reestruturação das Rotas
+
+```text
+.
+├── /accounts                  # Cadastro e criação de usuários
+│   ├── POST /accounts
+│   └── GET /accounts/:id      # opcional, se houver perfil público
+│
+├── /sessions                 # Autenticação
+│   └── POST /sessions
+│
+├── /profile                  # Dados do usuário autenticado
+│   ├── GET /profile
+│   ├── PUT /profile
+│   ├── DELETE /profile
+│   └── PATCH /profile/avatar
+│
+├── /password                 # Recuperação de senha
+│   ├── POST /password/forgot
+│   └── PATCH /password/reset
+│
+├── /broths                   # Catálogo público
+│   ├── GET /broths
+│   └── GET /broths/:id
+│
+├── /proteins                 # Catálogo público
+│   ├── GET /proteins
+│   └── GET /proteins/:id
+│
+├── /orders                   # Fluxo do cliente
+│   ├── GET /orders
+│   ├── GET /orders/:id
+│   ├── POST /orders
+│   └── PATCH /orders/:id/status
+│
+├── /admin                    # Área administrativa
+│   ├── GET /admin/users
+│   ├── GET /admin/orders
+│   ├── GET /admin/metrics
+│   ├── POST /admin/broths
+│   ├── PUT /admin/broths/:id
+│   ├── DELETE /admin/broths/:id
+│   ├── POST /admin/proteins
+│   ├── PUT /admin/proteins/:id
+│   ├── DELETE /admin/proteins/:id
+│   └── POST /admin/images
+│
+└── /docs                     # Documentação e Swagger
+    └── /api
+```
+
+> Observação: o objetivo desta estrutura não é quebrar o frontend atual, mas servir como referência de melhor prática para uma futura padronização incremental, preservando compatibilidade e introduzindo migração gradual quando necessário.
+
+### Tarefas
+
+**Arquitetura de Rotas**
+- [ ] Revisar todos os endpoints públicos e privados e classificar por domínio: `account`, `catalog`, `orders`, `admin`, `auth`.
+- [ ] Definir uma convenção de rotas com padrão claro: recursos no plural, endpoints de ação em `/resource/:id/action`, e separação de áreas administrativas em `/admin/...`.
+- [ ] Padronizar rotas de cadastro/autenticação para seguir o modelo mais comum do mercado: `/accounts`, `/sessions`, `/password/forgot`, `/password/reset`.
+- [ ] Padronizar endpoints de catálogo para `GET /broths`, `GET /proteins`, mantendo `POST/PUT/DELETE` para admin apenas.
+- [ ] Padronizar endpoints de pedidos para `GET /orders`, `GET /orders/:id`, `POST /orders`, `PATCH /orders/:id/status`.
+- [ ] Revisar o uso de `@UseGuards` e `@Roles` para garantir consistência entre rotas públicas, privadas e administrativas.
+
+**Contratos e Convenções HTTP**
+- [ ] Padronizar respostas de sucesso para objeto com chave de recurso, como `{ users: [...] }`, `{ orders: [...] }` e `{ broth: {...} }` quando houver uma entidade única.
+- [ ] Padronizar códigos HTTP: `200` para leitura, `201` para criação, `204` para operações sem corpo, `401` para autenticação, `403` para autorização, `404` para não encontrado, `409` para conflito.
+- [ ] Garantir que os DTOs de request/response sigam um padrão explícito e documentado no Swagger.
+- [ ] Confirmar que o nome dos endpoints não conflita com a semântica de “admin” e “resource” no mesmo nível.
+
+**Documentação e Consumo do Frontend**
+- [ ] Mapear as rotas que já existem e separar as “contrato estabilizado” das “áreas em evolução”.
+- [ ] Registrar em documentação interna quais endpoints devem ser tratados como estáveis e quais podem sofrer refactor sem breaking change.
+- [ ] Criar uma tabela de convenções de rota e resposta para uso por frontend e backend.
+- [ ] Validar com o time de frontend que a estrutura atual é consumível e definir uma política de compatibilidade antes de qualquer breaking change.
+
+**Validação**
+- [ ] Verificar se a nova convenção não exige alteração em endpoints já utilizados pelo frontend em produção.
+- [ ] Validar que as rotas administrativas continuam protegidas por `@Roles('ADMIN')`.
+- [ ] Confirmar que a documentação Swagger reflete o padrão final e que os grupos ficam legíveis para equipes externas.
+
+---

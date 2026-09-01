@@ -61,7 +61,7 @@ class EditProteinDto {
   imageInactiveId?: string
 }
 
-@ApiTags('admin', 'restaurant', 'proteins')
+@ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
 @Controller('/proteins')
 export class ProteinEditController {

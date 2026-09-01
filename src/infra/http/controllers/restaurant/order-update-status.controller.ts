@@ -43,7 +43,7 @@ class UpdateOrderStatusDto {
   status: UpdateOrderStatusSchema['status'] = 'PENDING'
 }
 
-@ApiTags('admin', 'restaurant', 'orders')
+@ApiTags('Orders')
 @ApiBearerAuth()
 @Controller('/orders/:orderId/status')
 @UseGuards(JwtAuthGuard, RolesGuard)

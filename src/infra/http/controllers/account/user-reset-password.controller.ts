@@ -43,7 +43,7 @@ class ResetUserPasswordDto {
   password: string = ''
 }
 
-@ApiTags('accounts')
+@ApiTags('Accounts')
 @Controller('/password/reset')
 @Public()
 export class UserResetPasswordController {
