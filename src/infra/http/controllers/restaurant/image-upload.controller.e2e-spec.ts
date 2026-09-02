@@ -26,7 +26,7 @@ describe('Upload Image (e2e)', () => {
     await app.init()
   })
 
-  test('[POST] /images - admin user', async () => {
+  test('[POST] /admin/images - admin user', async () => {
     const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
 
     const accessToken = jwt.sign({
@@ -35,7 +35,7 @@ describe('Upload Image (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .post('/images')
+      .post('/admin/images')
       .set('Authorization', `Bearer ${accessToken}`)
       .attach('file', './test/e2e/sample-upload.svg')
 
@@ -45,7 +45,7 @@ describe('Upload Image (e2e)', () => {
     })
   })
 
-  test('[POST] /images - regular user', async () => {
+  test('[POST] /admin/images - regular user', async () => {
     const user = await userFactory.makePrismaUser({ role: 'USER' })
 
     const accessToken = jwt.sign({
@@ -54,7 +54,7 @@ describe('Upload Image (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .post('/images')
+      .post('/admin/images')
       .set('Authorization', `Bearer ${accessToken}`)
 
     expect(response.statusCode).toBe(403)

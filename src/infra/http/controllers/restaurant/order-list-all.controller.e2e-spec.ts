@@ -91,14 +91,18 @@ describe('List all orders (e2e)', () => {
     expect(response.statusCode).toBe(200)
     expect(response.body).toEqual({
       orders: expect.arrayContaining([
-        {
+        expect.objectContaining({
           id: firstOrder.id.toString(),
           description: 'First order',
-        },
-        {
+          status: 'PENDING',
+          createdAt: firstOrder.createdAt.toISOString(),
+        }),
+        expect.objectContaining({
           id: secondOrder.id.toString(),
           description: 'Second order',
-        },
+          status: 'PENDING',
+          createdAt: secondOrder.createdAt.toISOString(),
+        }),
       ]),
     })
   })

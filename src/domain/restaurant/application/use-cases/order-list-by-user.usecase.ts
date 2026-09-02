@@ -4,7 +4,7 @@ import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { UsersRepository } from '@/domain/account/application/repositories/user-repository'
 import { OrdersRepository } from '@/domain/restaurant/application/repositories/order-repository'
-import { Order } from '@/domain/restaurant/enterprise/entities/order'
+import { OrderWithDetails } from '@/domain/restaurant/enterprise/entities/value-objects/order-with-details'
 
 interface OrderListByUserRequest {
   userId: string
@@ -13,7 +13,7 @@ interface OrderListByUserRequest {
 type OrderListByUserResponse = Either<
   ResourceNotFoundError,
   {
-    orders: Order[]
+    orders: OrderWithDetails[]
   }
 >
 
@@ -33,7 +33,8 @@ export class OrderListByUserUseCase {
       return left(new ResourceNotFoundError('User not found.'))
     }
 
-    const orders = await this.ordersRepository.findManyByUserId(userId)
+    const orders =
+      await this.ordersRepository.findManyByUserIdWithDetails(userId)
 
     return right({
       orders,

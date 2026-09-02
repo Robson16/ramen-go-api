@@ -43,9 +43,9 @@ class UpdateOrderStatusDto {
   status: UpdateOrderStatusSchema['status'] = 'PENDING'
 }
 
-@ApiTags('Orders')
+@ApiTags('Orders (Admin)')
 @ApiBearerAuth()
-@Controller('/orders/:orderId/status')
+@Controller('admin/orders/:orderId/status')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class OrderUpdateStatusController {
   constructor(private updateOrderStatus: OrderUpdateStatusUseCase) {}

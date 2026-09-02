@@ -79,7 +79,7 @@ describe('Create order (e2e)', () => {
 
     expect(response.statusCode).toBe(201)
 
-    const order = response.body
+    const order = response.body.order
 
     const orderOnDatabase = await prisma.order.findUnique({
       where: {

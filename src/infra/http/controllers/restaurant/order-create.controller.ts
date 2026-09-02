@@ -45,7 +45,7 @@ class CreateOrderDto {
   proteinId: string = ''
 }
 
-@ApiTags('Orders')
+@ApiTags('Orders (Public)')
 @ApiBearerAuth()
 @Controller('/orders')
 export class OrderCreateController {
@@ -95,6 +95,8 @@ export class OrderCreateController {
 
     const { order } = result.value
 
-    return OrderPresenter.toHTTP(order)
+    return {
+      order: OrderPresenter.toHTTP(order),
+    }
   }
 }

@@ -20,7 +20,7 @@ import { Roles } from '@/infra/auth/roles-decorator'
 
 @ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
-@Controller('/broths')
+@Controller('/admin/broths')
 export class BrothDeleteController {
   constructor(private deleteBrothUseCase: BrothDeleteUseCase) {}
 

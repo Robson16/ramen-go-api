@@ -63,7 +63,7 @@ class EditProteinDto {
 
 @ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
-@Controller('/proteins')
+@Controller('/admin/proteins')
 export class ProteinEditController {
   constructor(private editProteinUseCase: ProteinEditUseCase) {}
 

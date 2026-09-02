@@ -1,18 +1,38 @@
 import { makeUser } from 'test/factories/account/make-user'
+import { makeBroth } from 'test/factories/restaurant/make-broth'
 import { makeOrder } from 'test/factories/restaurant/make-order'
+import { makeProtein } from 'test/factories/restaurant/make-protein'
 import { InMemoryUsersRepository } from 'test/repositories/account/in-memory-user-repository'
+import { InMemoryBrothsRepository } from 'test/repositories/restaurant/in-memory-broth-repository'
+import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
 import { InMemoryOrdersRepository } from 'test/repositories/restaurant/in-memory-order-repository'
+import { InMemoryProteinsRepository } from 'test/repositories/restaurant/in-memory-protein-repository'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 import { OrderListByUserUseCase } from './order-list-by-user.usecase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let inMemoryOrdersRepository: InMemoryOrdersRepository
+let inMemoryBrothsRepository: InMemoryBrothsRepository
+let inMemoryProteinsRepository: InMemoryProteinsRepository
+let inMemoryImagesRepository: InMemoryImagesRepository
 let sut: OrderListByUserUseCase // Subject Under Test
 
 describe('List Orders by User Use Case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     inMemoryUsersRepository = new InMemoryUsersRepository()
-    inMemoryOrdersRepository = new InMemoryOrdersRepository()
+    inMemoryImagesRepository = new InMemoryImagesRepository()
+    inMemoryBrothsRepository = new InMemoryBrothsRepository(
+      inMemoryImagesRepository,
+    )
+    inMemoryProteinsRepository = new InMemoryProteinsRepository(
+      inMemoryImagesRepository,
+    )
+    inMemoryOrdersRepository = new InMemoryOrdersRepository(
+      inMemoryBrothsRepository,
+      inMemoryProteinsRepository,
+    )
     sut = new OrderListByUserUseCase(
       inMemoryUsersRepository,
       inMemoryOrdersRepository,
@@ -26,10 +46,19 @@ describe('List Orders by User Use Case', () => {
     await inMemoryUsersRepository.create(user1)
     await inMemoryUsersRepository.create(user2)
 
+    await inMemoryBrothsRepository.create(
+      makeBroth({}, new UniqueEntityID('broth-1')),
+    )
+    await inMemoryProteinsRepository.create(
+      makeProtein({}, new UniqueEntityID('protein-1')),
+    )
+
     for (let i = 1; i <= 10; i++) {
       await inMemoryOrdersRepository.create(
         makeOrder({
           userId: user1.id,
+          brothId: new UniqueEntityID('broth-1'),
+          proteinId: new UniqueEntityID('protein-1'),
         }),
       )
     }
@@ -38,6 +67,8 @@ describe('List Orders by User Use Case', () => {
       await inMemoryOrdersRepository.create(
         makeOrder({
           userId: user2.id,
+          brothId: new UniqueEntityID('broth-1'),
+          proteinId: new UniqueEntityID('protein-1'),
         }),
       )
     }

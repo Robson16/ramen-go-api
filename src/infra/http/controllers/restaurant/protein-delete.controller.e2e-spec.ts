@@ -35,7 +35,7 @@ describe('Delete Protein (E2E)', () => {
     await app.init()
   })
 
-  test('[DELETE] /proteins/:proteinId - admin user should be able to delete a protein', async () => {
+  test('[DELETE] /admin/proteins/:proteinId - admin user should be able to delete a protein', async () => {
     const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
 
     const accessToken = jwt.sign({
@@ -52,7 +52,7 @@ describe('Delete Protein (E2E)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .delete(`/proteins/${protein.id.toString()}`)
+      .delete(`/admin/proteins/${protein.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
 
@@ -67,7 +67,7 @@ describe('Delete Protein (E2E)', () => {
     expect(proteinOnDatabase).toBeNull()
   })
 
-  test('[DELETE] /proteins/:proteinId - regular user should not be able to delete a protein', async () => {
+  test('[DELETE] /admin/proteins/:proteinId - regular user should not be able to delete a protein', async () => {
     const user = await userFactory.makePrismaUser()
 
     const accessToken = jwt.sign({
@@ -84,7 +84,7 @@ describe('Delete Protein (E2E)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .delete(`/proteins/${protein.id.toString()}`)
+      .delete(`/admin/proteins/${protein.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
 
@@ -99,7 +99,7 @@ describe('Delete Protein (E2E)', () => {
     expect(proteinOnDatabase).not.toBeNull()
   })
 
-  test('[DELETE] /proteins/:proteinId - should not be able to delete without authentication', async () => {
+  test('[DELETE] /admin/proteins/:proteinId - should not be able to delete without authentication', async () => {
     const imageActive = await imageFactory.makePrismaImage()
     const imageInactive = await imageFactory.makePrismaImage()
 
@@ -109,7 +109,7 @@ describe('Delete Protein (E2E)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .delete(`/proteins/${protein.id.toString()}`)
+      .delete(`/admin/proteins/${protein.id.toString()}`)
       .send()
 
     expect(response.statusCode).toBe(401)
@@ -123,7 +123,7 @@ describe('Delete Protein (E2E)', () => {
     expect(proteinOnDatabase).not.toBeNull()
   })
 
-  test('[DELETE] /proteins/:proteinId - should not be able to delete a non-existent protein', async () => {
+  test('[DELETE] /admin/proteins/:proteinId - should not be able to delete a non-existent protein', async () => {
     const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
 
     const accessToken = jwt.sign({
@@ -132,7 +132,7 @@ describe('Delete Protein (E2E)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .delete(`/proteins/${crypto.randomUUID()}`)
+      .delete(`/admin/proteins/${crypto.randomUUID()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
 

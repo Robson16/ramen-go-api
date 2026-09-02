@@ -34,7 +34,7 @@ describe('Edit broth (e2e)', () => {
     await app.init()
   })
 
-  test('[PUT] /broths/:brothId - admin user should be able to edit a broth', async () => {
+  test('[PUT] /admin/broths/:brothId - admin user should be able to edit a broth', async () => {
     const imageActive = await imageFactory.makePrismaImage()
     const imageInactive = await imageFactory.makePrismaImage()
 
@@ -52,7 +52,7 @@ describe('Edit broth (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .put(`/broths/${broth.id.toString()}`)
+      .put(`/admin/broths/${broth.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Updated broth',
@@ -74,7 +74,7 @@ describe('Edit broth (e2e)', () => {
     expect(brothOnDatabase?.price.toString()).toBe('15')
   })
 
-  test('[PUT] /broths/:brothId - regular user should not be able to edit a broth', async () => {
+  test('[PUT] /admin/broths/:brothId - regular user should not be able to edit a broth', async () => {
     const imageActive = await imageFactory.makePrismaImage()
     const imageInactive = await imageFactory.makePrismaImage()
 
@@ -91,7 +91,7 @@ describe('Edit broth (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .put(`/broths/${broth.id.toString()}`)
+      .put(`/admin/broths/${broth.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Unauthorized update',
@@ -100,9 +100,9 @@ describe('Edit broth (e2e)', () => {
     expect(response.statusCode).toBe(403)
   })
 
-  test('[PUT] /broths/:brothId - should not be able to edit without authentication', async () => {
+  test('[PUT] /admin/broths/:brothId - should not be able to edit without authentication', async () => {
     const response = await request(app.getHttpServer())
-      .put(`/broths/${crypto.randomUUID()}`)
+      .put(`/admin/broths/${crypto.randomUUID()}`)
       .send({
         name: 'Unauthorized update',
       })
@@ -110,7 +110,7 @@ describe('Edit broth (e2e)', () => {
     expect(response.statusCode).toBe(401)
   })
 
-  test('[PUT] /broths/:brothId - should not be able to edit a non-existent broth', async () => {
+  test('[PUT] /admin/broths/:brothId - should not be able to edit a non-existent broth', async () => {
     const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
 
     const accessToken = jwt.sign({
@@ -119,7 +119,7 @@ describe('Edit broth (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .put(`/broths/${crypto.randomUUID()}`)
+      .put(`/admin/broths/${crypto.randomUUID()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Missing broth update',
@@ -128,7 +128,7 @@ describe('Edit broth (e2e)', () => {
     expect(response.statusCode).toBe(404)
   })
 
-  test('[PUT] /broths/:brothId - should not be able to use an existing name', async () => {
+  test('[PUT] /admin/broths/:brothId - should not be able to use an existing name', async () => {
     const firstImageActive = await imageFactory.makePrismaImage()
     const firstImageInactive = await imageFactory.makePrismaImage()
     const secondImageActive = await imageFactory.makePrismaImage()
@@ -153,7 +153,7 @@ describe('Edit broth (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .put(`/broths/${brothToEdit.id.toString()}`)
+      .put(`/admin/broths/${brothToEdit.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: existingBroth.name,

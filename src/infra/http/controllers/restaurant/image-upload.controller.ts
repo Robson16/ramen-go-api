@@ -33,7 +33,7 @@ class UploadImageDto {
 
 @ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
-@Controller('/images')
+@Controller('/admin/images')
 export class ImageUploadController {
   constructor(private uploadAndCreateImage: ImageUploadAndCreateUseCase) {}
 

@@ -90,16 +90,22 @@ describe('List user orders (e2e)', () => {
     expect(response.statusCode).toBe(200)
     expect(response.body).toEqual({
       orders: [
-        {
+        expect.objectContaining({
           id: user1_Order.id.toString(),
           description: 'User order',
-        },
+          status: 'PENDING',
+          createdAt: user1_Order.createdAt.toISOString(),
+        }),
       ],
     })
-    expect(response.body.orders).not.toContainEqual({
-      id: user2_Order.id.toString(),
-      description: 'Other user order',
-    })
+    expect(response.body.orders).not.toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: user2_Order.id.toString(),
+          description: 'Other user order',
+        }),
+      ]),
+    )
   })
 
   test('[GET] /orders - returns an empty list when the user has no orders', async () => {

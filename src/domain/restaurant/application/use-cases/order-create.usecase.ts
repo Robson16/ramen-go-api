@@ -7,6 +7,7 @@ import { BrothsRepository } from '@/domain/restaurant/application/repositories/b
 import { OrdersRepository } from '@/domain/restaurant/application/repositories/order-repository'
 import { ProteinsRepository } from '@/domain/restaurant/application/repositories/protein-repository'
 import { Order } from '@/domain/restaurant/enterprise/entities/order'
+import { OrderWithDetails } from '@/domain/restaurant/enterprise/entities/value-objects/order-with-details'
 
 interface CreateOrderUseCaseRequest {
   userId: string
@@ -17,7 +18,7 @@ interface CreateOrderUseCaseRequest {
 type CreateOrderUseCaseResponse = Either<
   ResourceNotFoundError,
   {
-    order: Order
+    order: OrderWithDetails
   }
 >
 
@@ -55,8 +56,16 @@ export class OrderCreateUseCase {
 
     await this.ordersRepository.create(order)
 
+    const orderWithDetails = await this.ordersRepository.findByIdWithDetails(
+      order.id.toString(),
+    )
+
+    if (!orderWithDetails) {
+      return left(new ResourceNotFoundError('Order not found.'))
+    }
+
     return right({
-      order,
+      order: orderWithDetails,
     })
   }
 }

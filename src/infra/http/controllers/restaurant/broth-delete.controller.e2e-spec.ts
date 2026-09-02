@@ -35,7 +35,7 @@ describe('Delete Broth (E2E)', () => {
     await app.init()
   })
 
-  test('[DELETE] /broths/:brothId - admin user should be able to delete a broth', async () => {
+  test('[DELETE] /admin/broths/:brothId - admin user should be able to delete a broth', async () => {
     const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
 
     const accessToken = jwt.sign({
@@ -52,7 +52,7 @@ describe('Delete Broth (E2E)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .delete(`/broths/${broth.id.toString()}`)
+      .delete(`/admin/broths/${broth.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
 
@@ -67,7 +67,7 @@ describe('Delete Broth (E2E)', () => {
     expect(brothOnDatabase).toBeNull()
   })
 
-  test('[DELETE] /broths/:brothId - regular user should not be able to delete a broth', async () => {
+  test('[DELETE] /admin/broths/:brothId - regular user should not be able to delete a broth', async () => {
     const user = await userFactory.makePrismaUser()
 
     const accessToken = jwt.sign({
@@ -84,7 +84,7 @@ describe('Delete Broth (E2E)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .delete(`/broths/${broth.id.toString()}`)
+      .delete(`/admin/broths/${broth.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
 
@@ -99,7 +99,7 @@ describe('Delete Broth (E2E)', () => {
     expect(brothOnDatabase).not.toBeNull()
   })
 
-  test('[DELETE] /broths/:brothId - should not be able to delete without authentication', async () => {
+  test('[DELETE] /admin/broths/:brothId - should not be able to delete without authentication', async () => {
     const imageActive = await imageFactory.makePrismaImage()
     const imageInactive = await imageFactory.makePrismaImage()
 
@@ -109,7 +109,7 @@ describe('Delete Broth (E2E)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .delete(`/broths/${broth.id.toString()}`)
+      .delete(`/admin/broths/${broth.id.toString()}`)
       .send()
 
     expect(response.statusCode).toBe(401)
@@ -123,7 +123,7 @@ describe('Delete Broth (E2E)', () => {
     expect(brothOnDatabase).not.toBeNull()
   })
 
-  test('[DELETE] /broths/:brothId - should not be able to delete a non-existent broth', async () => {
+  test('[DELETE] /admin/broths/:brothId - should not be able to delete a non-existent broth', async () => {
     const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
 
     const accessToken = jwt.sign({
@@ -132,7 +132,7 @@ describe('Delete Broth (E2E)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .delete(`/broths/${crypto.randomUUID()}`)
+      .delete(`/admin/broths/${crypto.randomUUID()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
 

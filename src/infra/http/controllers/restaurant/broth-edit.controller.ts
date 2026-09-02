@@ -63,7 +63,7 @@ class EditBrothDto {
 
 @ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
-@Controller('/broths')
+@Controller('/admin/broths')
 export class BrothEditController {
   constructor(private editBrothUseCase: BrothEditUseCase) {}
 

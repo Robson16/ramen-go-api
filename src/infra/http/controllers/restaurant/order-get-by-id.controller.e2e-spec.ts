@@ -84,7 +84,9 @@ describe('Get order by id (e2e)', () => {
 
     expect(response.body).toEqual(
       expect.objectContaining({
-        id: orderId,
+        order: expect.objectContaining({
+          id: orderId,
+        }),
       }),
     )
   })
