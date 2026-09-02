@@ -21,7 +21,7 @@ import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { OrderPresenter } from '@/infra/http/presenters/restaurant/order-presenter'
 
-@ApiTags('Orders')
+@ApiTags('Orders (Public)')
 @ApiBearerAuth()
 @Controller('/orders')
 export class OrderGetByIdController {
@@ -72,6 +72,8 @@ export class OrderGetByIdController {
 
     const { order } = result.value
 
-    return OrderPresenter.toHTTP(order)
+    return {
+      order: OrderPresenter.toHTTP(order),
+    }
   }
 }

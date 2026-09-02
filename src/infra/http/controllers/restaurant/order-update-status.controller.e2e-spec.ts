@@ -76,7 +76,7 @@ describe('Update order status (e2e)', () => {
     })
   }
 
-  test('[PATCH] /orders/:orderId/status - updates an order status', async () => {
+  test('[PATCH] /admin/orders/:orderId/status - updates an order status', async () => {
     const admin = await userFactory.makePrismaUser({ role: 'ADMIN' })
     const accessToken = jwt.sign({
       sub: admin.id.toString(),
@@ -86,7 +86,7 @@ describe('Update order status (e2e)', () => {
     const order = await createOrder(admin.id, 'PENDING')
 
     const response = await request(app.getHttpServer())
-      .patch(`/orders/${order.id.toString()}/status`)
+      .patch(`/admin/orders/${order.id.toString()}/status`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({ status: 'PREPARING' })
 
@@ -99,15 +99,15 @@ describe('Update order status (e2e)', () => {
     expect(orderOnDatabase?.status).toBe('PREPARING')
   })
 
-  test('[PATCH] /orders/:orderId/status - rejects an unauthenticated user', async () => {
+  test('[PATCH] /admin/orders/:orderId/status - rejects an unauthenticated user', async () => {
     const response = await request(app.getHttpServer())
-      .patch('/orders/00000000-0000-0000-0000-000000000000/status')
+      .patch('/admin/orders/00000000-0000-0000-0000-000000000000/status')
       .send({ status: 'PREPARING' })
 
     expect(response.statusCode).toBe(401)
   })
 
-  test('[PATCH] /orders/:orderId/status - rejects a regular user', async () => {
+  test('[PATCH] /admin/orders/:orderId/status - rejects a regular user', async () => {
     const user = await userFactory.makePrismaUser({ role: 'USER' })
     const accessToken = jwt.sign({
       sub: user.id.toString(),
@@ -117,14 +117,14 @@ describe('Update order status (e2e)', () => {
     const order = await createOrder(user.id)
 
     const response = await request(app.getHttpServer())
-      .patch(`/orders/${order.id.toString()}/status`)
+      .patch(`/admin/orders/${order.id.toString()}/status`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({ status: 'PREPARING' })
 
     expect(response.statusCode).toBe(403)
   })
 
-  test('[PATCH] /orders/:orderId/status - rejects an invalid body', async () => {
+  test('[PATCH] /admin/orders/:orderId/status - rejects an invalid body', async () => {
     const admin = await userFactory.makePrismaUser({ role: 'ADMIN' })
     const accessToken = jwt.sign({
       sub: admin.id.toString(),
@@ -134,14 +134,14 @@ describe('Update order status (e2e)', () => {
     const order = await createOrder(admin.id)
 
     const response = await request(app.getHttpServer())
-      .patch(`/orders/${order.id.toString()}/status`)
+      .patch(`/admin/orders/${order.id.toString()}/status`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({ status: 'INVALID' })
 
     expect(response.statusCode).toBe(400)
   })
 
-  test('[PATCH] /orders/:orderId/status - returns not found for a missing order', async () => {
+  test('[PATCH] /admin/orders/:orderId/status - returns not found for a missing order', async () => {
     const admin = await userFactory.makePrismaUser({ role: 'ADMIN' })
     const accessToken = jwt.sign({
       sub: admin.id.toString(),
@@ -149,14 +149,14 @@ describe('Update order status (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .patch('/orders/00000000-0000-0000-0000-000000000000/status')
+      .patch('/admin/orders/00000000-0000-0000-0000-000000000000/status')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({ status: 'PREPARING' })
 
     expect(response.statusCode).toBe(404)
   })
 
-  test('[PATCH] /orders/:orderId/status - rejects changing a delivered order', async () => {
+  test('[PATCH] /admin/orders/:orderId/status - rejects changing a delivered order', async () => {
     const admin = await userFactory.makePrismaUser({ role: 'ADMIN' })
     const accessToken = jwt.sign({
       sub: admin.id.toString(),
@@ -166,7 +166,7 @@ describe('Update order status (e2e)', () => {
     const order = await createOrder(admin.id, 'DELIVERED')
 
     const response = await request(app.getHttpServer())
-      .patch(`/orders/${order.id.toString()}/status`)
+      .patch(`/admin/orders/${order.id.toString()}/status`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({ status: 'READY' })
 
