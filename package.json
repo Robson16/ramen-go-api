@@ -1,6 +1,6 @@
 {
   "name": "ramen-go-api",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Ramen Go API built with NestJS and TypeScript for user accounts, JWT authentication, admin catalog management, and custom ramen orders.",
   "main": "index.js",
   "homepage": "",
