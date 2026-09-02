@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { apiReference } from '@scalar/nestjs-api-reference'
 
 import * as packageJson from '../../package.json'
 import { AppModule } from './app.module'
@@ -20,8 +21,21 @@ async function bootstrap() {
     .setVersion(packageJson.version)
     .addBearerAuth()
     .build()
+
   const document = SwaggerModule.createDocument(app, config)
+
   SwaggerModule.setup('api', app, document)
+
+  app.use(
+    '/docs',
+    apiReference({
+      spec: {
+        content: document,
+      },
+      theme: 'kepler',
+      layout: 'modern',
+    }),
+  )
 
   const envService = app.get(EnvService)
   const port = envService.get('APP_PORT')

@@ -87,11 +87,19 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
     ```
     A API estará disponível em `http://localhost:3333`.
 
-## Documentação da API (Swagger)
+## Documentação da API
 
-A API possui uma documentação interativa gerada automaticamente com o Swagger. Nela, você pode visualizar todos os endpoints, os formatos de envio/resposta, e testar as requisições.
+A API possui duas interfaces interativas geradas a partir da especificação OpenAPI. O Swagger UI permite visualizar todos os endpoints, os formatos de envio e resposta e testar as requisições.
 
-- **Local:** [http://localhost:3333/api](http://localhost:3333/api)
+- **Swagger:** [https://ramen-go-api-xyjm.onrender.com/api](https://ramen-go-api-xyjm.onrender.com/api)
+
+### Documentação com Scalar
+
+O Scalar oferece uma interface alternativa e moderna para explorar a documentação OpenAPI da API. Ele utiliza a mesma especificação gerada pelo NestJS e está disponível em:
+
+- **Scalar:** [https://ramen-go-api-xyjm.onrender.com/docs](https://ramen-go-api-xyjm.onrender.com/docs)
+
+Use o botão de autorização da interface para informar um token no formato `Bearer <seu-jwt-token>` e testar as rotas protegidas.
 
 **Testando rotas protegidas:**
 1. Crie uma conta na rota `POST /accounts`.
