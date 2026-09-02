@@ -32,7 +32,7 @@ describe('Create protein (e2e)', () => {
     await app.init()
   })
 
-  test('[POST] /proteins - admin user', async () => {
+  test('[POST] /admin/proteins - admin user', async () => {
     const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
 
     const accessToken = jwt.sign({
@@ -44,7 +44,7 @@ describe('Create protein (e2e)', () => {
     const imageInactive = await imageFactory.makePrismaImage()
 
     const response = await request(app.getHttpServer())
-      .post('/proteins')
+      .post('/admin/proteins')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Salt',
@@ -65,7 +65,7 @@ describe('Create protein (e2e)', () => {
     expect(proteinOnDatabase).toBeTruthy()
   })
 
-  test('[POST] /proteins - regular user', async () => {
+  test('[POST] /admin/proteins - regular user', async () => {
     const user = await userFactory.makePrismaUser({ role: 'USER' })
 
     const accessToken = jwt.sign({
@@ -77,7 +77,7 @@ describe('Create protein (e2e)', () => {
     const imageInactive = await imageFactory.makePrismaImage()
 
     const response = await request(app.getHttpServer())
-      .post('/proteins')
+      .post('/admin/proteins')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Salt',

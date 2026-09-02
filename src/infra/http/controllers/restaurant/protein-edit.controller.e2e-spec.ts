@@ -34,7 +34,7 @@ describe('Edit protein (e2e)', () => {
     await app.init()
   })
 
-  test('[PUT] /proteins/:proteinId - admin user should be able to edit a protein', async () => {
+  test('[PUT] /admin/proteins/:proteinId - admin user should be able to edit a protein', async () => {
     const imageActive = await imageFactory.makePrismaImage()
     const imageInactive = await imageFactory.makePrismaImage()
 
@@ -52,7 +52,7 @@ describe('Edit protein (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .put(`/proteins/${protein.id.toString()}`)
+      .put(`/admin/proteins/${protein.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Updated protein',
@@ -72,7 +72,7 @@ describe('Edit protein (e2e)', () => {
     expect(proteinOnDatabase?.price.toString()).toBe('15')
   })
 
-  test('[PUT] /proteins/:proteinId - regular user should not be able to edit a protein', async () => {
+  test('[PUT] /admin/proteins/:proteinId - regular user should not be able to edit a protein', async () => {
     const imageActive = await imageFactory.makePrismaImage()
     const imageInactive = await imageFactory.makePrismaImage()
 
@@ -89,7 +89,7 @@ describe('Edit protein (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .put(`/proteins/${protein.id.toString()}`)
+      .put(`/admin/proteins/${protein.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Unauthorized update',
@@ -98,9 +98,9 @@ describe('Edit protein (e2e)', () => {
     expect(response.statusCode).toBe(403)
   })
 
-  test('[PUT] /proteins/:proteinId - should not be able to edit without authentication', async () => {
+  test('[PUT] /admin/proteins/:proteinId - should not be able to edit without authentication', async () => {
     const response = await request(app.getHttpServer())
-      .put(`/proteins/${crypto.randomUUID()}`)
+      .put(`/admin/proteins/${crypto.randomUUID()}`)
       .send({
         name: 'Unauthorized update',
       })
@@ -108,7 +108,7 @@ describe('Edit protein (e2e)', () => {
     expect(response.statusCode).toBe(401)
   })
 
-  test('[PUT] /proteins/:proteinId - should not be able to edit a non-existent protein', async () => {
+  test('[PUT] /admin/proteins/:proteinId - should not be able to edit a non-existent protein', async () => {
     const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
 
     const accessToken = jwt.sign({
@@ -117,7 +117,7 @@ describe('Edit protein (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .put(`/proteins/${crypto.randomUUID()}`)
+      .put(`/admin/proteins/${crypto.randomUUID()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Missing protein update',
@@ -126,7 +126,7 @@ describe('Edit protein (e2e)', () => {
     expect(response.statusCode).toBe(404)
   })
 
-  test('[PUT] /proteins/:proteinId - should not be able to use an existing name', async () => {
+  test('[PUT] /admin/proteins/:proteinId - should not be able to use an existing name', async () => {
     const firstImageActive = await imageFactory.makePrismaImage()
     const firstImageInactive = await imageFactory.makePrismaImage()
     const secondImageActive = await imageFactory.makePrismaImage()
@@ -151,7 +151,7 @@ describe('Edit protein (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .put(`/proteins/${proteinToEdit.id.toString()}`)
+      .put(`/admin/proteins/${proteinToEdit.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: existingProtein.name,

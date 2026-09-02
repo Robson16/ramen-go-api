@@ -297,18 +297,18 @@ Padronizar a estrutura das rotas, nomes de recursos e convenções de autentica�
 ### Tarefas
 
 **Arquitetura de Rotas**
-- [ ] Revisar todos os endpoints públicos e privados e classificar por domínio: `account`, `catalog`, `orders`, `admin`, `auth`.
-- [ ] Definir uma convenção de rotas com padrão claro: recursos no plural, endpoints de ação em `/resource/:id/action`, e separação de áreas administrativas em `/admin/...`.
-- [ ] Padronizar rotas de cadastro/autenticação para seguir o modelo mais comum do mercado: `/accounts`, `/sessions`, `/password/forgot`, `/password/reset`.
-- [ ] Padronizar endpoints de catálogo para `GET /broths`, `GET /proteins`, mantendo `POST/PUT/DELETE` para admin apenas.
-- [ ] Padronizar endpoints de pedidos para `GET /orders`, `GET /orders/:id`, `POST /orders`, `PATCH /orders/:id/status`.
-- [ ] Revisar o uso de `@UseGuards` e `@Roles` para garantir consistência entre rotas públicas, privadas e administrativas.
+- [x] Revisar todos os endpoints públicos e privados e classificar por domínio: `account`, `catalog`, `orders`, `admin`, `auth`.
+- [x] Definir uma convenção de rotas com padrão claro: recursos no plural, endpoints de ação em `/resource/:id/action`, e separação de áreas administrativas em `/admin/...`.
+- [x] Padronizar rotas de cadastro/autenticação para seguir o modelo mais comum do mercado: `/accounts`, `/sessions`, `/password/forgot`, `/password/reset`.
+- [x] Padronizar endpoints de catálogo para `GET /broths`, `GET /proteins`, mantendo `POST/PUT/DELETE` para admin apenas.
+- [x] Padronizar endpoints de pedidos para `GET /orders`, `GET /orders/:id`, `POST /orders`, `PATCH /orders/:id/status`.
+- [x] Revisar o uso de `@UseGuards` e `@Roles` para garantir consistência entre rotas públicas, privadas e administrativas.
 
 **Contratos e Convenções HTTP**
 - [ ] Padronizar respostas de sucesso para objeto com chave de recurso, como `{ users: [...] }`, `{ orders: [...] }` e `{ broth: {...} }` quando houver uma entidade única.
 - [ ] Padronizar códigos HTTP: `200` para leitura, `201` para criação, `204` para operações sem corpo, `401` para autenticação, `403` para autorização, `404` para não encontrado, `409` para conflito.
 - [ ] Garantir que os DTOs de request/response sigam um padrão explícito e documentado no Swagger.
-- [ ] Confirmar que o nome dos endpoints não conflita com a semântica de “admin” e “resource” no mesmo nível.
+- [x] Confirmar que o nome dos endpoints não conflita com a semântica de “admin” e “resource” no mesmo nível.
 
 **Documentação e Consumo do Frontend**
 - [ ] Mapear as rotas que já existem e separar as “contrato estabilizado” das “áreas em evolução”.

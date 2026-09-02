@@ -32,7 +32,7 @@ describe('Create broth (e2e)', () => {
     await app.init()
   })
 
-  test('[POST] /broths - admin user', async () => {
+  test('[POST] /admin/broths - admin user', async () => {
     const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
 
     const accessToken = jwt.sign({
@@ -44,7 +44,7 @@ describe('Create broth (e2e)', () => {
     const imageInactive = await imageFactory.makePrismaImage()
 
     const response = await request(app.getHttpServer())
-      .post('/broths')
+      .post('/admin/broths')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Salt',
@@ -65,7 +65,7 @@ describe('Create broth (e2e)', () => {
     expect(brothOnDatabase).toBeTruthy()
   })
 
-  test('[POST] /broths - regular user', async () => {
+  test('[POST] /admin/broths - regular user', async () => {
     const user = await userFactory.makePrismaUser({ role: 'USER' })
 
     const accessToken = jwt.sign({
@@ -77,7 +77,7 @@ describe('Create broth (e2e)', () => {
     const imageInactive = await imageFactory.makePrismaImage()
 
     const response = await request(app.getHttpServer())
-      .post('/broths')
+      .post('/admin/broths')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'Shio',

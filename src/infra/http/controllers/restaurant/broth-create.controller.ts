@@ -70,7 +70,7 @@ class CreateBrothDto {
 
 @ApiTags('Catalog (Admin)')
 @ApiBearerAuth()
-@Controller('/broths')
+@Controller('/admin/broths')
 export class BrothCreateController {
   constructor(private createBroth: BrothCreateUseCase) {}
 
