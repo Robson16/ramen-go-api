@@ -245,9 +245,9 @@ Padronizar a estrutura das rotas, nomes de recursos e convenções de autentica�
 
 ```text
 .
-├── /accounts                  # Cadastro e criação de usuários
+├── /accounts                 # Cadastro e criação de usuários
 │   ├── POST /accounts
-│   └── GET /accounts/:id      # opcional, se houver perfil público
+│   └── GET /accounts/:id     # opcional, se houver perfil público
 │
 ├── /sessions                 # Autenticação
 │   └── POST /sessions
@@ -288,8 +288,7 @@ Padronizar a estrutura das rotas, nomes de recursos e convenções de autentica�
 │   ├── DELETE /admin/proteins/:id
 │   └── POST /admin/images
 │
-└── /docs                     # Documentação e Swagger
-    └── /api
+└── /api                     # Documentação e Swagger
 ```
 
 > Observação: o objetivo desta estrutura não é quebrar o frontend atual, mas servir como referência de melhor prática para uma futura padronização incremental, preservando compatibilidade e introduzindo migração gradual quando necessário.
@@ -305,20 +304,20 @@ Padronizar a estrutura das rotas, nomes de recursos e convenções de autentica�
 - [x] Revisar o uso de `@UseGuards` e `@Roles` para garantir consistência entre rotas públicas, privadas e administrativas.
 
 **Contratos e Convenções HTTP**
-- [ ] Padronizar respostas de sucesso para objeto com chave de recurso, como `{ users: [...] }`, `{ orders: [...] }` e `{ broth: {...} }` quando houver uma entidade única.
-- [ ] Padronizar códigos HTTP: `200` para leitura, `201` para criação, `204` para operações sem corpo, `401` para autenticação, `403` para autorização, `404` para não encontrado, `409` para conflito.
-- [ ] Garantir que os DTOs de request/response sigam um padrão explícito e documentado no Swagger.
+- [x] Padronizar respostas de sucesso para objeto com chave de recurso, como `{ users: [...] }`, `{ orders: [...] }` e `{ broth: {...} }` quando houver uma entidade única.
+- [x] Padronizar códigos HTTP: `200` para leitura, `201` para criação, `204` para operações sem corpo, `401` para autenticação, `403` para autorização, `404` para não encontrado, `409` para conflito.
+- [x] Garantir que os DTOs de request/response sigam um padrão explícito e documentado no Swagger.
 - [x] Confirmar que o nome dos endpoints não conflita com a semântica de “admin” e “resource” no mesmo nível.
 
 **Documentação e Consumo do Frontend**
-- [ ] Mapear as rotas que já existem e separar as “contrato estabilizado” das “áreas em evolução”.
-- [ ] Registrar em documentação interna quais endpoints devem ser tratados como estáveis e quais podem sofrer refactor sem breaking change.
-- [ ] Criar uma tabela de convenções de rota e resposta para uso por frontend e backend.
-- [ ] Validar com o time de frontend que a estrutura atual é consumível e definir uma política de compatibilidade antes de qualquer breaking change.
+- [x] Mapear as rotas que já existem e separar as “contrato estabilizado” das “áreas em evolução”.
+- [x] Registrar em documentação interna quais endpoints devem ser tratados como estáveis e quais podem sofrer refactor sem breaking change.
+- [x] Criar uma tabela de convenções de rota e resposta para uso por frontend e backend.
+- [x] Validar com o time de frontend que a estrutura atual é consumível e definir uma política de compatibilidade antes de qualquer breaking change.
 
 **Validação**
-- [ ] Verificar se a nova convenção não exige alteração em endpoints já utilizados pelo frontend em produção.
-- [ ] Validar que as rotas administrativas continuam protegidas por `@Roles('ADMIN')`.
-- [ ] Confirmar que a documentação Swagger reflete o padrão final e que os grupos ficam legíveis para equipes externas.
+- [x] Verificar se a nova convenção não exige alteração em endpoints já utilizados pelo frontend em produção.
+- [x] Validar que as rotas administrativas continuam protegidas por `@Roles('ADMIN')`.
+- [x] Confirmar que a documentação Swagger reflete o padrão final e que os grupos ficam legíveis para equipes externas.
 
 ---

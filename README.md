@@ -138,40 +138,48 @@ O projeto segue os princípios de Arquitetura Limpa (Clean Architecture) e Domai
 *   `POST /password/forgot`: Solicita a recuperação de senha e envia um e-mail com o token.
 *   `PATCH /password/reset`: Redefine a senha do usuário utilizando o token de recuperação.
 
-#### Administração de Usuários
+### Administração de Usuários (Accounts - Admin)
 
 *   `GET /admin/users`: Lista todos os usuários (restrito a administradores).
 
-### 🍜 Catálogo e Pedidos (Restaurant)
+### 🍜 Catálogo (Catalog - Public)
 
 #### Caldos (Broths)
 
 *   `GET /broths`: Lista todos os caldos disponíveis.
-*   `POST /broths`: Cria um novo caldo (restrito a administradores).
-*   `PUT /broths/:brothId`: Edita um caldo (restrito a administradores).
-*   `DELETE /broths/:brothId`: Exclui um caldo (restrito a administradores).
 
 #### Proteínas (Proteins)
 
 *   `GET /proteins`: Lista todas as proteínas disponíveis.
-*   `POST /proteins`: Cria uma nova proteína (restrito a administradores).
-*   `PUT /proteins/:proteinId`: Edita uma proteína (restrito a administradores).
-*   `DELETE /proteins/:proteinId`: Exclui uma proteína (restrito a administradores).
 
-#### Pedidos (Orders)
+### Administração do Catálogo (Catalog - Admin)
 
-*   `GET /orders`: Lista os pedidos do usuário autenticado (protegido).
-*   `GET /orders/:orderId`: Recupera os detalhes de um pedido específico (protegido; o proprietário ou um administrador pode acessar).
-*   `POST /orders`: Realiza um novo pedido enviando ID do caldo e proteína (protegido).
-*   `PATCH /orders/:orderId/status`: Atualiza o status de um pedido (restrito a administradores). Os status possíveis são `PENDING`, `PREPARING`, `READY` e `DELIVERED`.
+#### Caldos (Broths)
 
-#### Administração de Pedidos
+*   `POST /admin/broths`: Cria um novo caldo (restrito a administradores).
+*   `PUT /admin/broths/:brothId`: Edita um caldo (restrito a administradores).
+*   `DELETE /admin/broths/:brothId`: Exclui um caldo (restrito a administradores).
 
-*   `GET /admin/orders`: Lista todos os pedidos (restrito a administradores).
+#### Proteínas (Proteins)
+
+*   `POST /admin/proteins`: Cria uma nova proteína (restrito a administradores).
+*   `PUT /admin/proteins/:proteinId`: Edita uma proteína (restrito a administradores).
+*   `DELETE /admin/proteins/:proteinId`: Exclui uma proteína (restrito a administradores).
 
 #### Upload
 
-*   `POST /images`: Faz upload de imagens para os ingredientes no R2 (restrito a administradores).
+*   `POST /admin/images`: Faz upload de imagens para os ingredientes no R2 (restrito a administradores).
+
+### Pedidos (Orders - Public)
+
+*   `POST /orders`: Realiza um novo pedido enviando ID do caldo e proteína (protegido).
+*   `GET /orders`: Lista os pedidos do usuário autenticado (protegido).
+*   `GET /orders/:orderId`: Recupera os detalhes de um pedido específico (protegido; o proprietário ou um administrador pode acessar).
+
+### Administração de Pedidos (Orders - Admin)
+
+*   `GET /admin/orders`: Lista todos os pedidos (restrito a administradores).
+*   `PATCH /admin/orders/:orderId/status`: Atualiza o status de um pedido (restrito a administradores). Os status possíveis são `PENDING`, `PREPARING`, `READY` e `DELIVERED`.
 
 ### Autenticação
 
