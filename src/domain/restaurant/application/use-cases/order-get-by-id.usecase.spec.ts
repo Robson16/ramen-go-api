@@ -1,4 +1,9 @@
+import { makeBroth } from 'test/factories/restaurant/make-broth'
+import { makeProtein } from 'test/factories/restaurant/make-protein'
+import { InMemoryBrothsRepository } from 'test/repositories/restaurant/in-memory-broth-repository'
+import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
 import { InMemoryOrdersRepository } from 'test/repositories/restaurant/in-memory-order-repository'
+import { InMemoryProteinsRepository } from 'test/repositories/restaurant/in-memory-protein-repository'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { ForbiddenError } from '@/core/errors/forbidden-error'
@@ -8,15 +13,35 @@ import { Order } from '../../enterprise/entities/order'
 import { OrderGetByIdUseCase } from './order-get-by-id.usecase'
 
 let inMemoryOrdersRepository: InMemoryOrdersRepository
+let inMemoryBrothsRepository: InMemoryBrothsRepository
+let inMemoryProteinsRepository: InMemoryProteinsRepository
+let inMemoryImagesRepository: InMemoryImagesRepository
 let sut: OrderGetByIdUseCase // SUT = Subject Under Test
 
 describe('Get Order By Id Use Case', () => {
-  beforeEach(() => {
-    inMemoryOrdersRepository = new InMemoryOrdersRepository()
+  beforeEach(async () => {
+    inMemoryImagesRepository = new InMemoryImagesRepository()
+    inMemoryBrothsRepository = new InMemoryBrothsRepository(
+      inMemoryImagesRepository,
+    )
+    inMemoryProteinsRepository = new InMemoryProteinsRepository(
+      inMemoryImagesRepository,
+    )
+    inMemoryOrdersRepository = new InMemoryOrdersRepository(
+      inMemoryBrothsRepository,
+      inMemoryProteinsRepository,
+    )
     sut = new OrderGetByIdUseCase(inMemoryOrdersRepository)
   })
 
   it('should be able to get an order by id', async () => {
+    await inMemoryBrothsRepository.create(
+      makeBroth({}, new UniqueEntityID('broth-1')),
+    )
+    await inMemoryProteinsRepository.create(
+      makeProtein({}, new UniqueEntityID('protein-1')),
+    )
+
     const newOrder = Order.create(
       {
         description: 'Standard Ramen',
@@ -54,6 +79,13 @@ describe('Get Order By Id Use Case', () => {
   })
 
   it('should not be able to get an order owned by another user', async () => {
+    await inMemoryBrothsRepository.create(
+      makeBroth({}, new UniqueEntityID('broth-1')),
+    )
+    await inMemoryProteinsRepository.create(
+      makeProtein({}, new UniqueEntityID('protein-1')),
+    )
+
     const newOrder = Order.create(
       {
         description: 'Standard Ramen',
@@ -77,6 +109,13 @@ describe('Get Order By Id Use Case', () => {
   })
 
   it('should allow an admin to get an order owned by another user', async () => {
+    await inMemoryBrothsRepository.create(
+      makeBroth({}, new UniqueEntityID('broth-1')),
+    )
+    await inMemoryProteinsRepository.create(
+      makeProtein({}, new UniqueEntityID('protein-1')),
+    )
+
     const newOrder = Order.create(
       {
         description: 'Standard Ramen',

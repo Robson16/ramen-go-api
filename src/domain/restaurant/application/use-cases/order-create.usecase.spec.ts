@@ -24,7 +24,10 @@ describe('Create Order', () => {
     inMemoryProteinsRepository = new InMemoryProteinsRepository(
       inMemoryImagesRepository,
     )
-    inMemoryOrdersRepository = new InMemoryOrdersRepository()
+    inMemoryOrdersRepository = new InMemoryOrdersRepository(
+      inMemoryBrothsRepository,
+      inMemoryProteinsRepository,
+    )
     sut = new OrderCreateUseCase(
       inMemoryBrothsRepository,
       inMemoryProteinsRepository,
@@ -48,12 +51,18 @@ describe('Create Order', () => {
     })
 
     expect(result.isRight()).toBe(true)
-    expect(result.value).toEqual({
-      order: inMemoryOrdersRepository.items[0],
-    })
-    expect(inMemoryOrdersRepository.items[0].userId.toString()).toEqual(
-      'user-1',
-    )
+    if (result.isRight()) {
+      expect(result.value.order).toEqual(
+        expect.objectContaining({
+          id: inMemoryOrdersRepository.items[0].id,
+          description: `${broth.name} and ${protein.name} Ramen`,
+          status: 'PENDING',
+          broth: { name: broth.name },
+          protein: { name: protein.name },
+        }),
+      )
+      expect(result.value.order.userId.toString()).toEqual('user-1')
+    }
   })
 
   it('should not be able to create a order without broth', async () => {
