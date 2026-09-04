@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.0](https://github.com/Robson16/ramen-go-api/compare/v1.4.2...v1.5.0) (2026-09-04)
+
+### Features
+
+* **admin:** restaurant use case of metrics for broths, proteins and orders ([a5b4c34](https://github.com/Robson16/ramen-go-api/commit/a5b4c340d145c95b5c04fd0fc04f6680a229a945))
+* **api:** implement admin metrics endpoint for dashboard ([a9b13c6](https://github.com/Robson16/ramen-go-api/commit/a9b13c6dcc5c6514176d52c257564843af663b06))
 ## [1.4.2](https://github.com/Robson16/ramen-go-api/compare/v1.4.1...v1.4.2) (2026-09-02)
 ## [1.4.1](https://github.com/Robson16/ramen-go-api/compare/v1.4.0...v1.4.1) (2026-08-26)
 ## [1.4.0](https://github.com/Robson16/ramen-go-api/compare/v1.3.0...v1.4.0) (2026-08-26)
