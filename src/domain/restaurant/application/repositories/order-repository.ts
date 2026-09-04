@@ -12,4 +12,5 @@ export abstract class OrdersRepository {
   ): Promise<OrderWithDetails[]>
   abstract create(order: Order): Promise<void>
   abstract save(order: Order): Promise<void>
+  abstract count(): Promise<number>
 }

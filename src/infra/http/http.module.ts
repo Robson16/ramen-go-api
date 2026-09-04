@@ -8,6 +8,7 @@ import { UserListUseCase } from '@/domain/account/application/use-cases/user-lis
 import { UserRegisterUseCase } from '@/domain/account/application/use-cases/user-register.usecase'
 import { UserResetPasswordUseCase } from '@/domain/account/application/use-cases/user-reset-password.usecase'
 import { UserSendPasswordResetUseCase } from '@/domain/account/application/use-cases/user-send-password-reset.usecase'
+import { AdminGetMetricsUseCase } from '@/domain/restaurant/application/use-cases/admin-get-metrics.usecase'
 import { BrothCreateUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
 import { BrothDeleteUseCase } from '@/domain/restaurant/application/use-cases/broth-delete.usecase'
 import { BrothEditUseCase } from '@/domain/restaurant/application/use-cases/broth-edit.usecase'
@@ -35,6 +36,7 @@ import { UserListController } from './controllers/account/user-list.controller'
 import { UserRegisterController } from './controllers/account/user-register.controller'
 import { UserResetPasswordController } from './controllers/account/user-reset-password.controller'
 import { UserSendPasswordResetController } from './controllers/account/user-send-password-reset.controller'
+import { AdminGetMetricsController } from './controllers/restaurant/admin-get-metrics.controller'
 import { BrothCreateController } from './controllers/restaurant/broth-create.controller'
 import { BrothDeleteController } from './controllers/restaurant/broth-delete.controller'
 import { BrothEditController } from './controllers/restaurant/broth-edit.controller'
@@ -75,6 +77,7 @@ import { ProteinListController } from './controllers/restaurant/protein-list.con
     OrderListByUserController,
     OrderUpdateStatusController,
     ImageUploadController,
+    AdminGetMetricsController,
   ],
   providers: [
     UserRegisterUseCase,
@@ -99,6 +102,7 @@ import { ProteinListController } from './controllers/restaurant/protein-list.con
     OrderListByUserUseCase,
     OrderUpdateStatusUseCase,
     ImageUploadAndCreateUseCase,
+    AdminGetMetricsUseCase,
   ],
 })
 export class HttpModule {}
