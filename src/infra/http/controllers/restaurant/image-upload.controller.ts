@@ -48,6 +48,15 @@ export class ImageUploadController {
   @ApiResponse({
     status: 201,
     description: 'The image has been successfully uploaded.',
+    schema: {
+      type: 'object',
+      properties: {
+        imageId: { type: 'string', format: 'uuid' },
+      },
+      example: {
+        imageId: '16b8aee3-90c8-4f42-83cd-7b01e6db30a0',
+      },
+    },
   })
   @ApiResponse({
     status: 401,

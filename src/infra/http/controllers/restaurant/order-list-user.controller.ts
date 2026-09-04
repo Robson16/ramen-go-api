@@ -28,6 +28,48 @@ export class OrderListByUserController {
   @ApiResponse({
     status: 200,
     description: 'The user orders.',
+    schema: {
+      type: 'object',
+      properties: {
+        orders: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string', format: 'uuid' },
+              description: { type: 'string', example: 'New order' },
+              status: { type: 'string', example: 'PENDING' },
+              createdAt: { type: 'string', format: 'date-time' },
+              broth: {
+                type: 'object',
+                properties: { name: { type: 'string', example: 'Shoyu' } },
+              },
+              protein: {
+                type: 'object',
+                properties: { name: { type: 'string', example: 'Chasu' } },
+              },
+              user: {
+                type: 'object',
+                properties: { name: { type: 'string', example: 'John Doe' } },
+              },
+            },
+          },
+        },
+      },
+      example: {
+        orders: [
+          {
+            id: '16b8aee3-90c8-4f42-83cd-7b01e6db30a0',
+            description: 'New order',
+            status: 'PENDING',
+            createdAt: '2024-01-01T12:00:00.000Z',
+            broth: { name: 'Shoyu' },
+            protein: { name: 'Chasu' },
+            user: { name: 'John Doe' },
+          },
+        ],
+      },
+    },
   })
   @ApiResponse({
     status: 401,

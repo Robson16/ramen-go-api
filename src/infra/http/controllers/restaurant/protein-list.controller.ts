@@ -20,7 +20,45 @@ export class ProteinListController {
   @ApiResponse({
     status: 200,
     description: 'A list of proteins.',
-    isArray: true,
+    schema: {
+      type: 'object',
+      properties: {
+        proteins: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string', format: 'uuid' },
+              name: { type: 'string', example: 'Chasu' },
+              description: { type: 'string', example: 'Sliced pork meat.' },
+              price: { type: 'number', example: 10 },
+              imageActive: { type: 'string', format: 'uri' },
+              imageInactive: { type: 'string', format: 'uri' },
+              createdAt: { type: 'string', format: 'date-time' },
+              updatedAt: {
+                type: 'string',
+                format: 'date-time',
+                nullable: true,
+              },
+            },
+          },
+        },
+      },
+      example: {
+        proteins: [
+          {
+            id: '16b8aee3-90c8-4f42-83cd-7b01e6db30a0',
+            name: 'Chasu',
+            description: 'Sliced pork meat.',
+            price: 10,
+            imageActive: 'https://example.com/active.svg',
+            imageInactive: 'https://example.com/inactive.svg',
+            createdAt: '2024-01-01T12:00:00.000Z',
+            updatedAt: '2024-01-01T12:00:00.000Z',
+          },
+        ],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({

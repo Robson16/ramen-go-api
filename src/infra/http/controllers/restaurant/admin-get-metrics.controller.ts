@@ -22,6 +22,12 @@ export class AdminGetMetricsController {
     status: 200,
     description: 'Total of broths, proteins and orders.',
     schema: {
+      type: 'object',
+      properties: {
+        totalBroths: { type: 'integer', example: 12 },
+        totalProteins: { type: 'integer', example: 8 },
+        totalOrders: { type: 'integer', example: 145 },
+      },
       example: {
         totalBroths: 12,
         totalProteins: 8,

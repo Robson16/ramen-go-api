@@ -29,6 +29,9 @@ class UserProfileDto {
   @ApiProperty({ example: 'john.doe@example.com' })
   email: string = ''
 
+  @ApiProperty({ example: 'USER', enum: ['USER', 'ADMIN'] })
+  role: string = ''
+
   @ApiProperty({ example: '2024-01-01T12:00:00.000Z' })
   createdAt: string = ''
 

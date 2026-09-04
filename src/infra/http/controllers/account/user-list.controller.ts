@@ -22,7 +22,45 @@ export class UserListController {
   @ApiResponse({
     status: 200,
     description: 'A list of users.',
-    isArray: true,
+    schema: {
+      type: 'object',
+      properties: {
+        users: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string', format: 'uuid' },
+              name: { type: 'string', example: 'John Doe' },
+              email: { type: 'string', example: 'john.doe@example.com' },
+              role: {
+                type: 'string',
+                enum: ['USER', 'ADMIN'],
+                example: 'USER',
+              },
+              createdAt: { type: 'string', format: 'date-time' },
+              updatedAt: {
+                type: 'string',
+                format: 'date-time',
+                nullable: true,
+              },
+            },
+          },
+        },
+      },
+      example: {
+        users: [
+          {
+            id: '16b8aee3-90c8-4f42-83cd-7b01e6db30a0',
+            name: 'John Doe',
+            email: 'john.doe@example.com',
+            role: 'USER',
+            createdAt: '2024-01-01T12:00:00.000Z',
+            updatedAt: '2024-01-01T12:00:00.000Z',
+          },
+        ],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({
