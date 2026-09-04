@@ -120,4 +120,8 @@ export class PrismaOrdersRepository implements OrdersRepository {
       data,
     })
   }
+
+  async count(): Promise<number> {
+    return await this.prisma.order.count()
+  }
 }

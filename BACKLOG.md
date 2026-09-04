@@ -209,13 +209,13 @@
 - [x] Desenvolver testes unitários garantindo que o caso de uso retorne a estrutura correta.
 
 **Infraestrutura (Database)**
-- [ ] Implementar os métodos de contagem (`count()`) nos repositórios do Prisma utilizando agregações nativas (`prisma.order.count()`, etc).
-- [ ] Implementar as contagens nos repositórios em memória para os testes.
+- [x] Implementar os métodos de contagem (`count()`) nos repositórios do Prisma utilizando agregações nativas (`prisma.order.count()`, etc).
+- [x] Implementar as contagens nos repositórios em memória para os testes.
 
 **HTTP (Controllers & E2E)**
-- [ ] Criar o controller `admin-get-metrics.controller.ts` para a rota `GET /admin/metrics`.
-- [ ] Proteger a rota garantindo que apenas usuários com `@Roles('ADMIN')` tenham acesso.
-- [ ] Desenvolver teste E2E validando o retorno do JSON com os números corretos de entidades cadastradas.
+- [x] Criar o controller `admin-get-metrics.controller.ts` para a rota `GET /admin/metrics`.
+- [x] Proteger a rota garantindo que apenas usuários com `@Roles('ADMIN')` tenham acesso.
+- [x] Desenvolver teste E2E validando o retorno do JSON com os números corretos de entidades cadastradas.
 
 ---
 

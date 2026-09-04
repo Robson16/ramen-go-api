@@ -93,4 +93,8 @@ export class PrismaProteinsRepository implements ProteinsRepository {
       },
     })
   }
+
+  async count(): Promise<number> {
+    return await this.prisma.protein.count()
+  }
 }
