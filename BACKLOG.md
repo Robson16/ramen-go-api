@@ -204,9 +204,9 @@
 ### Tarefas
 
 **Domain & Application**
-- [ ] Adicionar os métodos de contagem (`count()`) nos contratos `order-repository.ts`, `broth-repository.ts` e `protein-repository.ts`.
-- [ ] Criar o caso de uso `admin-get-metrics.usecase.ts` que orquestra as chamadas de contagem e retorna o compilado.
-- [ ] Desenvolver testes unitários garantindo que o caso de uso retorne a estrutura correta.
+- [x] Adicionar os métodos de contagem (`count()`) nos contratos `order-repository.ts`, `broth-repository.ts` e `protein-repository.ts`.
+- [x] Criar o caso de uso `admin-get-metrics.usecase.ts` que orquestra as chamadas de contagem e retorna o compilado.
+- [x] Desenvolver testes unitários garantindo que o caso de uso retorne a estrutura correta.
 
 **Infraestrutura (Database)**
 - [ ] Implementar os métodos de contagem (`count()`) nos repositórios do Prisma utilizando agregações nativas (`prisma.order.count()`, etc).

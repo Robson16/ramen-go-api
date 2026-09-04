@@ -87,4 +87,8 @@ export class InMemoryProteinsRepository implements ProteinsRepository {
 
     this.items.splice(itemIndex, 1)
   }
+
+  async count(): Promise<number> {
+    return this.items.length
+  }
 }

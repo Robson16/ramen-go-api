@@ -66,6 +66,10 @@ export class InMemoryOrdersRepository implements OrdersRepository {
     this.items[itemIndex] = order
   }
 
+  async count(): Promise<number> {
+    return this.items.length
+  }
+
   private async toOrderWithDetails(order: Order): Promise<OrderWithDetails> {
     if (!this.brothsRepository || !this.proteinsRepository) {
       throw new Error(

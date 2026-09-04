@@ -13,7 +13,7 @@ let inMemoryBrothsRepository: InMemoryBrothsRepository
 let inMemoryImagesRepository: InMemoryImagesRepository
 let sut: BrothEditUseCase // Subject Under Test
 
-describe('edit Broth Use Case', () => {
+describe('Edit Broth Use Case', () => {
   beforeEach(() => {
     inMemoryImagesRepository = new InMemoryImagesRepository()
     inMemoryBrothsRepository = new InMemoryBrothsRepository(

@@ -9,4 +9,5 @@ export abstract class BrothsRepository {
   abstract create(broth: Broth): Promise<void>
   abstract save(broth: Broth): Promise<void>
   abstract delete(broth: Broth): Promise<void>
+  abstract count(): Promise<number>
 }

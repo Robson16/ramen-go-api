@@ -10,10 +10,10 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 import { OrderListAllUseCase } from './order-list-all.usecase'
 
-let inMemoryOrderRepository: InMemoryOrdersRepository
+let inMemoryImagesRepository: InMemoryImagesRepository
 let inMemoryBrothsRepository: InMemoryBrothsRepository
 let inMemoryProteinsRepository: InMemoryProteinsRepository
-let inMemoryImagesRepository: InMemoryImagesRepository
+let inMemoryOrdersRepository: InMemoryOrdersRepository
 let sut: OrderListAllUseCase // Subject Under Test
 
 describe('List Order', () => {
@@ -25,11 +25,11 @@ describe('List Order', () => {
     inMemoryProteinsRepository = new InMemoryProteinsRepository(
       inMemoryImagesRepository,
     )
-    inMemoryOrderRepository = new InMemoryOrdersRepository(
+    inMemoryOrdersRepository = new InMemoryOrdersRepository(
       inMemoryBrothsRepository,
       inMemoryProteinsRepository,
     )
-    sut = new OrderListAllUseCase(inMemoryOrderRepository)
+    sut = new OrderListAllUseCase(inMemoryOrdersRepository)
   })
 
   it('should be able to list orders', async () => {
@@ -41,7 +41,7 @@ describe('List Order', () => {
     )
 
     for (let i = 1; i <= 10; i++) {
-      await inMemoryOrderRepository.create(
+      await inMemoryOrdersRepository.create(
         makeOrder({
           brothId: new UniqueEntityID('broth-1'),
           proteinId: new UniqueEntityID('protein-1'),
@@ -52,6 +52,6 @@ describe('List Order', () => {
     const result = await sut.execute()
 
     expect(result.isRight()).toBe(true)
-    expect(inMemoryOrderRepository.items).toHaveLength(10)
+    expect(inMemoryOrdersRepository.items).toHaveLength(10)
   })
 })

@@ -9,4 +9,5 @@ export abstract class ProteinsRepository {
   abstract create(protein: Protein): Promise<void>
   abstract save(protein: Protein): Promise<void>
   abstract delete(protein: Protein): Promise<void>
+  abstract count(): Promise<number>
 }
