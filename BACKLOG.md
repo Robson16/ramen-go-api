@@ -183,8 +183,8 @@
 - [x] Mover o contrato `image-repository.ts` para o domínio `media` e adicionar os métodos `findMany(page)` e `findById(id)`.
 
 **Casos de Uso (CRUD da Galeria)**
-- [ ] Criar/Refatorar o `upload-media.usecase.ts`, ajustando a validação para aceitar `.svg`, `.png`, `.jpg` e `.jpeg`.
-- [ ] Criar o `fetch-media.usecase.ts` para retornar a listagem paginada de todas as imagens da galeria.
+- [x] Criar/Refatorar o `upload-media.usecase.ts`, ajustando a validação para aceitar `.svg`, `.png`, `.jpg` e `.jpeg`.
+- [x] Criar o `image-fetch-gallery.usecase.ts` para retornar a listagem paginada de todas as imagens da galeria.
 - [ ] Criar o `delete-media.usecase.ts` garantindo que o arquivo físico seja apagado do Cloudflare R2 ao remover do banco.
 
 **Infraestrutura & Banco de Dados**
