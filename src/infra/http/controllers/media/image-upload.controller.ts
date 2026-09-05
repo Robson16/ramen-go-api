@@ -18,8 +18,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 
-import { InvalidImageTypeError } from '@/domain/restaurant/application/use-cases/errors/invalid-image-type-error'
-import { ImageUploadAndCreateUseCase } from '@/domain/restaurant/application/use-cases/image-upload-and-create.usecase'
+import { InvalidImageTypeError } from '@/domain/media/application/use-cases/errors/invalid-image-type-error'
+import { ImageUploadAndCreateUseCase } from '@/domain/media/application/use-cases/image-upload-and-create.usecase'
 import { Roles } from '@/infra/auth/roles-decorator'
 
 class UploadImageDto {
@@ -31,7 +31,7 @@ class UploadImageDto {
   file: any
 }
 
-@ApiTags('Catalog (Admin)')
+@ApiTags('Media (Admin)')
 @ApiBearerAuth()
 @Controller('/admin/images')
 export class ImageUploadController {

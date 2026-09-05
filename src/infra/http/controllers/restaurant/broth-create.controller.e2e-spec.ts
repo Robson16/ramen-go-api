@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { UserFactory } from 'test/factories/account/user-factory'
-import { ImageFactory } from 'test/factories/restaurant/image-factory'
+import { ImageFactory } from 'test/factories/media/image-factory'
 
 import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'

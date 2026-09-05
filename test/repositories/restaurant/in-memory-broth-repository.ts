@@ -2,7 +2,7 @@ import { BrothsRepository } from '@/domain/restaurant/application/repositories/b
 import { Broth } from '@/domain/restaurant/enterprise/entities/broth'
 import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/broth-with-images-url'
 
-import { InMemoryImagesRepository } from './in-memory-image-repository'
+import { InMemoryImagesRepository } from '../media/in-memory-image-repository'
 
 export class InMemoryBrothsRepository implements BrothsRepository {
   public items: Broth[] = []

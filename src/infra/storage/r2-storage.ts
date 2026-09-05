@@ -6,9 +6,8 @@ import { Injectable } from '@nestjs/common'
 import {
   Uploader,
   UploadParams,
-} from '@/domain/restaurant/application/storage/uploader'
-
-import { EnvService } from '../env/env.service'
+} from '@/domain/media/application/storage/uploader'
+import { EnvService } from '@/infra/env/env.service'
 
 @Injectable()
 export class R2Storage implements Uploader {

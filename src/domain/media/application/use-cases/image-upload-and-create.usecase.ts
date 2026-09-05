@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
 
 import { Either, left, right } from '@/core/either'
-import { ImagesRepository } from '@/domain/restaurant/application/repositories/image-repository'
-import { Image } from '@/domain/restaurant/enterprise/entities/image'
+import { ImagesRepository } from '@/domain/media/application/repositories/image-repository'
+import { Uploader } from '@/domain/media/application/storage/uploader'
+import { Image } from '@/domain/media/enterprise/entities/image'
 
-import { Uploader } from '../storage/uploader'
 import { InvalidImageTypeError } from './errors/invalid-image-type-error'
 
 interface UploadAndCreateImageUseCaseRequest {

@@ -2,7 +2,7 @@ import { ProteinsRepository } from '@/domain/restaurant/application/repositories
 import { Protein } from '@/domain/restaurant/enterprise/entities/protein'
 import { ProteinWithImagesUrl } from '@/domain/restaurant/enterprise/entities/value-objects/protein-with-images-url'
 
-import { InMemoryImagesRepository } from './in-memory-image-repository'
+import { InMemoryImagesRepository } from '../media/in-memory-image-repository'
 
 export class InMemoryProteinsRepository implements ProteinsRepository {
   public items: Protein[] = []

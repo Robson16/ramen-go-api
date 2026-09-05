@@ -1,7 +1,7 @@
 import {
   Uploader,
   UploadParams,
-} from '@/domain/restaurant/application/storage/uploader'
+} from '@/domain/media/application/storage/uploader'
 
 interface Upload {
   fileName: string

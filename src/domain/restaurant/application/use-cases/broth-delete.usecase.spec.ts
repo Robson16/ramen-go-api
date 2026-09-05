@@ -1,6 +1,6 @@
 import { makeBroth } from 'test/factories/restaurant/make-broth'
+import { InMemoryImagesRepository } from 'test/repositories/media/in-memory-image-repository'
 import { InMemoryBrothsRepository } from 'test/repositories/restaurant/in-memory-broth-repository'
-import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
