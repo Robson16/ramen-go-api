@@ -1,20 +1,20 @@
 import { InMemoryImagesRepository } from 'test/repositories/media/in-memory-image-repository'
-import { FakeUploader } from 'test/storage/fake-uploader'
+import { FakeStorageProvider } from 'test/storage/fake-storage-provider'
 
 import { InvalidImageTypeError } from './errors/invalid-image-type-error'
 import { ImageUploadAndCreateUseCase } from './image-upload-and-create.usecase'
 
 let inMemoryImagesRepository: InMemoryImagesRepository
-let fakeUploader: FakeUploader
+let fakeStorageProvider: FakeStorageProvider
 let sut: ImageUploadAndCreateUseCase // Subject Under Test
 
 describe('Upload and create image', () => {
   beforeEach(() => {
     inMemoryImagesRepository = new InMemoryImagesRepository()
-    fakeUploader = new FakeUploader()
+    fakeStorageProvider = new FakeStorageProvider()
     sut = new ImageUploadAndCreateUseCase(
       inMemoryImagesRepository,
-      fakeUploader,
+      fakeStorageProvider,
     )
   })
 
@@ -29,8 +29,8 @@ describe('Upload and create image', () => {
     expect(result.value).toEqual({
       image: inMemoryImagesRepository.items[0],
     })
-    expect(fakeUploader.uploads).toHaveLength(1)
-    expect(fakeUploader.uploads[0]).toEqual(
+    expect(fakeStorageProvider.items).toHaveLength(1)
+    expect(fakeStorageProvider.items[0]).toEqual(
       expect.objectContaining({
         fileName: 'icon.svg',
       }),

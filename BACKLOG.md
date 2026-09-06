@@ -185,10 +185,10 @@
 **Casos de Uso (CRUD da Galeria)**
 - [x] Criar/Refatorar o `upload-media.usecase.ts`, ajustando a validação para aceitar `.svg`, `.png`, `.jpg` e `.jpeg`.
 - [x] Criar o `image-fetch-gallery.usecase.ts` para retornar a listagem paginada de todas as imagens da galeria.
-- [ ] Criar o `delete-media.usecase.ts` garantindo que o arquivo físico seja apagado do Cloudflare R2 ao remover do banco.
+- [x] Criar o `delete-media.usecase.ts` garantindo que o arquivo físico seja apagado do Cloudflare R2 ao remover do banco.
 
 **Infraestrutura & Banco de Dados**
-- [ ] Mover o `prisma-images-repository.ts` para atender ao novo domínio e implementar as buscas/deleções.
+- [x] Mover o `prisma-images-repository.ts` para atender ao novo domínio e implementar as buscas/deleções.
 - [ ] Garantir que o Prisma lance um erro de restrição de chave estrangeira caso o Admin tente deletar uma imagem que está sendo usada por um caldo ou proteína (protegendo a integridade do catálogo).
 
 **HTTP (Controllers & E2E)**

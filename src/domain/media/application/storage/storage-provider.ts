@@ -4,6 +4,7 @@ export interface UploadParams {
   body: Buffer
 }
 
-export abstract class Uploader {
+export abstract class StorageProvider {
   abstract upload(params: UploadParams): Promise<{ url: string }>
+  abstract delete(url: string): Promise<void>
 }

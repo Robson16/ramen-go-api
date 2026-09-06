@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, right } from '@/core/either'
 import { ImagesRepository } from '@/domain/media/application/repositories/image-repository'
 import { Image } from '@/domain/media/enterprise/entities/image'
@@ -13,6 +15,7 @@ type ImageFetchGalleryUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class ImageFetchGalleryUseCase {
   constructor(private imagesRepository: ImagesRepository) {}
 

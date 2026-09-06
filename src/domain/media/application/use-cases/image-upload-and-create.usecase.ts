@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 
 import { Either, left, right } from '@/core/either'
 import { ImagesRepository } from '@/domain/media/application/repositories/image-repository'
-import { Uploader } from '@/domain/media/application/storage/uploader'
+import { StorageProvider } from '@/domain/media/application/storage/storage-provider'
 import { Image } from '@/domain/media/enterprise/entities/image'
 
 import { InvalidImageTypeError } from './errors/invalid-image-type-error'
@@ -24,7 +24,7 @@ type UploadAndCreateImageUseCaseResponse = Either<
 export class ImageUploadAndCreateUseCase {
   constructor(
     private imagesRepository: ImagesRepository,
-    private uploader: Uploader,
+    private storageProvider: StorageProvider,
   ) {}
 
   async execute({
@@ -36,7 +36,7 @@ export class ImageUploadAndCreateUseCase {
       return left(new InvalidImageTypeError(fileType))
     }
 
-    const { url } = await this.uploader.upload({
+    const { url } = await this.storageProvider.upload({
       fileName,
       fileType,
       body,
