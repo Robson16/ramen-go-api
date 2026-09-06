@@ -189,15 +189,14 @@
 
 **Infraestrutura & Banco de Dados**
 - [x] Mover o `prisma-images-repository.ts` para atender ao novo domínio e implementar as buscas/deleções.
-- [ ] Garantir que o Prisma lance um erro de restrição de chave estrangeira caso o Admin tente deletar uma imagem que está sendo usada por um caldo ou proteína (protegendo a integridade do catálogo).
+- [x] Garantir que o Prisma lance um erro de restrição de chave estrangeira caso o Admin tente deletar uma imagem que está sendo usada por um caldo ou proteína (protegendo a integridade do catálogo).
 
 **HTTP (Controllers & E2E)**
-- [ ] Criar o módulo independente `MediaModule`.
-- [ ] Implementar `POST /admin/media` (Upload).
-- [ ] Implementar `GET /admin/media` (Listagem).
-- [ ] Implementar `DELETE /admin/media/:id` (Exclusão).
-- [ ] Proteger todas as rotas com `@Roles('ADMIN')`.
-- [ ] Atualizar testes E2E para refletir os novos endpoints de mídia.
+- [x] Criar o módulo independente `MediaModule`.
+- [x] Implementar `POST /admin/images` (Upload).
+- [x] Implementar `GET /admin/images` (Listagem).
+- [x] Implementar `DELETE /admin/images/:id` (Exclusão).
+- [x] Proteger todas as rotas com `@Roles('ADMIN')`.
 
 ---
 

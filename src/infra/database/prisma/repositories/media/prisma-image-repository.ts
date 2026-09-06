@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
 
+import { ResourceInUseError } from '@/core/errors/resource-in-use-error'
 import { ImagesRepository } from '@/domain/media/application/repositories/image-repository'
 import { Image } from '@/domain/media/enterprise/entities/image'
 import { PrismaImageMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-image-mapper'
@@ -54,11 +56,21 @@ export class PrismaImagesRepository implements ImagesRepository {
   }
 
   async delete(image: Image): Promise<void> {
-    await this.prisma.image.delete({
-      where: {
-        id: image.id.toString(),
-      },
-    })
+    try {
+      await this.prisma.image.delete({
+        where: {
+          id: image.id.toString(),
+        },
+      })
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2003'
+      ) {
+        throw new ResourceInUseError()
+      }
+      throw error
+    }
   }
 
   async count(): Promise<number> {
