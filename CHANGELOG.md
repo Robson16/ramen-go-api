@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.0](https://github.com/Robson16/ramen-go-api/compare/v1.5.0...v1.6.0) (2026-09-07)
+
+### Features
+
+* **media:** finalize gallery API and enforce referential integrity ([981eee7](https://github.com/Robson16/ramen-go-api/commit/981eee71b57b6cdb206670d7cdfa46546f69c7b8))
+* **media:** images fetch gallery use case and test ([021e22f](https://github.com/Robson16/ramen-go-api/commit/021e22fb4c15d5b4ab1eaa81022ab0253849e843))
+* **media:** implement get by id and edit image endpoints ([15fc43c](https://github.com/Robson16/ramen-go-api/commit/15fc43c9bdd2291406751cb73e49d58e67e81ea5))
+* **media:** implement storage provider deletion and gallery fetch use case ([66abc6e](https://github.com/Robson16/ramen-go-api/commit/66abc6eb841f39de7e2c0a681dd3dfadd6fdef87))
 ## [1.5.0](https://github.com/Robson16/ramen-go-api/compare/v1.4.2...v1.5.0) (2026-09-04)
 
 ### Features
