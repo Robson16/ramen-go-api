@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
-import { makeImage } from 'test/factories/restaurant/make-image'
+import { makeImage } from 'test/factories/media/make-image'
 import { makeProtein } from 'test/factories/restaurant/make-protein'
-import { InMemoryImagesRepository } from 'test/repositories/restaurant/in-memory-image-repository'
+import { InMemoryImagesRepository } from 'test/repositories/media/in-memory-image-repository'
 import { InMemoryProteinsRepository } from 'test/repositories/restaurant/in-memory-protein-repository'
 
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'

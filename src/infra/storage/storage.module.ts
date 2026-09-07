@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 
-import { Uploader } from '@/domain/restaurant/application/storage/uploader'
+import { StorageProvider } from '@/domain/media/application/storage/storage-provider'
 
 import { EnvModule } from '../env/env.module'
 import { R2Storage } from './r2-storage'
@@ -9,10 +9,10 @@ import { R2Storage } from './r2-storage'
   imports: [EnvModule],
   providers: [
     {
-      provide: Uploader,
+      provide: StorageProvider,
       useClass: R2Storage,
     },
   ],
-  exports: [Uploader],
+  exports: [StorageProvider],
 })
 export class StorageModule {}

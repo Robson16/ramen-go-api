@@ -3,49 +3,63 @@ import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { UserFactory } from 'test/factories/account/user-factory'
+import { ImageFactory } from 'test/factories/media/image-factory'
 
 import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 
-describe('Upload Image (e2e)', () => {
+describe('Image Fetch Gallery (E2E)', () => {
   let app: INestApplication
   let userFactory: UserFactory
+  let imageFactory: ImageFactory
   let jwt: JwtService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [UserFactory],
+      providers: [UserFactory, ImageFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
 
     userFactory = moduleRef.get(UserFactory)
+    imageFactory = moduleRef.get(ImageFactory)
     jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
 
-  test('[POST] /admin/images - admin user', async () => {
-    const user = await userFactory.makePrismaUser({ role: 'ADMIN' })
+  test('[GET] /admin/images - admin user', async () => {
+    const user = await userFactory.makePrismaUser({
+      role: 'ADMIN',
+    })
 
     const accessToken = jwt.sign({
       sub: user.id.toString(),
       role: user.role,
     })
 
-    const response = await request(app.getHttpServer())
-      .post('/admin/images')
-      .set('Authorization', `Bearer ${accessToken}`)
-      .attach('file', './test/e2e/sample-upload.svg')
+    await Promise.all([
+      imageFactory.makePrismaImage({ title: 'Image 01' }),
+      imageFactory.makePrismaImage({ title: 'Image 02' }),
+    ])
 
-    expect(response.statusCode).toBe(201)
-    expect(response.body).toEqual({
-      imageId: expect.any(String),
-    })
+    const response = await request(app.getHttpServer())
+      .get('/admin/images')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send()
+
+    expect(response.statusCode).toBe(200)
+    expect(response.body.images).toHaveLength(2)
+    expect(response.body.images).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ title: 'Image 01' }),
+        expect.objectContaining({ title: 'Image 02' }),
+      ]),
+    )
   })
 
-  test('[POST] /admin/images - regular user', async () => {
+  test('[GET] /admin/images - regular user', async () => {
     const user = await userFactory.makePrismaUser({ role: 'USER' })
 
     const accessToken = jwt.sign({
@@ -54,8 +68,9 @@ describe('Upload Image (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .post('/admin/images')
+      .get('/admin/images')
       .set('Authorization', `Bearer ${accessToken}`)
+      .send()
 
     expect(response.statusCode).toBe(403)
   })

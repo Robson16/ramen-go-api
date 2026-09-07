@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 
 import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { ImagesRepository } from '@/domain/restaurant/application/repositories/image-repository'
+import { ImagesRepository } from '@/domain/media/application/repositories/image-repository'
 import { ProteinsRepository } from '@/domain/restaurant/application/repositories/protein-repository'
 import { Protein } from '@/domain/restaurant/enterprise/entities/protein'
 

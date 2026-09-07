@@ -162,37 +162,41 @@
 - [x] Executar lint, testes unitários e testes E2E após a padronização.
 - [x] Confirmar que não existem imports ou referências apontando para os nomes antigos.
 
-## 🖼️ Épico 8: Desacoplamento de Uploads e Avatares de Usuário (Segregação de Contextos)
+---
+
+## 🖼️ Épico 8: Domínio de Media Library (Galeria Centralizada)
 
 **User Story:**
-> *"As a developer, I want to segregate image upload responsibilities so that domains do not share generic media endpoints. As a user, I want to upload my own profile avatar in standard image formats."*
+> *"As a system administrator, I want a dedicated Media Library to manage all visual assets (SVGs for icons, PNGs for final bowls) independently, so I can reuse them across the catalog just like the WordPress media panel."*
 
 **Contexto Arquitetural:**
-- O upload de imagens atual atende aos SVGs de caldos e proteínas e deve ser restrito administrativamente ao domínio `restaurant`.
-- Um novo fluxo de upload deve ser criado no domínio `account` exclusivamente para a foto de perfil (`avatarUrl`) do usuário.
-- O upload de avatar deve ser acoplado apenas ao usuário, não gerando registros na tabela global `images` (que é exclusiva do catálogo do restaurante).
+- Criação de um novo Bounded Context (domínio) chamado `media`.
+- A tabela `images` pertencerá exclusivamente a este domínio.
+- O domínio `media` será agnóstico: ele apenas armazena e gerencia arquivos (`.svg`, `.png`, `.jpg`).
+- O domínio `restaurant` (Caldos, Proteínas, Pedidos) fará referência às imagens através dos IDs, sem gerenciar os arquivos diretamente.
 
 ### Tarefas
 
-**Refactor do Domínio de Restaurante**
-- [ ] Renomear o caso de uso `image-upload-and-create.usecase.ts` para `ingredient-image-upload.usecase.ts`, deixando claro o seu escopo.
-- [ ] Renomear o controller `image-upload.controller.ts` para refletir a especificidade do catálogo administrativo.
-- [ ] Garantir que a validação deste caso de uso permita estritamente arquivos `.svg` (padrão de UI do catálogo).
+**Estrutura do Novo Domínio (`media`)**
+- [x] Criar a estrutura de pastas do domínio `media` (`enterprise` e `application`).
+- [x] Mover a entidade `Image` do domínio `restaurant` para o `media`.
+- [x] Mover o contrato `image-repository.ts` para o domínio `media` e adicionar os métodos `findMany(page)` e `findById(id)`.
 
-**Banco de Dados & Entidades**
-- [ ] Adicionar a coluna opcional `avatarUrl` (string) na tabela `users` no `schema.prisma` e gerar a migration.
-- [ ] Atualizar a entidade `User` e o `prisma-user-mapper.ts` no domínio `account` para mapear e refletir o novo campo.
+**Casos de Uso (CRUD da Galeria)**
+- [x] Criar/Refatorar o `upload-media.usecase.ts`, ajustando a validação para aceitar `.svg`, `.png`, `.jpg` e `.jpeg`.
+- [x] Criar o `image-fetch-gallery.usecase.ts` para retornar a listagem paginada de todas as imagens da galeria.
+- [x] Criar o `delete-media.usecase.ts` garantindo que o arquivo físico seja apagado do Cloudflare R2 ao remover do banco.
 
-**Domínio de Conta (Account)**
-- [ ] Criar o caso de uso `user-avatar-upload.usecase.ts` na camada de aplicação de conta.
-- [ ] Implementar a regra de negócio para utilizar o `uploader` da infraestrutura e fazer o update direto do `avatarUrl` via `UserRepository`.
-- [ ] Adicionar validação de payload permitindo apenas imagens `.png`, `.jpg` e `.jpeg`, com limite máximo de tamanho (ex: 2MB).
-- [ ] Implementar o controller `PATCH /profile/avatar` restrito ao usuário autenticado (`@UseGuards(JwtAuthGuard)`).
+**Infraestrutura & Banco de Dados**
+- [x] Mover o `prisma-images-repository.ts` para atender ao novo domínio e implementar as buscas/deleções.
+- [x] Garantir que o Prisma lance um erro de restrição de chave estrangeira caso o Admin tente deletar uma imagem que está sendo usada por um caldo ou proteína (protegendo a integridade do catálogo).
 
-**Validação**
-- [ ] Atualizar testes unitários e testes E2E afetados pela renomeação no domínio `restaurant`.
-- [ ] Criar testes unitários para o novo caso de uso `user-avatar-upload`.
-- [ ] Criar teste E2E garantindo o funcionamento e a segurança da nova rota `PATCH /profile/avatar`.
+**HTTP (Controllers & E2E)**
+- [x] Criar o módulo independente `MediaModule`.
+- [x] Implementar `POST /admin/images` (Upload).
+- [x] Implementar `GET /admin/images` (Listagem).
+- [x] Implementar `DELETE /admin/images/:id` (Exclusão).
+- [x] Proteger todas as rotas com `@Roles('ADMIN')`.
 
 ---
 
