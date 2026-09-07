@@ -9,6 +9,8 @@ export class PrismaImageMapper {
       {
         title: raw.title,
         url: raw.url,
+        createdAt: raw.createdAt,
+        updatedAt: raw.updatedAt,
       },
       new UniqueEntityID(raw.id),
     )
@@ -19,6 +21,8 @@ export class PrismaImageMapper {
       id: image.id.toString(),
       title: image.title,
       url: image.url,
+      createdAt: image.createdAt,
+      updatedAt: image.updatedAt ?? undefined,
     }
   }
 }

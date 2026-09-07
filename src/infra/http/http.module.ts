@@ -9,7 +9,9 @@ import { UserRegisterUseCase } from '@/domain/account/application/use-cases/user
 import { UserResetPasswordUseCase } from '@/domain/account/application/use-cases/user-reset-password.usecase'
 import { UserSendPasswordResetUseCase } from '@/domain/account/application/use-cases/user-send-password-reset.usecase'
 import { ImageDeleteUseCase } from '@/domain/media/application/use-cases/image-delete.usecase'
+import { ImageEditUseCase } from '@/domain/media/application/use-cases/image-edit.usecase'
 import { ImageFetchGalleryUseCase } from '@/domain/media/application/use-cases/image-fetch-gallery.usecase'
+import { ImageGetByIdUseCase } from '@/domain/media/application/use-cases/image-get-by-id.usecase'
 import { ImageUploadAndCreateUseCase } from '@/domain/media/application/use-cases/image-upload-and-create.usecase'
 import { AdminGetMetricsUseCase } from '@/domain/restaurant/application/use-cases/admin-get-metrics.usecase'
 import { BrothCreateUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
@@ -39,7 +41,9 @@ import { UserRegisterController } from './controllers/account/user-register.cont
 import { UserResetPasswordController } from './controllers/account/user-reset-password.controller'
 import { UserSendPasswordResetController } from './controllers/account/user-send-password-reset.controller'
 import { ImageDeleteController } from './controllers/media/image-delete.controller'
+import { ImageEditController } from './controllers/media/image-edit.controller'
 import { ImageFetchGalleryController } from './controllers/media/image-fetch-gallery.controller'
+import { ImageGetByIdController } from './controllers/media/image-get-by-id.controller'
 import { ImageUploadController } from './controllers/media/image-upload.controller'
 import { AdminGetMetricsController } from './controllers/restaurant/admin-get-metrics.controller'
 import { BrothCreateController } from './controllers/restaurant/broth-create.controller'
@@ -81,7 +85,9 @@ import { ProteinListController } from './controllers/restaurant/protein-list.con
     OrderListByUserController,
     OrderUpdateStatusController,
     ImageUploadController,
+    ImageGetByIdController,
     ImageFetchGalleryController,
+    ImageEditController,
     ImageDeleteController,
     AdminGetMetricsController,
   ],
@@ -108,7 +114,9 @@ import { ProteinListController } from './controllers/restaurant/protein-list.con
     OrderListByUserUseCase,
     OrderUpdateStatusUseCase,
     ImageUploadAndCreateUseCase,
+    ImageGetByIdUseCase,
     ImageFetchGalleryUseCase,
+    ImageEditUseCase,
     ImageDeleteUseCase,
     AdminGetMetricsUseCase,
   ],

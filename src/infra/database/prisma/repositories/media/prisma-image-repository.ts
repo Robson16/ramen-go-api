@@ -4,7 +4,7 @@ import { Prisma } from '@prisma/client'
 import { ResourceInUseError } from '@/core/errors/resource-in-use-error'
 import { ImagesRepository } from '@/domain/media/application/repositories/image-repository'
 import { Image } from '@/domain/media/enterprise/entities/image'
-import { PrismaImageMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-image-mapper'
+import { PrismaImageMapper } from '@/infra/database/prisma/mappers/media/prisma-image-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 @Injectable()
@@ -63,11 +63,10 @@ export class PrismaImagesRepository implements ImagesRepository {
         },
       })
     } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2003'
-      ) {
-        throw new ResourceInUseError()
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2003' || error.code === 'P2039') {
+          throw new ResourceInUseError()
+        }
       }
       throw error
     }

@@ -6,6 +6,8 @@ export class ImagePresenter {
       id: image.id.toString(),
       title: image.title,
       url: image.url,
+      createdAt: image.createdAt,
+      updatedAt: image.updatedAt,
     }
   }
 }

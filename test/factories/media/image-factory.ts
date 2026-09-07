@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 
 import { Image, ImageProps } from '@/domain/media/enterprise/entities/image'
-import { PrismaImageMapper } from '@/infra/database/prisma/mappers/restaurant/prisma-image-mapper'
+import { PrismaImageMapper } from '@/infra/database/prisma/mappers/media/prisma-image-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 import { makeImage } from './make-image'
