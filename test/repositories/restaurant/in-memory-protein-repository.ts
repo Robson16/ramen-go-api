@@ -61,8 +61,8 @@ export class InMemoryProteinsRepository implements ProteinsRepository {
           name: protein.name,
           description: protein.description,
           price: protein.price,
-          imageActiveUrl: imageActive.url,
-          imageInactiveUrl: imageInactive.url,
+          imageActive: imageActive,
+          imageInactive: imageInactive,
           createdAt: protein.createdAt,
           updatedAt: protein.updatedAt,
         })

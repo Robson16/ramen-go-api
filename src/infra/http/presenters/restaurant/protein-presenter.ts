@@ -7,8 +7,14 @@ export class ProteinPresenter {
       name: protein.name,
       description: protein.description,
       price: protein.price,
-      imageActive: protein.imageActiveUrl,
-      imageInactive: protein.imageInactiveUrl,
+      imageActive: {
+        id: protein.imageActive.id.toString(),
+        url: protein.imageActive.url,
+      },
+      imageInactive: {
+        id: protein.imageInactive.id.toString(),
+        url: protein.imageInactive.url,
+      },
       createdAt: protein.createdAt,
       updatedAt: protein.updatedAt,
     }

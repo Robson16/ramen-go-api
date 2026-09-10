@@ -1,13 +1,14 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { ValueObject } from '@/core/entities/value-object'
+import { Image } from '@/domain/media/enterprise/entities/image'
 
 export interface ProteinWithImagesUrlProps {
   id: UniqueEntityID
   name: string
   description: string
   price: number
-  imageInactiveUrl: string
-  imageActiveUrl: string
+  imageInactive: Image
+  imageActive: Image
   createdAt: Date
   updatedAt?: Date | null
 }
@@ -29,12 +30,12 @@ export class ProteinWithImagesUrl extends ValueObject<ProteinWithImagesUrlProps>
     return this.props.price
   }
 
-  get imageInactiveUrl() {
-    return this.props.imageInactiveUrl
+  get imageInactive() {
+    return this.props.imageInactive
   }
 
-  get imageActiveUrl() {
-    return this.props.imageActiveUrl
+  get imageActive() {
+    return this.props.imageActive
   }
 
   get createdAt() {

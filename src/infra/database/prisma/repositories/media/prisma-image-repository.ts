@@ -26,7 +26,7 @@ export class PrismaImagesRepository implements ImagesRepository {
   }
 
   async findMany(page: number): Promise<Image[]> {
-    const itemsPerPage = 20
+    const itemsPerPage = 24 // Default
 
     const images = await this.prisma.image.findMany({
       take: itemsPerPage,

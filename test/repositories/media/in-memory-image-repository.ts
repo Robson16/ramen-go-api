@@ -15,7 +15,7 @@ export class InMemoryImagesRepository implements ImagesRepository {
   }
 
   async findMany(page: number): Promise<Image[]> {
-    const itemsPerPage = 20 // Default
+    const itemsPerPage = 24 // Default
 
     return this.items.slice((page - 1) * itemsPerPage, page * itemsPerPage)
   }

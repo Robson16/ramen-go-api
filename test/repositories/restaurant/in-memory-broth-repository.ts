@@ -61,8 +61,8 @@ export class InMemoryBrothsRepository implements BrothsRepository {
           name: broth.name,
           description: broth.description,
           price: broth.price,
-          imageActiveUrl: imageActive.url,
-          imageInactiveUrl: imageInactive.url,
+          imageActive: imageActive,
+          imageInactive: imageInactive,
           createdAt: broth.createdAt,
           updatedAt: broth.updatedAt,
         })

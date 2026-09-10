@@ -7,8 +7,14 @@ export class BrothPresenter {
       name: broth.name,
       description: broth.description,
       price: broth.price,
-      imageActive: broth.imageActiveUrl,
-      imageInactive: broth.imageInactiveUrl,
+      imageActive: {
+        id: broth.imageActive.id.toString(),
+        url: broth.imageActive.url,
+      },
+      imageInactive: {
+        id: broth.imageInactive.id.toString(),
+        url: broth.imageInactive.url,
+      },
       createdAt: broth.createdAt,
       updatedAt: broth.updatedAt,
     }
