@@ -1,0 +1,1 @@
+CREATE DATABASE "ramen-go-test";

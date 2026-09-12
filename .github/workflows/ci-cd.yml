@@ -1,0 +1,66 @@
+name: CI/CD Pipeline
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: docker
+          POSTGRES_DB: ramen-go-test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm ci
+      - name: Generate Prisma Client
+        run: npx prisma generate
+      - name: Run Tests
+        env:
+          APP_URL: "http://localhost:3333"
+          APP_PORT: "3333"          
+          DATABASE_URL: postgresql://postgres:docker@localhost:5432/ramen-go-test?schema=public
+          JWT_SECRET: "chave-super-secreta-apenas-para-testes-do-github"
+          CLOUDFLARE_ACCOUNT_ID: fake_account_id
+          AWS_BUCKET_NAME: fake_bucket
+          AWS_ACCESS_KEY_ID: fake_access_key
+          AWS_SECRET_ACCESS_KEY: fake_secret_key
+          SMTP_HOST: sandbox.smtp.mailtrap.io
+          SMTP_PORT: 2525
+          SMTP_USER: fake_user
+          SMTP_PASS: fake_pass
+          MAIL_FROM: "test@ramengo.com"
+        run: |
+          npm run test
+          npm run test:e2e
+  deploy:
+    name: Deploy to Render
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Trigger Render Deploy
+        uses: bounceapp/render-action@0.6.0
+        with:          
+          render-token: ${{ secrets.RENDER_DEPLOY_HOOK }}

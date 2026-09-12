@@ -6,7 +6,6 @@ export default defineConfig({
     globals: true,
     root: './',
   },
-  // Resolução nativa de paths do tsconfig.json!
   resolve: {
     tsconfigPaths: true,
   },
