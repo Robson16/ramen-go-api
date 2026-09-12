@@ -5,8 +5,8 @@ export default defineConfig({
   test: {
     globals: true,
     root: './',
+    exclude: ['**/*.e2e-spec.ts', '**/*.e2e.spec.ts', 'node_modules'],
   },
-  // Resolução nativa de paths do tsconfig.json!
   resolve: {
     tsconfigPaths: true,
   },
