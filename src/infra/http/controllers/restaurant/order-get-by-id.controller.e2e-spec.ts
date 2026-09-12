@@ -62,6 +62,11 @@ describe('Get order by id (e2e)', () => {
     ])
 
     const user = await userFactory.makePrismaUser({ role: 'USER' })
+    const accessToken = jwt.sign({
+      sub: user.id.toString(),
+      role: user.role,
+    })
+
     const order = await orderFactory.makePrismaOrder({
       userId: user.id,
       brothId: broth.id,
@@ -69,11 +74,6 @@ describe('Get order by id (e2e)', () => {
     })
 
     const orderId = order.id.toString()
-
-    const accessToken = jwt.sign({
-      sub: user.id.toString(),
-      role: user.role,
-    })
 
     const response = await request(app.getHttpServer())
       .get(`/orders/${orderId}`)

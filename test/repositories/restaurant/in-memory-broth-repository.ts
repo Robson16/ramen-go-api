@@ -19,6 +19,45 @@ export class InMemoryBrothsRepository implements BrothsRepository {
     return broth
   }
 
+  async findByIdWithImagesUrl(id: string): Promise<BrothWithImagesUrl | null> {
+    const broth = this.items.find((item) => item.id.toString() === id)
+
+    if (!broth) {
+      return null
+    }
+
+    const imageActive = await this.inMemoryImagesRepository.findByID(
+      broth.imageActiveId,
+    )
+
+    if (!imageActive) {
+      throw new Error(
+        `Image Active with ID "${broth.imageActiveId.toString()}" does not exist.`,
+      )
+    }
+
+    const imageInactive = await this.inMemoryImagesRepository.findByID(
+      broth.imageInactiveId,
+    )
+
+    if (!imageInactive) {
+      throw new Error(
+        `Image Inactive with ID "${broth.imageInactiveId.toString()}" does not exist.`,
+      )
+    }
+
+    return BrothWithImagesUrl.create({
+      id: broth.id,
+      name: broth.name,
+      description: broth.description,
+      price: broth.price,
+      imageActive: imageActive,
+      imageInactive: imageInactive,
+      createdAt: broth.createdAt,
+      updatedAt: broth.updatedAt,
+    })
+  }
+
   async findByName(name: string) {
     const broth = this.items.find((item) => item.name === name)
 

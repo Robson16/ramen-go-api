@@ -25,6 +25,26 @@ export class PrismaProteinsRepository implements ProteinsRepository {
     return PrismaProteinMapper.toDomain(protein)
   }
 
+  async findByIdWithImagesUrl(
+    id: string,
+  ): Promise<ProteinWithImagesUrl | null> {
+    const protein = await this.prisma.protein.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        imageActive: true,
+        imageInactive: true,
+      },
+    })
+
+    if (!protein) {
+      return null
+    }
+
+    return PrismaProteinWithImagesUrlMapper.toDomain(protein)
+  }
+
   async findByName(name: string): Promise<Protein | null> {
     const protein = await this.prisma.protein.findUnique({
       where: {

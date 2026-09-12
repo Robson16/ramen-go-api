@@ -21,8 +21,7 @@ import { OrderCreateUseCase } from '@/domain/restaurant/application/use-cases/or
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
-
-import { OrderPresenter } from '../../presenters/restaurant/order-presenter'
+import { OrderPresenter } from '@/infra/http/presenters/restaurant/order-presenter'
 
 const orderCreateBodySchema = z.object({
   brothId: z.string().uuid(),
@@ -45,7 +44,7 @@ class CreateOrderDto {
   proteinId: string = ''
 }
 
-@ApiTags('Orders (Public)')
+@ApiTags('Orders')
 @ApiBearerAuth()
 @Controller('/orders')
 export class OrderCreateController {

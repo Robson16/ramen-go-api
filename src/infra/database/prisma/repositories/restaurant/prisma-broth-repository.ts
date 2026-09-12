@@ -25,6 +25,24 @@ export class PrismaBrothsRepository implements BrothsRepository {
     return PrismaBrothMapper.toDomain(broth)
   }
 
+  async findByIdWithImagesUrl(id: string): Promise<BrothWithImagesUrl | null> {
+    const broth = await this.prisma.broth.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        imageActive: true,
+        imageInactive: true,
+      },
+    })
+
+    if (!broth) {
+      return null
+    }
+
+    return PrismaBrothWithImagesUrlMapper.toDomain(broth)
+  }
+
   async findByName(name: string): Promise<Broth | null> {
     const broth = await this.prisma.broth.findUnique({
       where: {

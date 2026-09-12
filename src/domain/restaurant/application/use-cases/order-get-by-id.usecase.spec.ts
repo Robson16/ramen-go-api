@@ -8,8 +8,8 @@ import { InMemoryProteinsRepository } from 'test/repositories/restaurant/in-memo
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { ForbiddenError } from '@/core/errors/forbidden-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
+import { Order } from '@/domain/restaurant/enterprise/entities/order'
 
-import { Order } from '../../enterprise/entities/order'
 import { OrderGetByIdUseCase } from './order-get-by-id.usecase'
 
 let inMemoryOrdersRepository: InMemoryOrdersRepository

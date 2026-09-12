@@ -230,7 +230,7 @@
 
 ### Tarefas
 - [x] Revisar todos os controllers mapeando o uso redundante ou incorreto do decorator `@ApiTags()`.
-- [x] Definir e documentar um padrão central de tags (ex: `Accounts`, `Catalog (Admin)`, `Catalog (Public)`, `Orders`, `Metrics`).
+- [x] Definir e documentar um padrão central de tags (ex: `Accounts`, `Catalog (Admin)`, `Catalog`, `Orders`, `Metrics`).
 - [x] Refatorar os decorators (`@ApiOperation`, `@ApiResponse`, `@ApiBearerAuth`) em todos os controllers para garantir que os esquemas de Request e Response (DTOs) estejam documentados e com exemplos.
 - [x] Remover tags duplicadas ou categorias vazias geradas acidentalmente.
 - [x] Acessar a rota `/api` localmente para validar visualmente a nova organização.

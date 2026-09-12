@@ -17,6 +17,7 @@ import { AdminGetMetricsUseCase } from '@/domain/restaurant/application/use-case
 import { BrothCreateUseCase } from '@/domain/restaurant/application/use-cases/broth-create.usecase'
 import { BrothDeleteUseCase } from '@/domain/restaurant/application/use-cases/broth-delete.usecase'
 import { BrothEditUseCase } from '@/domain/restaurant/application/use-cases/broth-edit.usecase'
+import { BrothGetByIdUseCase } from '@/domain/restaurant/application/use-cases/broth-get-by-id'
 import { BrothListUseCase } from '@/domain/restaurant/application/use-cases/broth-list.usecase'
 import { OrderCreateUseCase } from '@/domain/restaurant/application/use-cases/order-create.usecase'
 import { OrderGetByIdUseCase } from '@/domain/restaurant/application/use-cases/order-get-by-id.usecase'
@@ -26,6 +27,7 @@ import { OrderUpdateStatusUseCase } from '@/domain/restaurant/application/use-ca
 import { ProteinCreateUseCase } from '@/domain/restaurant/application/use-cases/protein-create.usecase'
 import { ProteinDeleteUseCase } from '@/domain/restaurant/application/use-cases/protein-delete.usecase'
 import { ProteinEditUseCase } from '@/domain/restaurant/application/use-cases/protein-edit.usecase'
+import { ProteinGetByIdUseCase } from '@/domain/restaurant/application/use-cases/protein-get-by-id'
 import { ProteinListUseCase } from '@/domain/restaurant/application/use-cases/protein-list.usecase'
 import { CryptographyModule } from '@/infra/cryptography/cryptography.module'
 import { DatabaseModule } from '@/infra/database/database.module'
@@ -49,6 +51,7 @@ import { AdminGetMetricsController } from './controllers/restaurant/admin-get-me
 import { BrothCreateController } from './controllers/restaurant/broth-create.controller'
 import { BrothDeleteController } from './controllers/restaurant/broth-delete.controller'
 import { BrothEditController } from './controllers/restaurant/broth-edit.controller'
+import { BrothGetByIdController } from './controllers/restaurant/broth-get-by-id.controller'
 import { BrothListController } from './controllers/restaurant/broth-list.controller'
 import { OrderCreateController } from './controllers/restaurant/order-create.controller'
 import { OrderGetByIdController } from './controllers/restaurant/order-get-by-id.controller'
@@ -58,6 +61,7 @@ import { OrderUpdateStatusController } from './controllers/restaurant/order-upda
 import { ProteinCreateController } from './controllers/restaurant/protein-create.controller'
 import { ProteinDeleteController } from './controllers/restaurant/protein-delete.controller'
 import { ProteinEditController } from './controllers/restaurant/protein-edit.controller'
+import { ProteinGetByIdController } from './controllers/restaurant/protein-get-by-id.controller'
 import { ProteinListController } from './controllers/restaurant/protein-list.controller'
 
 @Module({
@@ -72,10 +76,12 @@ import { ProteinListController } from './controllers/restaurant/protein-list.con
     UserSendPasswordResetController,
     UserResetPasswordController,
     BrothCreateController,
+    BrothGetByIdController,
     BrothListController,
     BrothEditController,
     BrothDeleteController,
     ProteinCreateController,
+    ProteinGetByIdController,
     ProteinListController,
     ProteinEditController,
     ProteinDeleteController,
@@ -101,10 +107,12 @@ import { ProteinListController } from './controllers/restaurant/protein-list.con
     UserSendPasswordResetUseCase,
     UserResetPasswordUseCase,
     BrothCreateUseCase,
+    BrothGetByIdUseCase,
     BrothListUseCase,
     BrothEditUseCase,
     BrothDeleteUseCase,
     ProteinCreateUseCase,
+    ProteinGetByIdUseCase,
     ProteinEditUseCase,
     ProteinListUseCase,
     ProteinDeleteUseCase,

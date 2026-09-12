@@ -3,6 +3,7 @@ import { BrothWithImagesUrl } from '@/domain/restaurant/enterprise/entities/valu
 
 export abstract class BrothsRepository {
   abstract findById(id: string): Promise<Broth | null>
+  abstract findByIdWithImagesUrl(id: string): Promise<BrothWithImagesUrl | null>
   abstract findByName(name: string): Promise<Broth | null>
   abstract findMany(): Promise<Broth[]>
   abstract findManyWithImagesUrl(): Promise<BrothWithImagesUrl[]>

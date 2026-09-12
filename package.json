@@ -25,6 +25,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/infra/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "cleanup:r2": "tsx --conditions=node scripts/cleanup-r2.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:cov": "vitest run --coverage",
