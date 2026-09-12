@@ -2,6 +2,7 @@
 
 [![NestJS](https://img.shields.io/badge/built%20with-NestJS-red.svg)](https://nestjs.com/)
 [![TypeScript](https://img.shields.io/badge/written%20in-TypeScript-blue.svg)](https://www.typescriptlang.org/)
+[![CI/CD Pipeline](https://github.com/Robson16/ramen-go-api/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Robson16/ramen-go-api/actions/workflows/ci-cd.yml)
 
 API RESTful para a aplicação "Ramen Go", uma plataforma onde usuários podem criar contas, autenticar-se, montar e pedir seu próprio ramen. Esta API gerencia usuários, ingredientes (caldos, proteínas) e o processamento de pedidos.
 
@@ -21,9 +22,10 @@ Para ajudar a imaginar como esses dados vão estar sendo utilizados pelo cliente
 - [Swagger / OpenAPI](https://swagger.io/) — Documentação interativa da API gerada via `@nestjs/swagger`.
 - **JWT & Bcrypt** — Autenticação segura via JSON Web Tokens e hash de senhas.
 - **Nodemailer & Handlebars** — Envio de e-mails transacionais (como recuperação de senha) utilizando templates HTML dinâmicos.
-- Armazenamento: Cloudflare R2 / S3 — Integração de arquivos usando `@aws-sdk/client-s3`.
-- Testes: Vitest + Supertest — Testes unitários e E2E com mocks, banco de dados isolados em memória e fake providers.
-- Docker & Docker Compose — Facilita rodar serviços dependentes (PostgreSQL) localmente.
+- **Armazenamento:** Cloudflare R2 / S3 — Integração de arquivos usando `@aws-sdk/client-s3`.
+- **Testes:** Vitest + Supertest — Testes unitários e E2E com mocks, banco de dados isolados em memória e fake providers.
+- **Docker & Docker Compose** — Facilita rodar serviços dependentes (PostgreSQL) localmente com bancos separados para dev e testes.
+- **CI/CD:** GitHub Actions — Pipeline de integração contínua configurada para rodar a suíte de testes isolada e realizar o deploy automático no Render.
 
 ## Como Começar 
 
@@ -111,13 +113,38 @@ Use o botão de autorização da interface para informar um token no formato `Be
 
 As rotas administrativas exigem um JWT válido de um usuário com a role `ADMIN`. Usuários comuns recebem `403 Forbidden`. A role padrão de novas contas é `USER`.
 
+## Testes e CI/CD
+
+O projeto possui uma suíte robusta de testes para garantir a integridade da aplicação:
+
+- **Testes Unitários:** Testam os Casos de Uso (Domain) utilizando Repositórios em Memória (In-Memory), sem tocar no banco de dados ou em APIs externas.
+  
+  ```bash
+  npm run test
+  ```
+
+- **Testes E2E (End-to-End):** Testam a aplicação de ponta a ponta (Controllers, Casos de Uso, Prisma e Banco de Dados real). Para proteger os dados de desenvolvimento, o Docker Compose inicializa um banco isolado chamado ramen-go-test, que é recriado e limpo automaticamente a cada execução.
+
+  ```bash
+  npm run test:e2e
+  ```
+
+### Integração Contínua (CI/CD):
+O repositório está integrado com o GitHub Actions. A cada push na branch main, a pipeline:
+
+1. Sobe um banco PostgreSQL temporário isolado.
+2. Executa toda a suíte de testes unitários e E2E.
+3. Se todos os testes passarem, dispara o gatilho (Deploy Hook) para a nuvem (Render).
+
 ## Estrutura do Código
 
 O projeto segue os princípios de Arquitetura Limpa (Clean Architecture) e Domain-Driven Design (DDD), separando as responsabilidades:
 
 ```text
 .
+├── .github/workflows/      # Pipeline de CI/CD (GitHub Actions)
 ├── prisma/                 # Schema do Prisma, Migrations e Seeds
+├── scripts/                # Scripts utilitários (Limpeza do R2, Init DB de Testes)
 ├── src/
 │   ├── core/               # Lógica compartilhada, base de Entidades e erros globais
 │   ├── domain/             # Núcleo da aplicação (Casos de Uso e Regras de Negócio)
@@ -131,7 +158,7 @@ O projeto segue os princípios de Arquitetura Limpa (Clean Architecture) e Domai
 │       ├── http/           # Controladores (REST) e Presenters (DTOs)
 │       ├── mailing/        # Provedores de envio de e-mails
 │       └── storage/        # Integração R2 / S3 para imagens
-└── test/                   # Testes automatizados (E2E, Factories)
+└── test/                   # Testes automatizados (E2E, Unitários, Setup e Factories)
 ```
 
 ## Funcionalidades e Endpoints
@@ -155,12 +182,16 @@ O projeto segue os princípios de Arquitetura Limpa (Clean Architecture) e Domai
 #### Caldos (Broths)
 
 *   `GET /broths`: Lista todos os caldos disponíveis.
+*   `GET /broths/:brothId`: Recupera os detalhes de um caldo específico (com URLs de imagens em alta resolução).
 
 #### Proteínas (Proteins)
 
 *   `GET /proteins`: Lista todas as proteínas disponíveis.
+*   `GET /proteins/:proteinId`: Recupera os detalhes de uma proteína específica (com URLs de imagens em alta resolução).
 
-### Administração do Catálogo (Catalog - Admin)
+---
+
+### 🛠️ Administração do Catálogo (Catalog - Admin)
 
 #### Caldos (Broths)
 
@@ -174,9 +205,13 @@ O projeto segue os princípios de Arquitetura Limpa (Clean Architecture) e Domai
 *   `PUT /admin/proteins/:proteinId`: Edita uma proteína (restrito a administradores).
 *   `DELETE /admin/proteins/:proteinId`: Exclui uma proteína (restrito a administradores).
 
-#### Upload
+#### Mídia / Imagens (Uploads)
 
-*   `POST /admin/images`: Faz upload de imagens para os ingredientes no R2 (restrito a administradores).
+*   `POST /admin/images`: Faz upload de uma nova imagem para o Cloudflare R2.
+*   `GET /admin/images`: Lista a galeria de imagens cadastradas.
+*   `GET /admin/images/:id`: Recupera os detalhes de uma imagem.
+*   `PUT /admin/images/:id`: Edita os metadados de uma imagem.
+*   `DELETE /admin/images/:id`: Exclui permanentemente uma imagem do banco e do Cloudflare R2 (bloqueado caso a imagem esteja em uso por um caldo/proteína).
 
 ### Pedidos (Orders - Public)
 
