@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.7.0](https://github.com/Robson16/ramen-go-api/compare/v1.6.0...v1.7.0) (2026-09-12)
+
+### Features
+
+* **catalog:** implement get by id routes for broths and proteins ([7b12259](https://github.com/Robson16/ramen-go-api/commit/7b12259d9e0bc7e4a6dad26b1c363968cb03950f))
 ## [1.6.0](https://github.com/Robson16/ramen-go-api/compare/v1.5.0...v1.6.0) (2026-09-07)
 
 ### Features
