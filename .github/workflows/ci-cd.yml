@@ -63,6 +63,4 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - name: Trigger Render Deploy
-        uses: bounceapp/render-action@0.6.0
-        with:          
-          render-token: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
